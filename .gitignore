@@ -1,0 +1,5 @@
+split_pdfs/
+*.pdf
+__pycache__/
+*.pyc
+.DS_Store

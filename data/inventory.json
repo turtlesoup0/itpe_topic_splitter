@@ -1,0 +1,1779 @@
+[
+  {
+    "gen": "19기",
+    "week": "10주차-DS2",
+    "subject": "UNKNOWN",
+    "session": "1교시",
+    "filename": "DS2_1교시_리뷰.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "ECM (Enhanced Compression Model)"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "10주차-DS2",
+    "subject": "UNKNOWN",
+    "session": "2교시",
+    "filename": "DS2_2교시_리뷰.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "최근 전세계적으로 홍수, 태풍 등 자연재해와 시설 화재, 폭발 등 사회적 재해가"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "13주차-CAOSNW",
+    "subject": "UNKNOWN",
+    "session": "UNKNOWN",
+    "filename": "CAOSNW2_2리뷰.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "무결점 시스템의 필수요소, 교착상태(Dead Lock) 개요"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "13주차-CAOSNW",
+    "subject": "UNKNOWN",
+    "session": "UNKNOWN",
+    "filename": "CAOSNW2_3리뷰.pdf",
+    "topics_found": 6,
+    "topic_list": [
+      [
+        1,
+        "IPSec VPN 과 SSL VPN 비교"
+      ],
+      [
+        2,
+        "무중단 배포"
+      ],
+      [
+        3,
+        "매슬로우 욕구 5 단계 이론"
+      ],
+      [
+        4,
+        "프로젝트 조달관리 개념과 계약유형 3 가지"
+      ],
+      [
+        5,
+        "RESTful API 설계 6 원칙"
+      ],
+      [
+        6,
+        "COCOMO II(COnstructive COst MOdel II)"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "13주차-CAOSNW",
+    "subject": "UNKNOWN",
+    "session": "UNKNOWN",
+    "filename": "CAOSNW2_1리뷰.pdf",
+    "topics_found": 2,
+    "topic_list": [
+      [
+        2,
+        "AI 기본법 제정안 주요 내용"
+      ],
+      [
+        1,
+        "AI 기본법의 개념 정의 및 주요목적"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "15주차-AL, 경영",
+    "subject": "경영+AL",
+    "session": "UNKNOWN",
+    "filename": "AL, 경영 2 - 리뷰 2.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "ITSM 의 개념 및 목표"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "15주차-AL, 경영",
+    "subject": "경영+AL",
+    "session": "UNKNOWN",
+    "filename": "AL, 경영 2 - 리뷰.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "LIFO 자료구조, 스택(Stack)의 설명"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "16주차-4교시 시험",
+    "subject": "UNKNOWN",
+    "session": "1교시",
+    "filename": "16주차-멘티출제_1교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "19기",
+    "week": "16주차-4교시 시험",
+    "subject": "UNKNOWN",
+    "session": "2교시",
+    "filename": "16주차-멘티출제_2교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "19기",
+    "week": "16주차-4교시 시험",
+    "subject": "UNKNOWN",
+    "session": "3교시",
+    "filename": "16주차-멘티출제_3교시_리뷰.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "정보보호 및 개인정보보호 관리 체계, ISMS-P 개념"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "16주차-4교시 시험",
+    "subject": "UNKNOWN",
+    "session": "4교시",
+    "filename": "16주차-멘티출제_4교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "19기",
+    "week": "1주차-SW",
+    "subject": "SW",
+    "session": "1교시",
+    "filename": "SW_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "스크럼(Scrum)"
+      ],
+      [
+        2,
+        "SW 아키텍처 평가 모델"
+      ],
+      [
+        3,
+        "ISO/IEC/IEEE 29119"
+      ],
+      [
+        4,
+        "SW 유지보수의 유형과 전략"
+      ],
+      [
+        5,
+        "EVM(Earned Value Management)"
+      ],
+      [
+        6,
+        "SW 품질비용 4가지 유형을 사례와 함께 작성하시오."
+      ],
+      [
+        7,
+        "V&V (Verification & Validation)"
+      ],
+      [
+        8,
+        "객체지향 프로그래밍의 4가지 특징"
+      ],
+      [
+        9,
+        "플랫폼 엔지니어링(Platform Engineering)"
+      ],
+      [
+        10,
+        "소프트웨어 품질성능 평가시험"
+      ],
+      [
+        11,
+        "소프트웨어 프로세스 품질인증(SP 인증)"
+      ],
+      [
+        12,
+        "작업분류체계(Work Breakdown Structure; WBS)"
+      ],
+      [
+        13,
+        "인공지능(AI) 도입 방식에 의한 소프트웨어 개발비 산정 절차"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "1주차-SW",
+    "subject": "SW",
+    "session": "2교시",
+    "filename": "SW_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        1,
+        "SW 가 인공지능과 융합되면서 자율 주행차, 스마트 공장, 스마트 홈 등의 사회 산업"
+      ],
+      [
+        2,
+        "ISP(Information Strategy Planning) 및 ISMP(Informat"
+      ],
+      [
+        4,
+        "소프트웨어 공학 접근 방법의 핵심인 프로세스와 방법론에 대하여 다음을"
+      ],
+      [
+        3,
+        "정보시스템 감리 수행가이드에 따른 다음 내용에 대해서 설명하시오."
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "2주차-DS",
+    "subject": "DS",
+    "session": "1교시",
+    "filename": "DS_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "클라우드 네이티브(Cloud Native)"
+      ],
+      [
+        2,
+        "RPA(Robotic Process Automation)와 IPA(Intelligent P"
+      ],
+      [
+        3,
+        "인더스트리(Industry) 5.0"
+      ],
+      [
+        4,
+        "C-ITS(Cooperative-Intelligent Transport Systems)"
+      ],
+      [
+        5,
+        "디지털 트윈의 모델링 5단계와 핵심기술"
+      ],
+      [
+        6,
+        "AI 디지털교과서"
+      ],
+      [
+        7,
+        "안티드론"
+      ],
+      [
+        8,
+        "마이데이터 2.0"
+      ],
+      [
+        9,
+        "API Gateway 와 Service Mesh 비교"
+      ],
+      [
+        10,
+        "데이터 가치평가의 절차 및 기법"
+      ],
+      [
+        11,
+        "카프카(Kafka)"
+      ],
+      [
+        12,
+        "리걸테크(LegalTech)"
+      ],
+      [
+        13,
+        "엣지 컴퓨팅(Edge Computing)"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "2주차-DS",
+    "subject": "DS",
+    "session": "2교시",
+    "filename": "DS_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        1,
+        "양자정보기술(Quantum Information Technology)의 양자컴퓨터, 양자통"
+      ],
+      [
+        2,
+        "클라우드의 확산과 AI 학습 등 데이터 활용 환경의 증가에 따라 데이터 주권 확보가"
+      ],
+      [
+        3,
+        "기존 망분리 정책은 공공데이터 공유, AI, 클라우드 등 신기술 활용의 어려움으로"
+      ],
+      [
+        4,
+        "클라우드 환경에서 서비스가 안정적으로 동작하기 위해서는 서비스 대상과"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "3주차-DB",
+    "subject": "DB",
+    "session": "1교시",
+    "filename": "FB19_3주차_1교시_리뷰.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "대용량 데이터 처리 DB 성능 향상 아키텍처, 쿼리 오프로딩 설명"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "3주차-DB",
+    "subject": "DB",
+    "session": "2교시",
+    "filename": "FB19_3주차_2교시_리뷰.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "초거대 AI 데이터 품질관리 체계 수립 배경 및 목적"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "7주차-AI",
+    "subject": "AI",
+    "session": "1교시",
+    "filename": "1교시_AI_리뷰.pdf",
+    "topics_found": 3,
+    "topic_list": [
+      [
+        2,
+        "오버피팅 극복방안 설명"
+      ],
+      [
+        1,
+        "분산(모델 민감도) 증가, 오버피팅(Overfitting) 개념"
+      ],
+      [
+        3,
+        "모델 최적합 판단 지표"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "7주차-AI",
+    "subject": "AI",
+    "session": "2교시",
+    "filename": "2교시_AI_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "19기",
+    "week": "8주차-경영&AL",
+    "subject": "경영+AL",
+    "session": "1교시",
+    "filename": "1교시_경영AL_리뷰.pdf",
+    "topics_found": 2,
+    "topic_list": [
+      [
+        2,
+        "GovTech 의 구성도 및 주요 적용 분야별 기술요소"
+      ],
+      [
+        1,
+        "공공 서비스의 혁신, GovTech 의 정의 및 목적"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "8주차-경영&AL",
+    "subject": "경영+AL",
+    "session": "2교시",
+    "filename": "2교시_경영AL_리뷰.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "IT 투자성과 평가의 개요"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "9주차-SW2",
+    "subject": "UNKNOWN",
+    "session": "1교시",
+    "filename": "SW2_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "XP(eXtreme Programming)"
+      ],
+      [
+        2,
+        "소프트웨어 규모산정 방식의 종류"
+      ],
+      [
+        3,
+        "시퀀스 다이어그램(Sequence Diagram)"
+      ],
+      [
+        4,
+        "품질관리 QC(Quality Control) 7 도구"
+      ],
+      [
+        5,
+        "TDD(Test Driven Development)와 BDD(Behavior Driven "
+      ],
+      [
+        6,
+        "사용성 평가(Usability Evaluation)"
+      ],
+      [
+        7,
+        "무중단 배포 기법"
+      ],
+      [
+        8,
+        "소프트웨어 유지보수"
+      ],
+      [
+        9,
+        "상용 소프트웨어 직접구매 제도"
+      ],
+      [
+        10,
+        "전자정부 정보시스템 성과 측정지표"
+      ],
+      [
+        11,
+        "Test Exit Criteria"
+      ],
+      [
+        12,
+        "절차지향 프로그래밍 방법과 객체지향 프로그래밍 방법 비교"
+      ],
+      [
+        13,
+        "프로젝트 위험관리"
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "9주차-SW2",
+    "subject": "UNKNOWN",
+    "session": "2교시",
+    "filename": "SW2_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        1,
+        "클라우드 네이티브 환경의 개발 및 운영/관리 효율화를 위하여 적용되는 GitOps,"
+      ],
+      [
+        2,
+        "CMMI(Capability Maturity Model Integration)은 조직의 프"
+      ],
+      [
+        3,
+        "공공 SW 구축 사업에서의 프로젝트 성공과 품질 확보를 위해 감리의 역할이 중요"
+      ],
+      [
+        4,
+        "사용자 테스트와 관련하여 다음을 설명하시오."
+      ]
+    ]
+  },
+  {
+    "gen": "19기",
+    "week": "9주차-SW2",
+    "subject": "UNKNOWN",
+    "session": "3교시",
+    "filename": "SW2_3교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "20기",
+    "week": "1주차-SW",
+    "subject": "SW",
+    "session": "1교시",
+    "filename": "SW_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "오버로딩(overlading)과 오버라이딩(overriding)비교"
+      ],
+      [
+        2,
+        "소프트웨어 응집도(Cohesion)의 유형"
+      ],
+      [
+        3,
+        "소프트웨어 테스트 프로세스"
+      ],
+      [
+        4,
+        "IEEE 1028기반 FTR 프로세스와 유형"
+      ],
+      [
+        5,
+        "그레이박스 테스트"
+      ],
+      [
+        6,
+        "RTO/RPO 의 개념과 RTO/RPO 기반 DRS 유형"
+      ],
+      [
+        7,
+        "기능점수(Function Point)"
+      ],
+      [
+        8,
+        "SW 프로세스 품질인증(SP 인증)과 SW 제품인증(GS 인증)을 비교 설명하시오."
+      ],
+      [
+        9,
+        "TDD(Test Driven Development)"
+      ],
+      [
+        10,
+        "정보시스템 감리 의무조건 및 현장감리 절차"
+      ],
+      [
+        11,
+        "CMMI 3.0"
+      ],
+      [
+        12,
+        "상용소프트 직접구매 제도"
+      ],
+      [
+        13,
+        "SRE (Site Reliability Engineering)"
+      ]
+    ]
+  },
+  {
+    "gen": "20기",
+    "week": "1주차-SW",
+    "subject": "SW",
+    "session": "2교시",
+    "filename": "SW_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        4,
+        "8판에 기재된 ISP∙ISMP 검토 항목별 고려사항 기술."
+      ],
+      [
+        2,
+        "ISP 기본 구성 내용"
+      ],
+      [
+        1,
+        "ISP·ISMP 수립 공통가이드 (제8 판) 주요 개정사항 개요"
+      ],
+      [
+        3,
+        "ISMP 기본 구성 내용(DPG 내용 섞어서 넣기),"
+      ]
+    ]
+  },
+  {
+    "gen": "20기",
+    "week": "2주차-DS",
+    "subject": "DS",
+    "session": "1교시",
+    "filename": "DS_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "모놀리식 아키텍쳐와 마이크로서비스 아키텍쳐를 비교 설명하시오."
+      ],
+      [
+        2,
+        "AiaaS(AI as a Service)"
+      ],
+      [
+        3,
+        "딥페이크(Deepfake)"
+      ],
+      [
+        4,
+        "스마트시티 데이터 거버넌스(Smart City Data Govermance)"
+      ],
+      [
+        5,
+        "Serverless Architecture"
+      ],
+      [
+        6,
+        "앰비언트 컴퓨팅(Ammbient Computing)"
+      ],
+      [
+        7,
+        "디지털 트랜스포메이션(Digital Transformation)"
+      ],
+      [
+        8,
+        "앰비언트 인비저블 인텔리전스(Ambient Invisible Intelligence)"
+      ],
+      [
+        9,
+        "국가 재난안전통신망(PS-LTE)"
+      ],
+      [
+        10,
+        "양자 오류 수정(Quantum Error Correction)"
+      ],
+      [
+        11,
+        "에너지 효율적 컴퓨팅(Energy-Efficient Computing)"
+      ],
+      [
+        12,
+        "디지털 트윈(Digital Twin)"
+      ],
+      [
+        13,
+        "클라우드 네이티브(Cloud Native)"
+      ]
+    ]
+  },
+  {
+    "gen": "20기",
+    "week": "2주차-DS",
+    "subject": "DS",
+    "session": "2교시",
+    "filename": "DS_2교시_리뷰.pdf",
+    "topics_found": 5,
+    "topic_list": [
+      [
+        1,
+        "경계 기반 보안(Perimeter Security)과 제로 트러스트(Zero Trust)"
+      ],
+      [
+        3,
+        "디지털 플랫폼 산업의 공정한 경쟁과 이용자 보호를 위해 플랫폼 자율규제에 관한"
+      ],
+      [
+        2,
+        "클라우드 발전을 위한 PPP(Public Private Partnership)에 대해 설명"
+      ],
+      [
+        4,
+        "디지털 전환의 시작점인 클라우드 마이그레이션에 관하여 다음을 대답하시오."
+      ],
+      [
+        5,
+        "AIoT(Artificial Intelligence of Things)의 개념과 요소기술,"
+      ]
+    ]
+  },
+  {
+    "gen": "20기",
+    "week": "3주차-DB",
+    "subject": "DB",
+    "session": "1교시",
+    "filename": "DB_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "데이터베이스 샤딩과 파티셔닝을 비교하시오."
+      ],
+      [
+        2,
+        "DB 트랜잭션 상태전이도와 각각의 상태를 설명하시오."
+      ],
+      [
+        3,
+        "CAP 이론의 한계와 PACELC 이론"
+      ],
+      [
+        4,
+        "데이터베이스의 이상현상(Anomaly)과 정규화(Normalization) 단계"
+      ],
+      [
+        5,
+        "탐색적 분석(EDA)과 확증적 분석(CDA) 비교"
+      ],
+      [
+        6,
+        "데이터베이스 튜닝(Tuning)"
+      ],
+      [
+        7,
+        "그래프 데이터베이스(Graph Database)와 벡터 데이터베이스(Vector Datab"
+      ],
+      [
+        8,
+        "MSA(Micorservice Architecture)의 트랜잭션 관리 전략"
+      ],
+      [
+        9,
+        "공공데이터 품질인증"
+      ],
+      [
+        10,
+        "데이터 오케스트레이션"
+      ],
+      [
+        11,
+        "NOSQL 의 모델링 절차"
+      ],
+      [
+        12,
+        "DBMS 의 자기 기술성(Self-Describing)"
+      ],
+      [
+        13,
+        "데이터 메시(Data Mesh)"
+      ]
+    ]
+  },
+  {
+    "gen": "20기",
+    "week": "3주차-DB",
+    "subject": "DB",
+    "session": "2교시",
+    "filename": "DB_2교시_리뷰.pdf",
+    "topics_found": 5,
+    "topic_list": [
+      [
+        1,
+        "데이터베이스의 데이터 독립성과 무결성에 대하여 설명하시오."
+      ],
+      [
+        2,
+        "관계형 데이터베이스의 다음 조인에 대하여 설명하시오."
+      ],
+      [
+        4,
+        "다중 사용자 환경의 데이터베이스 시스템에서 복수 트랜잭션에 대한 일관성 유지를"
+      ],
+      [
+        3,
+        "데이터 웨어하우스(Data Warehouse)와 데이터 레이크(Data Lake)의 특징을"
+      ],
+      [
+        5,
+        "데이터베이스 트랜잭션 회복(Recovery) 기법에 대하여 아래 사항을 설명하시오."
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "10주차 - DS2",
+    "subject": "UNKNOWN",
+    "session": "1교시",
+    "filename": "DS2_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "공공부문 클라우드 네이티브 성숙도 모델"
+      ],
+      [
+        2,
+        "데이터 스페이스"
+      ],
+      [
+        3,
+        "서비스 메시(Service Mesh)"
+      ],
+      [
+        4,
+        "가상머신과 컨테이너 비교"
+      ],
+      [
+        5,
+        "WEB3.0"
+      ],
+      [
+        6,
+        "CSAP(Cloud Security Assurance Program)"
+      ],
+      [
+        7,
+        "가트너 2026 전략 기술 트랜드"
+      ],
+      [
+        8,
+        "데이터 오케스트레이션"
+      ],
+      [
+        9,
+        "AIaaS(AI as a Service)"
+      ],
+      [
+        10,
+        "클라우드 서비스의 장점 및 고가용성(High Availability) 달성 전략"
+      ],
+      [
+        11,
+        "디지털 시민성(Digital Citizenship)"
+      ],
+      [
+        12,
+        "스테이블코인(Stablecoin)"
+      ],
+      [
+        13,
+        "정밀도로지도(High-Definition Map)"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "10주차 - DS2",
+    "subject": "UNKNOWN",
+    "session": "2교시",
+    "filename": "DS2_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        1,
+        "클라우드 컴퓨팅 서비스 유형에 대하여 다음을 설명하시오."
+      ],
+      [
+        2,
+        "사물인터넷은 일상생활에서 AI 와 융합되어 지능형 IoT 로 진화하고 있다. 이와"
+      ],
+      [
+        3,
+        "생성형 AI 확산되고  AI 기술이 활성화되면서 데이터센터의 전력수급 문제가"
+      ],
+      [
+        4,
+        "최근 ‘딥시크(DeepSeek)’ 등 생성형 인공지능 모델의 확산과 함께 오픈워싱"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "11주차 - SE NW2",
+    "subject": "SE+NW",
+    "session": "1교시",
+    "filename": "SE NW 2_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "피지컬AI 보안"
+      ],
+      [
+        2,
+        "강제적 접근통제(MAC)과 속성 기반 접근통제(ABAC)"
+      ],
+      [
+        3,
+        "제로데이(Zero Day) 공격"
+      ],
+      [
+        4,
+        "스푸핑(Spoofing) 공격"
+      ],
+      [
+        5,
+        "보안 운영체제(Secure OS)"
+      ],
+      [
+        6,
+        "AI 시스템 수명주기별 보안위협과 보안대책을 설명하시오."
+      ],
+      [
+        7,
+        "개인정보 영향평가 (Privacy Impact Assessmenmt)"
+      ],
+      [
+        8,
+        "SecOps (Security Operations)"
+      ],
+      [
+        9,
+        "프라이버시 보호모델"
+      ],
+      [
+        10,
+        "단일비트오류(single-bit error)와 폭주오류(burst error)"
+      ],
+      [
+        11,
+        "순환 중복 검사(Cyclic Redundancy Check)"
+      ],
+      [
+        12,
+        "양자 인터넷(Quantum Internet)"
+      ],
+      [
+        13,
+        "AI Native Network"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "11주차 - SE NW2",
+    "subject": "SE+NW",
+    "session": "2교시",
+    "filename": "SE NW 2_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        1,
+        "최근 외부의 사이버 위협으로부터 인공지능(AI) 모델·서비스를 보호하기 위해"
+      ],
+      [
+        2,
+        "최근 사이버 침해공격이 지능화 및 복잡화되고 있어 이에 대한 대응으로 지능형"
+      ],
+      [
+        3,
+        "최근 ISMS-P(정보보호 및 개인정보보호 관리체계) 인증을 획득한 대형 기업"
+      ],
+      [
+        4,
+        "오픈소스 활용이 증가하면서 오픈소스 구성요소의 Remote Code Execution(RC"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "11주차 - SE NW2",
+    "subject": "SE+NW",
+    "session": "3교시",
+    "filename": "SE NW 2_3교시_리뷰.pdf",
+    "topics_found": 3,
+    "topic_list": [
+      [
+        2,
+        "최근 공공기관의 랜섬웨어(Ransomware) 감염 사례가 증가하며 사회적 문제가"
+      ],
+      [
+        3,
+        "안전한 소프트웨어 개발을 위해서는 개발 생명주기 전 단계에서 보안활동이"
+      ],
+      [
+        4,
+        "DBMS 의 병행수행(Concurrency)에 대하여 다음을 설명하시오."
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "13주차 - 특강 & 멘티출제2",
+    "subject": "전범위",
+    "session": "1교시",
+    "filename": "멘티출제2_1교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "21기",
+    "week": "13주차 - 특강 & 멘티출제2",
+    "subject": "전범위",
+    "session": "2교시",
+    "filename": "멘티출제2_2교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "21기",
+    "week": "13주차 - 특강 & 멘티출제2",
+    "subject": "전범위",
+    "session": "3교시",
+    "filename": "멘티출제2_3교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "21기",
+    "week": "14주차 - 경영CAOS전체",
+    "subject": "경영",
+    "session": "1교시",
+    "filename": "경영CAOS전체_1교시_리뷰.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "ISP 와 ISMP 정의 비교"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "14주차 - 경영CAOS전체",
+    "subject": "경영",
+    "session": "2교시",
+    "filename": "경영CAOS전체_2교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "21기",
+    "week": "15주차 - 자체모의고사",
+    "subject": "전범위",
+    "session": "1교시",
+    "filename": "자체모의고사_1교시_리뷰.pdf",
+    "topics_found": 9,
+    "topic_list": [
+      [
+        1,
+        "합성 데이터(Synthetic Data)"
+      ],
+      [
+        2,
+        "SDV(Software Defined Vehicle)"
+      ],
+      [
+        3,
+        "피지컬 AI 모델 3계층 구조"
+      ],
+      [
+        4,
+        "다크팩토리(Dark Factory)"
+      ],
+      [
+        5,
+        "머신언러닝(Machine Unlearning)"
+      ],
+      [
+        6,
+        "DRAG(Distributed Retrieval-Augmented Generation)"
+      ],
+      [
+        7,
+        "기능 요구사항과 비기능 요구사항 비교"
+      ],
+      [
+        10,
+        "객체지향 방법론에서 다형성(Polymorphism)"
+      ],
+      [
+        11,
+        "섀도우 AI(Shadow AI)"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "15주차 - 자체모의고사",
+    "subject": "전범위",
+    "session": "2교시",
+    "filename": "자체모의고사_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        1,
+        "AI 기술의 확산으로 연산 복잡도와 에너지·자원한계가 심화되는 가운데,"
+      ],
+      [
+        3,
+        "최근 ISMS-P 인증을 획득한 대형 플랫폼 및 통신사에서 해킹 및 서비스 장애가"
+      ],
+      [
+        4,
+        "디지털 트윈 네트워크(Digital Twin Network)에 대해 다음을 설명하시오."
+      ],
+      [
+        2,
+        "피지컬AI 관련하여 다음을 설명하시오."
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "15주차 - 자체모의고사",
+    "subject": "전범위",
+    "session": "3교시",
+    "filename": "자체모의고사_3교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "21기",
+    "week": "15주차 - 자체모의고사",
+    "subject": "전범위",
+    "session": "4교시",
+    "filename": "자체모의고사_4교시_리뷰.pdf",
+    "topics_found": 1,
+    "topic_list": [
+      [
+        1,
+        "배열(Array)과 연결리스트(Linked List)에 대해 아래의 구조적 차이를 설명하시"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "1주차 - 오리엔테이션",
+    "subject": "UNKNOWN",
+    "session": "1교시",
+    "filename": "OT_1교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "21기",
+    "week": "1주차 - 오리엔테이션",
+    "subject": "UNKNOWN",
+    "session": "2교시",
+    "filename": "OT_2교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  },
+  {
+    "gen": "21기",
+    "week": "2주차 - SW",
+    "subject": "SW",
+    "session": "1교시",
+    "filename": "SW_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "SW 아키텍처 평가에 대하여 설명하시오."
+      ],
+      [
+        2,
+        "바이브 코딩(Vibe Coding)"
+      ],
+      [
+        3,
+        "STPA(System Theoretic Process Analysis)"
+      ],
+      [
+        4,
+        "경험기반 테스트"
+      ],
+      [
+        5,
+        "ISO/IEC 25000 (SQuaRE)"
+      ],
+      [
+        6,
+        "소프트웨어사업 영향평가 제도"
+      ],
+      [
+        7,
+        "Agile 방법론과 CBD 방법론을 비교하시오."
+      ],
+      [
+        8,
+        "AI-BOM(Artificial Intelligence Bill of Materials)"
+      ],
+      [
+        9,
+        "WEB 3.0"
+      ],
+      [
+        10,
+        "소프트웨어 프로세스(SP, Software Process) 품질인증 제도"
+      ],
+      [
+        11,
+        "소프트웨어 요구공학(Requirement Engineering)"
+      ],
+      [
+        12,
+        "SW Metrics"
+      ],
+      [
+        13,
+        "소프트웨어 설계의 원리"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "2주차 - SW",
+    "subject": "SW",
+    "session": "2교시",
+    "filename": "SW_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        1,
+        "“SW 사업 대가산정 가이드(2025 년 개정판)”에 소프트웨어 개발비 산정은"
+      ],
+      [
+        2,
+        "프로젝트 위험관리에 대해서 다음을 설명하시오."
+      ],
+      [
+        3,
+        "정부는 공공분야 SW 개발 사업에 민간투자를 허용하는 민간투자형 SW 사업을"
+      ],
+      [
+        4,
+        "변경할 필요가 없는 소프트웨어를 만드는 것은 불가능하므로 유지보수를 통한 개발"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "3주차 - DS",
+    "subject": "DS",
+    "session": "1교시",
+    "filename": "DS_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "다크웹의 순기능과 역기능"
+      ],
+      [
+        2,
+        "소프트웨어 정의 자동차(Software-Defined Vehicle)"
+      ],
+      [
+        3,
+        "SLAM(Simultaneous Localization and Mapping)"
+      ],
+      [
+        4,
+        "블록체인 생성절차와 핵심기술"
+      ],
+      [
+        5,
+        "UAM(Urban Air Mobility)"
+      ],
+      [
+        6,
+        "헬스케어 디지털 트윈"
+      ],
+      [
+        7,
+        "클라우드 AI 와 온디바이스 AI 비교"
+      ],
+      [
+        8,
+        "아파치 카프카(Apache Kafka)"
+      ],
+      [
+        9,
+        "RPA(Robotic Process Automation)와 IPA(Intelligent P"
+      ],
+      [
+        10,
+        "공공 마이데이터 서비스"
+      ],
+      [
+        11,
+        "AIaaS (AI as a Service)"
+      ],
+      [
+        12,
+        "매터(Matter)"
+      ],
+      [
+        13,
+        "휴머노이드 로봇 적용 기술"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "3주차 - DS",
+    "subject": "DS",
+    "session": "2교시",
+    "filename": "DS_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        1,
+        "소프트웨어 기능안전(Functional Safety)에 대한 사항이다. 다음 질문에 답하시"
+      ],
+      [
+        2,
+        "디지털 전환이 가속화됨에 따라 AI, 클라우드, 블록체인, IoT 등 다양한 IT"
+      ],
+      [
+        3,
+        "지능형 CCTV 는 AI 기반 영상 분석 기술을 도입한 지능형 관제시스템으로"
+      ],
+      [
+        4,
+        "블록체인 기술과 기존 금융 자산과의 결합으로 본격적인 디지털 자산 시대가"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "4주차 - SE",
+    "subject": "SE",
+    "session": "1교시",
+    "filename": "SE_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "IPSec"
+      ],
+      [
+        2,
+        "블록암호화"
+      ],
+      [
+        3,
+        "패스키(Passkey)"
+      ],
+      [
+        4,
+        "디피-헬만 알고리즘(Diffie-Hellman Algorithm)"
+      ],
+      [
+        5,
+        "SDP(Software Defined Perimeter)"
+      ],
+      [
+        6,
+        "양자암호통신"
+      ],
+      [
+        7,
+        "형태 보존 암호화와 순서 보존 암호화"
+      ],
+      [
+        8,
+        "개인정보보호 강화기술(PET)"
+      ],
+      [
+        9,
+        "악성코드 탐지기술"
+      ],
+      [
+        10,
+        "SASE(Secure Access Service Edge)"
+      ],
+      [
+        11,
+        "Secure by Design 과 Secure by Default 비교"
+      ],
+      [
+        12,
+        "J2 공격(jailbreaking-to-jailbreak Attack)"
+      ],
+      [
+        13,
+        "AI Agent 보안위협"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "4주차 - SE",
+    "subject": "SE",
+    "session": "2교시",
+    "filename": "SE_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        1,
+        "정보보안에서는 안전성 강화를 위해 해시함수(Hash Function)을 사용한다."
+      ],
+      [
+        2,
+        "망 분리 정책은 국내 보안의 핵심으로 강력한 효과를 가져왔으나, 코로나19 이후"
+      ],
+      [
+        3,
+        "외부에 노출된 정보자산들에 공격이 발생하여 정보 유출 가능성을 점검 할 수 있는"
+      ],
+      [
+        4,
+        "아래의 접근 통제 보안 모델에 대하여 설명하시오."
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "5주차 - DB",
+    "subject": "DB",
+    "session": "1교시",
+    "filename": "DB_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "데이터 모델링의 4단계"
+      ],
+      [
+        2,
+        "정형 데이터 마이닝과 비정형 데이터 마이닝의 비교"
+      ],
+      [
+        3,
+        "데이터 분석 시 결측값(Missing Value) 처리기법"
+      ],
+      [
+        4,
+        "CAP 이론의 한계와 PACELC 이론"
+      ],
+      [
+        5,
+        "쿼리 오프로딩 (Query Offloading)"
+      ],
+      [
+        6,
+        "데이터 가치평가 제도"
+      ],
+      [
+        7,
+        "생성형AI 데이터 구축과정을 설명하시오."
+      ],
+      [
+        8,
+        "데이터 레이크하우스(Data Lakehouse)"
+      ],
+      [
+        9,
+        "데이터 품질인증(DQ 인증)의 2가지 인증 유형을 설명하시오."
+      ],
+      [
+        10,
+        "데이터 파이프라인"
+      ],
+      [
+        11,
+        "MSA(Micorservice Architecture)의 트랜잭션 관리 전략"
+      ],
+      [
+        12,
+        "Database 의 Anomaly 와 BCNF(Boyce-Codd Normal Form)"
+      ],
+      [
+        13,
+        "데이터 민주화(Data Democratization)"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "5주차 - DB",
+    "subject": "DB",
+    "session": "2교시",
+    "filename": "DB_2교시_리뷰.pdf",
+    "topics_found": 6,
+    "topic_list": [
+      [
+        1,
+        "NoSQL(Not only Structured Query Language)의 특징, 데이터"
+      ],
+      [
+        4,
+        "생성형 AI 의 등장으로 벡터 데이터베이스와 함께 다양한 데이터 간의 관계를"
+      ],
+      [
+        2,
+        "데이터베이스 옵티마이저(Optimizer)에 대한 아래의 사항을 설명하시오."
+      ],
+      [
+        3,
+        "데이터베이스의 병행제어(Concurrency Control)에 대하여 설명하시오."
+      ],
+      [
+        5,
+        "SQL 에서 정의하는 JOIN 의 유형을 설명하고, 데이터베이스 성능 최적화 튜닝"
+      ],
+      [
+        6,
+        "데이터의 안전한 활용을 위해 개인정보보호위원회에서 합성데이터 생성·활용"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "6주차 - AI",
+    "subject": "AI",
+    "session": "1교시",
+    "filename": "AI_1교시_리뷰.pdf",
+    "topics_found": 8,
+    "topic_list": [
+      [
+        1,
+        "AI 슈퍼컴퓨팅 플랫폼 (AI Supercomputing Platforms)"
+      ],
+      [
+        2,
+        "Multi-Agent System"
+      ],
+      [
+        3,
+        "DSLM (Domain-Specific Language Models, 도메인 특화 언어 모"
+      ],
+      [
+        4,
+        "AI 네이티브 개발 플랫폼(AI-Native Development Platforms)"
+      ],
+      [
+        5,
+        "Physical AI"
+      ],
+      [
+        6,
+        "머신러닝의 언더피팅(Underfitting)과 오버피팅(Overfitting) 비교"
+      ],
+      [
+        7,
+        "Vanishing Gradient 와 Weight Explosion"
+      ],
+      [
+        10,
+        "PCA(Principal Component Analysis)와 LDA(Linear Disc"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "6주차 - AI",
+    "subject": "AI",
+    "session": "2교시",
+    "filename": "AI_2교시_리뷰.pdf",
+    "topics_found": 5,
+    "topic_list": [
+      [
+        1,
+        "AI 시스템의 자율성과 상호운용성이 중요해지면서 Agentic AI 와 같은 개념이 실무"
+      ],
+      [
+        4,
+        "통계적 가설검정에 대해서 설명하시오."
+      ],
+      [
+        2,
+        "양자 머신러닝(QML, Quantum Machine Learning)의 주요 기술 및 알고"
+      ],
+      [
+        3,
+        "네트워크 운영관리 기술 중 아래에 대해 설명하시오."
+      ],
+      [
+        5,
+        "AI 는 빠르게 진화하고 있으며 기존 모델들의 한계를 뛰어넘기 위해 다양한 모델이"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "7주차 - CAOS NW",
+    "subject": "CAOS+NW",
+    "session": "1교시",
+    "filename": "CAOSNW_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "해시 페이지 테이블 (Hashed Page Table)"
+      ],
+      [
+        2,
+        "메모리 단편화(Memory Fragmentation) 발생원인과 해결방안"
+      ],
+      [
+        3,
+        "HBF(High Bandwidth Flash)"
+      ],
+      [
+        4,
+        "CPU 주소지정방식(Addressing Mode)"
+      ],
+      [
+        5,
+        "워치독 타이머 (Watchdog Timer)"
+      ],
+      [
+        6,
+        "RDMA (Remote Direct Memory Access)"
+      ],
+      [
+        7,
+        "운영체제의 Deadlock 발생조건과 해결방안을 설명하시오."
+      ],
+      [
+        8,
+        "mTLS (Mutual TLS)"
+      ],
+      [
+        9,
+        "그래픽 처리 장치(GPU)와 신경망 처리 장치(NPU)를 비교 설명하시오."
+      ],
+      [
+        10,
+        "HTTP 3.0"
+      ],
+      [
+        11,
+        "순환 중복 검사(Cyclic Redundancy Check)"
+      ],
+      [
+        12,
+        "메모리 배치 기법"
+      ],
+      [
+        13,
+        "Silly Window Syndrome"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "7주차 - CAOS NW",
+    "subject": "CAOS+NW",
+    "session": "2교시",
+    "filename": "CAOSNW_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        1,
+        "최근 AI 컴퓨팅 환경은 CPU, GPU, NPU 등 다양한 종류의 반도체가 함께"
+      ],
+      [
+        4,
+        "6G 기술의 도입과 함께 네트워크 환경은 점차 고도화되고 복잡해질 전망이다. 이와"
+      ],
+      [
+        2,
+        "프로세스 스케줄링 중 프로세스 상태 변화의 유형을 설명하고, 프로세스 상태"
+      ],
+      [
+        3,
+        "DNS(Domain Name System)에 대하여 다음 사항을 설명하시오."
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "9주차 - SW2",
+    "subject": "UNKNOWN",
+    "session": "1교시",
+    "filename": "SW2_1교시_리뷰.pdf",
+    "topics_found": 13,
+    "topic_list": [
+      [
+        1,
+        "ISO/IEC/IEEE 29119"
+      ],
+      [
+        2,
+        "Lehman 의 SW 변화원리"
+      ],
+      [
+        3,
+        "오버라이딩과 오버로딩"
+      ],
+      [
+        4,
+        "위험관리와 이슈관리 비교"
+      ],
+      [
+        5,
+        "WBS(Work Breakdown Structure) 100% 규칙"
+      ],
+      [
+        6,
+        "ISTQB 7 Testing Principles"
+      ],
+      [
+        7,
+        "객체지향 설계원리 SOLID 설명하시오"
+      ],
+      [
+        8,
+        "서킷브레이커(Circuit Breaker) 패턴"
+      ],
+      [
+        9,
+        "상용 소프트웨어 직접구매 제도"
+      ],
+      [
+        10,
+        "시큐어 코딩(Secure Coding)과 코드 난독화(Code Obfuscation) 비교"
+      ],
+      [
+        11,
+        "IT 거버넌스"
+      ],
+      [
+        12,
+        "ISO 31000"
+      ],
+      [
+        13,
+        "무손실 영상 압축기법"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "9주차 - SW2",
+    "subject": "UNKNOWN",
+    "session": "2교시",
+    "filename": "SW2_2교시_리뷰.pdf",
+    "topics_found": 4,
+    "topic_list": [
+      [
+        2,
+        "SW 품질비용의 4가지 유형"
+      ],
+      [
+        1,
+        "소프트웨어 개발의 핵심요소,SW 품질비용의 개요"
+      ],
+      [
+        3,
+        "프로젝트 일정지연의 원인과 극복방안"
+      ],
+      [
+        4,
+        "성공적 프로젝트 수행 위한 변화 관리 방안"
+      ]
+    ]
+  },
+  {
+    "gen": "21기",
+    "week": "9주차 - SW2",
+    "subject": "UNKNOWN",
+    "session": "3교시",
+    "filename": "SW2_3교시_리뷰.pdf",
+    "topics_found": 0,
+    "topic_list": []
+  }
+]

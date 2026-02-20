@@ -1,0 +1,418 @@
+{
+  "timestamp": "2026-02-18T09:20:24.074367",
+  "exam": "138회",
+  "total": 31,
+  "results": [
+    {
+      "filename": "ITPE_관_1교시_Q01_미국 국립표준기술연구소에서 발행한 AI RMF(Risk Management Framewor.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q01_미국 국립표준기술연구소에서 발행한 AI RMF(Risk Management Framewor.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "미국 국립표준기술연구소에서 발행한 AI RMF(Risk Management Framework)의",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q02_프로젝트 위험관리.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q02_프로젝트 위험관리.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "프로젝트 위험관리",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q03_ISO_IEC 42001_2023.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q03_ISO_IEC 42001_2023.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "ISO/IEC 42001:2023",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q04_베이즈 정리.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q04_베이즈 정리.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "베이즈 정리",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q05_안면인식 결제 서비스.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q05_안면인식 결제 서비스.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "안면인식 결제 서비스",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q06_소프트웨어 개발 프로젝트에서 선도개발을 위한 개발방법론 테일러링(Tailoring).pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q06_소프트웨어 개발 프로젝트에서 선도개발을 위한 개발방법론 테일러링(Tailoring).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "소프트웨어 개발 프로젝트에서 선도개발을 위한 개발방법론 테일러링(Tailoring)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q07_자기회귀모형(Autoregressive model)과 이동평균모형(Moving Averag.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q07_자기회귀모형(Autoregressive model)과 이동평균모형(Moving Averag.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "자기회귀모형(Autoregressive model)과 이동평균모형(Moving Average model)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q08_데이터 관측가능성(Data Observability).pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q08_데이터 관측가능성(Data Observability).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "데이터 관측가능성(Data Observability)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q09_정보모델링의 참조 무결성.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q09_정보모델링의 참조 무결성.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "정보모델링의 참조 무결성",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q10_TTPs(Tactics, Techniques and Procedures).pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q10_TTPs(Tactics, Techniques and Procedures).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "TTPs(Tactics, Techniques and Procedures)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q11_은행가 알고리즘(Banker's Algorithm).pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q11_은행가 알고리즘(Banker's Algorithm).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "은행가 알고리즘(Banker's Algorithm)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q12_프롬프트 인젝션(Prompt Injection).pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q12_프롬프트 인젝션(Prompt Injection).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "프롬프트 인젝션(Prompt Injection)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q13_모델 전도 공격(Model Inversion Attack).pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_1교시_Q13_모델 전도 공격(Model Inversion Attack).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "모델 전도 공격(Model Inversion Attack)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q01_최근 상용 DBMS 를 오픈소스 DBMS 로 전환하는 수요가 늘고 있다. 다음 내용을.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_2교시_Q01_최근 상용 DBMS 를 오픈소스 DBMS 로 전환하는 수요가 늘고 있다. 다음 내용을.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "최근 상용 DBMS 를 오픈소스 DBMS 로 전환하는 수요가 늘고 있다. 다음 내용을",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q02_다음 내용을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_2교시_Q02_다음 내용을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "다음 내용을 설명하시오.",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q03_인공지능 학습에 이용하는 GPU(Graphics Processing Unit)와 TPU(T.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_2교시_Q03_인공지능 학습에 이용하는 GPU(Graphics Processing Unit)와 TPU(T.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "인공지능 학습에 이용하는 GPU(Graphics Processing Unit)와 TPU(Tensor",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_2교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_2교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_2교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q01_최근 생성형 인공지능 서비스 확산에 따라 이용자 권리 보호를 위한 목적으로 생성형.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_3교시_Q01_최근 생성형 인공지능 서비스 확산에 따라 이용자 권리 보호를 위한 목적으로 생성형.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "최근 생성형 인공지능 서비스 확산에 따라 이용자 권리 보호를 위한 목적으로 생성형",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q02_A 사는 신규 정보시스템 개발 프로젝트에 로우코드(Low Code) 플랫폼을 적용하고자.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_3교시_Q02_A 사는 신규 정보시스템 개발 프로젝트에 로우코드(Low Code) 플랫폼을 적용하고자.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "A 사는 신규 정보시스템 개발 프로젝트에 로우코드(Low Code) 플랫폼을 적용하고자",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q03_분산 데이터베이스 시스템 구축을 위한 데이터베이스 분할에 대하여 다음 내용을.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_3교시_Q03_분산 데이터베이스 시스템 구축을 위한 데이터베이스 분할에 대하여 다음 내용을.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "분산 데이터베이스 시스템 구축을 위한 데이터베이스 분할에 대하여 다음 내용을",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q04_가용성 보장에 대하여 다음 내용을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_3교시_Q04_가용성 보장에 대하여 다음 내용을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "가용성 보장에 대하여 다음 내용을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_3교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_3교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 6,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q01_「인공지능 발전과 신뢰 기반 조성 등에 관한 기본법」(약칭, 인공지능기본법)이.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_4교시_Q01_「인공지능 발전과 신뢰 기반 조성 등에 관한 기본법」(약칭, 인공지능기본법)이.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "「인공지능 발전과 신뢰 기반 조성 등에 관한 기본법」(약칭, 인공지능기본법)이",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q02_단방향 해시 함수(Hash Function)에 대하여 다음 내용을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_4교시_Q02_단방향 해시 함수(Hash Function)에 대하여 다음 내용을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "단방향 해시 함수(Hash Function)에 대하여 다음 내용을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q03_6G 이동통신기술 핵심 개념인 AI-Native Network 에 대하여 다음 내용을 설명.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_4교시_Q03_6G 이동통신기술 핵심 개념인 AI-Native Network 에 대하여 다음 내용을 설명.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "6G 이동통신기술 핵심 개념인 AI-Native Network 에 대하여 다음 내용을 설명하시오.",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_4교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_4교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/138회/ITPE_관_4교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    }
+  ],
+  "failed": [],
+  "verification_issues": [
+    {
+      "file": "ITPE_관_2교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q02_A 사는 신규 정보시스템 개발 프로젝트에 로우코드(Low Code) 플랫폼을 적용하고자.pdf",
+      "issue": "TITLE_MISMATCH (expected: A 사는 신규 정보...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    }
+  ]
+}
