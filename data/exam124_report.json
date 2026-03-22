@@ -1,0 +1,435 @@
+{
+  "timestamp": "2026-02-20T16:21:40.749706",
+  "exam": "124회",
+  "total": 32,
+  "results": [
+    {
+      "filename": "ITPE_관_1교시_Q01_Value-Chain.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q01_Value-Chain.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "Value-Chain",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q02_다중회귀분석, 로지스틱 회귀분석.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q02_다중회귀분석, 로지스틱 회귀분석.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "다중회귀분석, 로지스틱 회귀분석",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q04_디지털 휴먼증강(Digital Human Augmentation).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q04_디지털 휴먼증강(Digital Human Augmentation).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "디지털 휴먼증강(Digital Human Augmentation)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q05_반응형 웹 디자인(Responsive Web Design, RWD).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q05_반응형 웹 디자인(Responsive Web Design, RWD).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "반응형 웹 디자인(Responsive Web Design, RWD)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q06_의존성 주입(Dependency Injection).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q06_의존성 주입(Dependency Injection).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "의존성 주입(Dependency Injection)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q07_IMDF(Indoor Mapping Data Format).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q07_IMDF(Indoor Mapping Data Format).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "IMDF(Indoor Mapping Data Format)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q08_데이터베이스 제5정규형.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q08_데이터베이스 제5정규형.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "데이터베이스 제5정규형",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q09_다차원 색인구조(Multidimensional Index Structure) 3가지.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q09_다차원 색인구조(Multidimensional Index Structure) 3가지.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "다차원 색인구조(Multidimensional Index Structure) 3가지",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q10_프레임릴레이(Frame Relay).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q10_프레임릴레이(Frame Relay).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "프레임릴레이(Frame Relay)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q11_거리벡터 라우팅(Distance Vector Routing).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q11_거리벡터 라우팅(Distance Vector Routing).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "거리벡터 라우팅(Distance Vector Routing)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q12_적대적 공격(Adversarial Attack).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q12_적대적 공격(Adversarial Attack).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "적대적 공격(Adversarial Attack)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q13_NAC(Network Access Control).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_1교시_Q13_NAC(Network Access Control).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "NAC(Network Access Control)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q01_데이터 거버넌스.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_2교시_Q01_데이터 거버넌스.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "데이터 거버넌스",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q02_디자인 싱킹(Design Thinking).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_2교시_Q02_디자인 싱킹(Design Thinking).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "디자인 싱킹(Design Thinking)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q03_요구사항 관리.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_2교시_Q03_요구사항 관리.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "요구사항 관리",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q04_SRGM(Software Reliability Growth Model).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_2교시_Q04_SRGM(Software Reliability Growth Model).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "SRGM(Software Reliability Growth Model)",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q05_DA와 DBA.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_2교시_Q05_DA와 DBA.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "DA와 DBA",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q01_최근 우리나라 IT 기업은 개발자 공급부족이라는 매우 어려운 상황에 직면해 있다. 이의.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_3교시_Q01_최근 우리나라 IT 기업은 개발자 공급부족이라는 매우 어려운 상황에 직면해 있다. 이의.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "최근 우리나라 IT 기업은 개발자 공급부족이라는 매우 어려운 상황에 직면해 있다. 이의",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q02_자료구조 Heap 의 2가지 유형인 Max-heap 과 Min-heap 을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_3교시_Q02_자료구조 Heap 의 2가지 유형인 Max-heap 과 Min-heap 을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "자료구조 Heap 의 2가지 유형인 Max-heap 과 Min-heap 을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q03_NoSQL 모델링 패턴 3가지 및 NoSQL 모델링 절차를 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_3교시_Q03_NoSQL 모델링 패턴 3가지 및 NoSQL 모델링 절차를 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "NoSQL 모델링 패턴 3가지 및 NoSQL 모델링 절차를 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q04_교착 상태(Dead Lock)의 개념과 교착상태를 회피하기 위한 은행가 알고리즘(Banke.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_3교시_Q04_교착 상태(Dead Lock)의 개념과 교착상태를 회피하기 위한 은행가 알고리즘(Banke.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "교착 상태(Dead Lock)의 개념과 교착상태를 회피하기 위한 은행가 알고리즘(Banker's",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q05_OSI 7 Layer 의 각 계층과 특징을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_3교시_Q05_OSI 7 Layer 의 각 계층과 특징을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "OSI 7 Layer 의 각 계층과 특징을 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q06_침입탐지시스템(Intrusion Detection System, IDS)과 침입방지시스템(.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_3교시_Q06_침입탐지시스템(Intrusion Detection System, IDS)과 침입방지시스템(.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "침입탐지시스템(Intrusion Detection System, IDS)과 침입방지시스템(Intrusion",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q01_인공지능(AI)을 이용한 자연어 처리 임베딩(Embedding) 기술에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_4교시_Q01_인공지능(AI)을 이용한 자연어 처리 임베딩(Embedding) 기술에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "인공지능(AI)을 이용한 자연어 처리 임베딩(Embedding) 기술에 대하여 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q02_오픈소스의 개념, 특징, 현황을 기술하고 오픈소스가 4 차 산업혁명에 기여하는.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_4교시_Q02_오픈소스의 개념, 특징, 현황을 기술하고 오픈소스가 4 차 산업혁명에 기여하는.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "오픈소스의 개념, 특징, 현황을 기술하고 오픈소스가 4 차 산업혁명에 기여하는",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q03_공간 DB 에서 사용되는 공간 연산자(Spatial Operator)를 5 개 나열하고 설.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_4교시_Q03_공간 DB 에서 사용되는 공간 연산자(Spatial Operator)를 5 개 나열하고 설.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "공간 DB 에서 사용되는 공간 연산자(Spatial Operator)를 5 개 나열하고 설명하시오.",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q04_정보보호 관리체계(Information Security Management System)의.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_4교시_Q04_정보보호 관리체계(Information Security Management System)의.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "정보보호 관리체계(Information Security Management System)의 개념과 관리과정을",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q05_퍼블릭(Public) 블록체인과 프라이빗(Private) 블록체인의 차이점을 비교하여.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_4교시_Q05_퍼블릭(Public) 블록체인과 프라이빗(Private) 블록체인의 차이점을 비교하여.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "퍼블릭(Public) 블록체인과 프라이빗(Private) 블록체인의 차이점을 비교하여",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q06_인공지능(AI)에서 윤리의 필요성 및 선진국의 정책 동향을 설명하고, 바람직한 AI.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/ITPE_관_4교시_Q06_인공지능(AI)에서 윤리의 필요성 및 선진국의 정책 동향을 설명하고, 바람직한 AI.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "인공지능(AI)에서 윤리의 필요성 및 선진국의 정책 동향을 설명하고, 바람직한 AI",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/KPC_관_3교시_Q04_Q4.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/KPC_관_3교시_Q05_Q5.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/124회/KPC_관_3교시_Q06_Q6.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    }
+  ],
+  "failed": [
+    {
+      "pdf": "ITPE124관-2.pdf",
+      "error": "4교시 no bounds"
+    },
+    {
+      "pdf": "KPC124관-1.pdf",
+      "error": "1교시 no bounds"
+    },
+    {
+      "pdf": "KPC124관-2.pdf",
+      "error": "2교시 no bounds"
+    },
+    {
+      "pdf": "KPC124관-4.pdf",
+      "error": "4교시 no bounds"
+    },
+    {
+      "pdf": "동기회124관.pdf",
+      "error": "no bounds"
+    }
+  ],
+  "verification_issues": [
+    {
+      "file": "ITPE_관_3교시_Q02_자료구조 Heap 의 2가지 유형인 Max-heap 과 Min-heap 을 설명하시오..pdf",
+      "issue": "TITLE_MISMATCH (expected: 자료구조 Heap ...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q03_공간 DB 에서 사용되는 공간 연산자(Spatial Operator)를 5 개 나열하고 설.pdf",
+      "issue": "TITLE_MISMATCH (expected: 공간 DB 에서 사...)"
+    },
+    {
+      "file": "KPC_관_3교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "KPC_관_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "KPC_관_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    }
+  ]
+}

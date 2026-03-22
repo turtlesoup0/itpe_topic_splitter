@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-02-18T09:08:26.819420",
+  "timestamp": "2026-02-20T14:48:58.880449",
   "exam": "137회",
   "total": 184,
   "results": [
     {
       "filename": "ITPE_관_1교시_Q01_동적 라우팅 프로토콜인 IGP(Interior Gateway Protocol)와 EGP(E.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q01_동적 라우팅 프로토콜인 IGP(Interior Gateway Protocol)와 EGP(E.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q01_동적 라우팅 프로토콜인 IGP(Interior Gateway Protocol)와 EGP(E.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -17,7 +17,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q02_디지털 포렌식에서 아트팩트(Artifact)를 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q02_디지털 포렌식에서 아트팩트(Artifact)를 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q02_디지털 포렌식에서 아트팩트(Artifact)를 설명하시오.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -29,7 +29,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q03_MODBUS 프로토콜을 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q03_MODBUS 프로토콜을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q03_MODBUS 프로토콜을 설명하시오.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -41,7 +41,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q04_암호문 공격(Ciphertext Attack)을 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q04_암호문 공격(Ciphertext Attack)을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q04_암호문 공격(Ciphertext Attack)을 설명하시오.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -53,7 +53,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q05_GNN(Graph Neural Network)을 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q05_GNN(Graph Neural Network)을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q05_GNN(Graph Neural Network)을 설명하시오.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -65,7 +65,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q06_AI 거버넌스(Artificial Intelligence Governance)를 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q06_AI 거버넌스(Artificial Intelligence Governance)를 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q06_AI 거버넌스(Artificial Intelligence Governance)를 설명하시오.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -77,7 +77,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q07_트랜스포머(Transformer)와 MoE(Mixture of Experts)를 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q07_트랜스포머(Transformer)와 MoE(Mixture of Experts)를 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q07_트랜스포머(Transformer)와 MoE(Mixture of Experts)를 설명하시오.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -89,7 +89,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q08_AI 신뢰성 검인증 제도(CAT)를 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q08_AI 신뢰성 검인증 제도(CAT)를 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q08_AI 신뢰성 검인증 제도(CAT)를 설명하시오.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -101,7 +101,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q09_A_B 테스팅을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q09_A_B 테스팅을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q09_A_B 테스팅을 설명하시오..pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -113,7 +113,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q10_데이터 늪(Data Swamp)을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q10_데이터 늪(Data Swamp)을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q10_데이터 늪(Data Swamp)을 설명하시오..pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -125,7 +125,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q11_소프트웨어 역공학과 재공학을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q11_소프트웨어 역공학과 재공학을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q11_소프트웨어 역공학과 재공학을 설명하시오..pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -137,7 +137,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q12_이진 탐색 트리를 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q12_이진 탐색 트리를 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q12_이진 탐색 트리를 설명하시오..pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -149,7 +149,7 @@
     },
     {
       "filename": "ITPE_관_1교시_Q13_데이터마이닝의 연관 규칙 분석(Association Rule Analysis) 지표를 설명.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_1교시_Q13_데이터마이닝의 연관 규칙 분석(Association Rule Analysis) 지표를 설명.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_1교시_Q13_데이터마이닝의 연관 규칙 분석(Association Rule Analysis) 지표를 설명.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 1,
@@ -157,12 +157,11 @@
       "q_title": "데이터마이닝의 연관 규칙 분석(Association Rule Analysis) 지표를 설명하시오.",
       "pages": 4,
       "image_pages": 1,
-      "needs_ocr": true,
-      "ocr_applied": true
+      "needs_ocr": true
     },
     {
       "filename": "ITPE_관_2교시_Q01_캐시메모리(Cache Memory)에대하여설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_2교시_Q01_캐시메모리(Cache Memory)에대하여설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_2교시_Q01_캐시메모리(Cache Memory)에대하여설명하시오..pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 2,
@@ -174,7 +173,7 @@
     },
     {
       "filename": "ITPE_관_2교시_Q02_(A)기업은전자상거래정보시스템개발프로젝트를완료하고운영으로전환하고자한다..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_2교시_Q02_(A)기업은전자상거래정보시스템개발프로젝트를완료하고운영으로전환하고자한다..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_2교시_Q02_(A)기업은전자상거래정보시스템개발프로젝트를완료하고운영으로전환하고자한다..pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 2,
@@ -186,7 +185,7 @@
     },
     {
       "filename": "ITPE_관_2교시_Q03_MCP(Model Context Protocol)를이용한인공지능서비스구축시보안취약점을.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_2교시_Q03_MCP(Model Context Protocol)를이용한인공지능서비스구축시보안취약점을.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_2교시_Q03_MCP(Model Context Protocol)를이용한인공지능서비스구축시보안취약점을.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 2,
@@ -198,7 +197,7 @@
     },
     {
       "filename": "ITPE_관_2교시_Q04__공공부문초거대AI 도입, 활용가이드라인2.0_에대하여다음을설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_2교시_Q04__공공부문초거대AI 도입, 활용가이드라인2.0_에대하여다음을설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_2교시_Q04__공공부문초거대AI 도입, 활용가이드라인2.0_에대하여다음을설명하시오.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 2,
@@ -210,7 +209,7 @@
     },
     {
       "filename": "ITPE_관_2교시_Q05_Q5.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_2교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_2교시_Q05_Q5.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 2,
@@ -222,7 +221,7 @@
     },
     {
       "filename": "ITPE_관_2교시_Q06_Q6.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_2교시_Q06_Q6.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 2,
@@ -230,12 +229,11 @@
       "q_title": "Q6",
       "pages": 5,
       "image_pages": 1,
-      "needs_ocr": true,
-      "ocr_applied": true
+      "needs_ocr": true
     },
     {
       "filename": "ITPE_관_3교시_Q01_운영체제 스케줄링 기법에 대한 각 내용을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_3교시_Q01_운영체제 스케줄링 기법에 대한 각 내용을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_3교시_Q01_운영체제 스케줄링 기법에 대한 각 내용을 설명하시오..pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 3,
@@ -247,7 +245,7 @@
     },
     {
       "filename": "ITPE_관_3교시_Q02_정보시스템 감리의 시스템 운영 및 유지보수 감리에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_3교시_Q02_정보시스템 감리의 시스템 운영 및 유지보수 감리에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_3교시_Q02_정보시스템 감리의 시스템 운영 및 유지보수 감리에 대하여 다음을 설명하시오..pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 3,
@@ -259,7 +257,7 @@
     },
     {
       "filename": "ITPE_관_3교시_Q03_다중지역 동시 가동방식 (Multi-Region Active-Active) 재해복구시스템에.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_3교시_Q03_다중지역 동시 가동방식 (Multi-Region Active-Active) 재해복구시스템에.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_3교시_Q03_다중지역 동시 가동방식 (Multi-Region Active-Active) 재해복구시스템에.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 3,
@@ -271,7 +269,7 @@
     },
     {
       "filename": "ITPE_관_3교시_Q04_Q4.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_3교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_3교시_Q04_Q4.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 3,
@@ -283,7 +281,7 @@
     },
     {
       "filename": "ITPE_관_3교시_Q05_Q5.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_3교시_Q05_Q5.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 3,
@@ -295,7 +293,7 @@
     },
     {
       "filename": "ITPE_관_3교시_Q06_Q6.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_3교시_Q06_Q6.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 3,
@@ -306,68 +304,68 @@
       "needs_ocr": false
     },
     {
-      "filename": "ITPE_관_4교시_Q01_BPF(Berkeley Packet Filter door) 악성코드와 관련하여 다음을 설명.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_4교시_Q01_BPF(Berkeley Packet Filter door) 악성코드와 관련하여 다음을 설명.pdf",
+      "filename": "ITPE_관_4교시_Q01_BPF(Berkeley Packet Filter door).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_4교시_Q01_BPF(Berkeley Packet Filter door).pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 4,
       "q_num": 1,
-      "q_title": "BPF(Berkeley Packet Filter door) 악성코드와 관련하여 다음을 설명하시오.",
+      "q_title": "BPF(Berkeley Packet Filter door)",
       "pages": 2,
       "image_pages": 0,
       "needs_ocr": false
     },
     {
-      "filename": "ITPE_관_4교시_Q02_백터 데이터베이스(Vector Database)의 효율적 검색을 위한 HNSW(Hierch.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_4교시_Q02_백터 데이터베이스(Vector Database)의 효율적 검색을 위한 HNSW(Hierch.pdf",
+      "filename": "ITPE_관_4교시_Q02_백터 데이터베이스(Vector Database).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_4교시_Q02_백터 데이터베이스(Vector Database).pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 4,
       "q_num": 2,
-      "q_title": "백터 데이터베이스(Vector Database)의 효율적 검색을 위한 HNSW(Hierchical",
+      "q_title": "백터 데이터베이스(Vector Database)",
       "pages": 3,
       "image_pages": 0,
       "needs_ocr": false
     },
     {
-      "filename": "ITPE_관_4교시_Q03_쿠버네티스(Kubernetes)에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_4교시_Q03_쿠버네티스(Kubernetes)에 대하여 다음을 설명하시오..pdf",
+      "filename": "ITPE_관_4교시_Q03_쿠버네티스.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_4교시_Q03_쿠버네티스.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 4,
       "q_num": 3,
-      "q_title": "쿠버네티스(Kubernetes)에 대하여 다음을 설명하시오.",
+      "q_title": "쿠버네티스",
       "pages": 4,
       "image_pages": 0,
       "needs_ocr": false
     },
     {
       "filename": "ITPE_관_4교시_Q04_UML(Unified Modeling Language)에서 사용하는 행위 다이어그림(Beh.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_4교시_Q04_UML(Unified Modeling Language)에서 사용하는 행위 다이어그림(Beh.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_4교시_Q04_UML(Unified Modeling Language)에서 사용하는 행위 다이어그림(Beh.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 4,
       "q_num": 4,
-      "q_title": "UML(Unified Modeling Language)에서 사용하는 행위 다이어그림(Behavior",
+      "q_title": "UML(Unified Modeling Language)에서 사용하는 행위 다이어그림(Behavior Diagram)인 활동 다이",
       "pages": 4,
       "image_pages": 0,
       "needs_ocr": false
     },
     {
-      "filename": "ITPE_관_4교시_Q05_Q5.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_관_4교시_Q05_Q5.pdf",
+      "filename": "ITPE_관_4교시_Q05_유전 알고리즘.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_관_4교시_Q05_유전 알고리즘.pdf",
       "source": "ITPE",
       "exam": "관",
       "session": 4,
       "q_num": 5,
-      "q_title": "Q5",
+      "q_title": "유전 알고리즘",
       "pages": 9,
       "image_pages": 0,
       "needs_ocr": false
     },
     {
       "filename": "ITPE_응_1교시_Q01_멀티미디어 스트리밍 프로토콜의 종류.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q01_멀티미디어 스트리밍 프로토콜의 종류.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q01_멀티미디어 스트리밍 프로토콜의 종류.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -379,7 +377,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q02_클라우드 AI 와 온디바이스 AI 의 개념 비교.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q02_클라우드 AI 와 온디바이스 AI 의 개념 비교.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q02_클라우드 AI 와 온디바이스 AI 의 개념 비교.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -391,7 +389,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q03_지능형 엣지 컴퓨팅.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q03_지능형 엣지 컴퓨팅.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q03_지능형 엣지 컴퓨팅.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -403,7 +401,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q04_IEEE 표준과 IEC 국제표준의 비교.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q04_IEEE 표준과 IEC 국제표준의 비교.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q04_IEEE 표준과 IEC 국제표준의 비교.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -415,7 +413,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q05_보안 운영체제(Secure OS).pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q05_보안 운영체제(Secure OS).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q05_보안 운영체제(Secure OS).pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -427,7 +425,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q06_SIL(Software-in-the-Loop)과 HIL(Hardware-in-the-Loo.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q06_SIL(Software-in-the-Loop)과 HIL(Hardware-in-the-Loo.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q06_SIL(Software-in-the-Loop)과 HIL(Hardware-in-the-Loo.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -439,7 +437,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q07_HBM (High Bandwidth Memory).pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q07_HBM (High Bandwidth Memory).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q07_HBM (High Bandwidth Memory).pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -451,7 +449,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q08_RAG (Retrieval Augmented Generation)와 Fine Tuning.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q08_RAG (Retrieval Augmented Generation)와 Fine Tuning.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q08_RAG (Retrieval Augmented Generation)와 Fine Tuning.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -463,7 +461,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q09_멀티모달 (Multimodal)의 기술요소.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q09_멀티모달 (Multimodal)의 기술요소.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q09_멀티모달 (Multimodal)의 기술요소.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -475,7 +473,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q10_GPU(Graphics Processing Unit)의 역할, 구조, 주요장점 및 활용분야.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q10_GPU(Graphics Processing Unit)의 역할, 구조, 주요장점 및 활용분야.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q10_GPU(Graphics Processing Unit)의 역할, 구조, 주요장점 및 활용분야.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -487,7 +485,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q11_인공지능 시스템의 취약점.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q11_인공지능 시스템의 취약점.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q11_인공지능 시스템의 취약점.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -499,7 +497,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q12_클라우드 네이티브 보안.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q12_클라우드 네이티브 보안.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q12_클라우드 네이티브 보안.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -511,7 +509,7 @@
     },
     {
       "filename": "ITPE_응_1교시_Q13_RISC-V.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_1교시_Q13_RISC-V.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_1교시_Q13_RISC-V.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 1,
@@ -519,12 +517,11 @@
       "q_title": "RISC-V",
       "pages": 4,
       "image_pages": 1,
-      "needs_ocr": true,
-      "ocr_applied": true
+      "needs_ocr": true
     },
     {
       "filename": "ITPE_응_2교시_Q01_공공 마이데이터 활용 방안에 대하여 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_2교시_Q01_공공 마이데이터 활용 방안에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_2교시_Q01_공공 마이데이터 활용 방안에 대하여 설명하시오..pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 2,
@@ -536,7 +533,7 @@
     },
     {
       "filename": "ITPE_응_2교시_Q02_소프트웨어 프로세스(SP, Software Process) 품질인증 제도에 대하여 설명하시.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_2교시_Q02_소프트웨어 프로세스(SP, Software Process) 품질인증 제도에 대하여 설명하시.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_2교시_Q02_소프트웨어 프로세스(SP, Software Process) 품질인증 제도에 대하여 설명하시.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 2,
@@ -548,7 +545,7 @@
     },
     {
       "filename": "ITPE_응_2교시_Q03_운영체제의 기아현상(Starvation)에 대하여 다음사항을 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_2교시_Q03_운영체제의 기아현상(Starvation)에 대하여 다음사항을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_2교시_Q03_운영체제의 기아현상(Starvation)에 대하여 다음사항을 설명하시오.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 2,
@@ -560,7 +557,7 @@
     },
     {
       "filename": "ITPE_응_2교시_Q04_sLLM(smaller Large Language Model)에 대하여 다음 사항을 설명하.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_2교시_Q04_sLLM(smaller Large Language Model)에 대하여 다음 사항을 설명하.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_2교시_Q04_sLLM(smaller Large Language Model)에 대하여 다음 사항을 설명하.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 2,
@@ -572,7 +569,7 @@
     },
     {
       "filename": "ITPE_응_2교시_Q05_Q5.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_2교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_2교시_Q05_Q5.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 2,
@@ -584,7 +581,7 @@
     },
     {
       "filename": "ITPE_응_2교시_Q06_Q6.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_2교시_Q06_Q6.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 2,
@@ -592,12 +589,11 @@
       "q_title": "Q6",
       "pages": 7,
       "image_pages": 1,
-      "needs_ocr": true,
-      "ocr_applied": true
+      "needs_ocr": true
     },
     {
       "filename": "ITPE_응_3교시_Q01_클라우드 컴퓨팅 서비스 유형에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_3교시_Q01_클라우드 컴퓨팅 서비스 유형에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_3교시_Q01_클라우드 컴퓨팅 서비스 유형에 대하여 다음을 설명하시오..pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 3,
@@ -609,7 +605,7 @@
     },
     {
       "filename": "ITPE_응_3교시_Q02_가상메모리 주소 변환을 위해 사용하는 MMU(Memory Management Unit)에.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_3교시_Q02_가상메모리 주소 변환을 위해 사용하는 MMU(Memory Management Unit)에.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_3교시_Q02_가상메모리 주소 변환을 위해 사용하는 MMU(Memory Management Unit)에.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 3,
@@ -621,7 +617,7 @@
     },
     {
       "filename": "ITPE_응_3교시_Q03_제조현장에서 활용되고 있는 OPC UA (Open Platform Communication.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_3교시_Q03_제조현장에서 활용되고 있는 OPC UA (Open Platform Communication.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_3교시_Q03_제조현장에서 활용되고 있는 OPC UA (Open Platform Communication.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 3,
@@ -633,7 +629,7 @@
     },
     {
       "filename": "ITPE_응_3교시_Q04_Q4.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_3교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_3교시_Q04_Q4.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 3,
@@ -645,7 +641,7 @@
     },
     {
       "filename": "ITPE_응_3교시_Q05_Q5.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_3교시_Q05_Q5.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 3,
@@ -657,7 +653,7 @@
     },
     {
       "filename": "ITPE_응_3교시_Q06_Q6.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_3교시_Q06_Q6.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 3,
@@ -668,68 +664,68 @@
       "needs_ocr": false
     },
     {
-      "filename": "ITPE_응_4교시_Q01_영상압축기법에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_4교시_Q01_영상압축기법에 대하여 다음을 설명하시오..pdf",
+      "filename": "ITPE_응_4교시_Q01_영상압축기법.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_4교시_Q01_영상압축기법.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 4,
       "q_num": 1,
-      "q_title": "영상압축기법에 대하여 다음을 설명하시오.",
+      "q_title": "영상압축기법",
       "pages": 7,
       "image_pages": 0,
       "needs_ocr": false
     },
     {
-      "filename": "ITPE_응_4교시_Q03_양자 머신러닝(QML, Quntum Machine Learning)의 주요 기술 및 알고리.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_4교시_Q03_양자 머신러닝(QML, Quntum Machine Learning)의 주요 기술 및 알고리.pdf",
+      "filename": "ITPE_응_4교시_Q03_양자머신러닝(Quantum Machine Learning).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_4교시_Q03_양자머신러닝(Quantum Machine Learning).pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 4,
       "q_num": 3,
-      "q_title": "양자 머신러닝(QML, Quntum Machine Learning)의 주요 기술 및 알고리즘을 설명하고,",
+      "q_title": "양자머신러닝(Quantum Machine Learning)",
       "pages": 3,
       "image_pages": 0,
       "needs_ocr": false
     },
     {
-      "filename": "ITPE_응_4교시_Q04_침입차단시스템(Firewall), 침입탐지시스템(IDS, Intrusion Detectio.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_4교시_Q04_침입차단시스템(Firewall), 침입탐지시스템(IDS, Intrusion Detectio.pdf",
+      "filename": "ITPE_응_4교시_Q04_DNS (Domain Name System).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_4교시_Q04_DNS (Domain Name System).pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 4,
       "q_num": 4,
-      "q_title": "침입차단시스템(Firewall), 침입탐지시스템(IDS, Intrusion Detection System),",
+      "q_title": "DNS (Domain Name System)",
       "pages": 4,
       "image_pages": 0,
       "needs_ocr": false
     },
     {
-      "filename": "ITPE_응_4교시_Q05_Q5.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_4교시_Q05_Q5.pdf",
+      "filename": "ITPE_응_4교시_Q05_Firewall, IDS, IPS, VPN.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_4교시_Q05_Firewall, IDS, IPS, VPN.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 4,
       "q_num": 5,
-      "q_title": "Q5",
+      "q_title": "Firewall, IDS, IPS, VPN",
       "pages": 4,
       "image_pages": 0,
       "needs_ocr": false
     },
     {
-      "filename": "ITPE_응_4교시_Q06_Q6.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/ITPE_응_4교시_Q06_Q6.pdf",
+      "filename": "ITPE_응_4교시_Q06_디지털 서비스 전문계약제도.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/ITPE_응_4교시_Q06_디지털 서비스 전문계약제도.pdf",
       "source": "ITPE",
       "exam": "응",
       "session": 4,
       "q_num": 6,
-      "q_title": "Q6",
+      "q_title": "디지털 서비스 전문계약제도",
       "pages": 4,
       "image_pages": 0,
       "needs_ocr": false
     },
     {
       "filename": "KPC_관_1교시_Q01_동적 라우팅 프로토콜인 IGP (Interior Gateway Protocol)와 EGP.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q01_동적 라우팅 프로토콜인 IGP (Interior Gateway Protocol)와 EGP.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q01_동적 라우팅 프로토콜인 IGP (Interior Gateway Protocol)와 EGP.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -741,7 +737,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q02_디지털 포렌식에서 아티팩트(Artifact)를 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q02_디지털 포렌식에서 아티팩트(Artifact)를 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q02_디지털 포렌식에서 아티팩트(Artifact)를 설명하시오.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -753,7 +749,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q03_MODBUS 프로토콜을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q03_MODBUS 프로토콜을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q03_MODBUS 프로토콜을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -765,7 +761,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q04_암호문 공격(Ciphertext Attack)을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q04_암호문 공격(Ciphertext Attack)을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q04_암호문 공격(Ciphertext Attack)을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -777,7 +773,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q05_GNN(Graph Neural Network)을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q05_GNN(Graph Neural Network)을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q05_GNN(Graph Neural Network)을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -789,7 +785,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q06_AI 거버넌스(Artificial Intelligence Governance)를 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q06_AI 거버넌스(Artificial Intelligence Governance)를 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q06_AI 거버넌스(Artificial Intelligence Governance)를 설명하시오.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -801,7 +797,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q07_트랜스포머(Transformer)와 MoE(Mixture of Experts)를 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q07_트랜스포머(Transformer)와 MoE(Mixture of Experts)를 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q07_트랜스포머(Transformer)와 MoE(Mixture of Experts)를 설명하시오.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -813,7 +809,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q08_AI 신뢰성 검인증 제도(CAT)를 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q08_AI 신뢰성 검인증 제도(CAT)를 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q08_AI 신뢰성 검인증 제도(CAT)를 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -825,7 +821,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q09_A_B 테스팅을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q09_A_B 테스팅을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q09_A_B 테스팅을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -837,7 +833,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q10_데이터 늪(Data Swamp)을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q10_데이터 늪(Data Swamp)을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q10_데이터 늪(Data Swamp)을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -849,7 +845,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q11_소프트웨어 역공학과 재공학을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q11_소프트웨어 역공학과 재공학을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q11_소프트웨어 역공학과 재공학을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -861,7 +857,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q12_이진 탐색 트리를 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q12_이진 탐색 트리를 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q12_이진 탐색 트리를 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -873,7 +869,7 @@
     },
     {
       "filename": "KPC_관_1교시_Q13_데이터마이닝의 연관 규칙 분석(Association Rule Analysis) 지표를 설명.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_1교시_Q13_데이터마이닝의 연관 규칙 분석(Association Rule Analysis) 지표를 설명.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_1교시_Q13_데이터마이닝의 연관 규칙 분석(Association Rule Analysis) 지표를 설명.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 1,
@@ -885,7 +881,7 @@
     },
     {
       "filename": "KPC_관_2교시_Q01_캐시 메모리(Cache Memory)에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_2교시_Q01_캐시 메모리(Cache Memory)에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_2교시_Q01_캐시 메모리(Cache Memory)에 대하여 다음을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 2,
@@ -897,7 +893,7 @@
     },
     {
       "filename": "KPC_관_2교시_Q02_(A)기업은 전자상거래 정보시스템 개발 프로젝트를 완료하고, 운영으로 전환하고자.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_2교시_Q02_(A)기업은 전자상거래 정보시스템 개발 프로젝트를 완료하고, 운영으로 전환하고자.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_2교시_Q02_(A)기업은 전자상거래 정보시스템 개발 프로젝트를 완료하고, 운영으로 전환하고자.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 2,
@@ -909,7 +905,7 @@
     },
     {
       "filename": "KPC_관_2교시_Q03_MCP(Model Context Protocol)를 이용한 인공지능 서비스 구축 시 보안.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_2교시_Q03_MCP(Model Context Protocol)를 이용한 인공지능 서비스 구축 시 보안.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_2교시_Q03_MCP(Model Context Protocol)를 이용한 인공지능 서비스 구축 시 보안.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 2,
@@ -921,7 +917,7 @@
     },
     {
       "filename": "KPC_관_2교시_Q04_“공공부문 초거대 AI 도입ㆍ활용 가이드라인 2.0”에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_2교시_Q04_“공공부문 초거대 AI 도입ㆍ활용 가이드라인 2.0”에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_2교시_Q04_“공공부문 초거대 AI 도입ㆍ활용 가이드라인 2.0”에 대하여 다음을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 2,
@@ -933,7 +929,7 @@
     },
     {
       "filename": "KPC_관_2교시_Q05_소프트웨어 테스트 중 동적 테스트에 대하여 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_2교시_Q05_소프트웨어 테스트 중 동적 테스트에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_2교시_Q05_소프트웨어 테스트 중 동적 테스트에 대하여 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 2,
@@ -945,7 +941,7 @@
     },
     {
       "filename": "KPC_관_2교시_Q06_TEXT2SQL 에 대하여 다음 각 항목을 설명하시어..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_2교시_Q06_TEXT2SQL 에 대하여 다음 각 항목을 설명하시어..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_2교시_Q06_TEXT2SQL 에 대하여 다음 각 항목을 설명하시어..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 2,
@@ -957,7 +953,7 @@
     },
     {
       "filename": "KPC_관_3교시_Q01_운영체제 스케줄링 기법에 대한 각 내용을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_3교시_Q01_운영체제 스케줄링 기법에 대한 각 내용을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_3교시_Q01_운영체제 스케줄링 기법에 대한 각 내용을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 3,
@@ -969,7 +965,7 @@
     },
     {
       "filename": "KPC_관_3교시_Q02_정보시스템 감리의 시스템 운영 및 유지보수 감리에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_3교시_Q02_정보시스템 감리의 시스템 운영 및 유지보수 감리에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_3교시_Q02_정보시스템 감리의 시스템 운영 및 유지보수 감리에 대하여 다음을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 3,
@@ -981,7 +977,7 @@
     },
     {
       "filename": "KPC_관_3교시_Q03_다중지역 동시 가동방식(Multi-Region Active-Active) 재해복구시스템에.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_3교시_Q03_다중지역 동시 가동방식(Multi-Region Active-Active) 재해복구시스템에.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_3교시_Q03_다중지역 동시 가동방식(Multi-Region Active-Active) 재해복구시스템에.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 3,
@@ -993,7 +989,7 @@
     },
     {
       "filename": "KPC_관_3교시_Q04_데이터베이스 트랜잭션 격리 수준(Transaction Isolation Level)과 관련.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_3교시_Q04_데이터베이스 트랜잭션 격리 수준(Transaction Isolation Level)과 관련.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_3교시_Q04_데이터베이스 트랜잭션 격리 수준(Transaction Isolation Level)과 관련.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 3,
@@ -1005,7 +1001,7 @@
     },
     {
       "filename": "KPC_관_3교시_Q05_통신 프로토콜에 대하여 각 항목을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_3교시_Q05_통신 프로토콜에 대하여 각 항목을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_3교시_Q05_통신 프로토콜에 대하여 각 항목을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 3,
@@ -1017,7 +1013,7 @@
     },
     {
       "filename": "KPC_관_3교시_Q06_2025 년 1 월 국가정보원에서는 공공기관을 대상으로 국가 망 보안체계(National.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_3교시_Q06_2025 년 1 월 국가정보원에서는 공공기관을 대상으로 국가 망 보안체계(National.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_3교시_Q06_2025 년 1 월 국가정보원에서는 공공기관을 대상으로 국가 망 보안체계(National.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 3,
@@ -1029,7 +1025,7 @@
     },
     {
       "filename": "KPC_관_4교시_Q01_BPFdoor(Berkeley Packer Filter door)악성코드와 관련하여 다음을.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_4교시_Q01_BPFdoor(Berkeley Packer Filter door)악성코드와 관련하여 다음을.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_4교시_Q01_BPFdoor(Berkeley Packer Filter door)악성코드와 관련하여 다음을.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 4,
@@ -1041,7 +1037,7 @@
     },
     {
       "filename": "KPC_관_4교시_Q02_벡터.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_4교시_Q02_벡터.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_4교시_Q02_벡터.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 4,
@@ -1053,7 +1049,7 @@
     },
     {
       "filename": "KPC_관_4교시_Q03_쿠버네티스(Kuvernetes)에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_4교시_Q03_쿠버네티스(Kuvernetes)에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_4교시_Q03_쿠버네티스(Kuvernetes)에 대하여 다음을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 4,
@@ -1065,7 +1061,7 @@
     },
     {
       "filename": "KPC_관_4교시_Q04_UML(Unified Modeling Language)에서 사용하는 행위 다이어그램(Beh.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_4교시_Q04_UML(Unified Modeling Language)에서 사용하는 행위 다이어그램(Beh.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_4교시_Q04_UML(Unified Modeling Language)에서 사용하는 행위 다이어그램(Beh.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 4,
@@ -1077,7 +1073,7 @@
     },
     {
       "filename": "KPC_관_4교시_Q05_유전 알고리즘(Genetix Algorithm)에 대하여 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_4교시_Q05_유전 알고리즘(Genetix Algorithm)에 대하여 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_4교시_Q05_유전 알고리즘(Genetix Algorithm)에 대하여 설명하시오.pdf",
       "source": "KPC",
       "exam": "관",
       "session": 4,
@@ -1089,7 +1085,7 @@
     },
     {
       "filename": "KPC_관_4교시_Q06_소프트웨어 사업 대가산정에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_관_4교시_Q06_소프트웨어 사업 대가산정에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_관_4교시_Q06_소프트웨어 사업 대가산정에 대하여 다음을 설명하시오..pdf",
       "source": "KPC",
       "exam": "관",
       "session": 4,
@@ -1101,7 +1097,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q01_멀티미디어 스트리밍 프로토콜의 종류.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q01_멀티미디어 스트리밍 프로토콜의 종류.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q01_멀티미디어 스트리밍 프로토콜의 종류.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1113,7 +1109,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q02_클라우드 AI 와 온디바이스 AI 의 개념 비교.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q02_클라우드 AI 와 온디바이스 AI 의 개념 비교.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q02_클라우드 AI 와 온디바이스 AI 의 개념 비교.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1125,7 +1121,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q03_지능형 엣지 컴퓨팅.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q03_지능형 엣지 컴퓨팅.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q03_지능형 엣지 컴퓨팅.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1137,7 +1133,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q04_IEEE 표준과 IEC 국제표준의 비교.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q04_IEEE 표준과 IEC 국제표준의 비교.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q04_IEEE 표준과 IEC 국제표준의 비교.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1149,7 +1145,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q05_보안 운영체제(Secure OS).pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q05_보안 운영체제(Secure OS).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q05_보안 운영체제(Secure OS).pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1161,7 +1157,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q06_SIL(Software-in-the-Loop)과.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q06_SIL(Software-in-the-Loop)과.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q06_SIL(Software-in-the-Loop)과.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1173,7 +1169,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q07_HBM (High Bandwidth Memory).pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q07_HBM (High Bandwidth Memory).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q07_HBM (High Bandwidth Memory).pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1185,7 +1181,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q08_RAG(Retrieval Augmented Generation)와 Fine Tuning 의.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q08_RAG(Retrieval Augmented Generation)와 Fine Tuning 의.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q08_RAG(Retrieval Augmented Generation)와 Fine Tuning 의.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1197,7 +1193,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q09_멀티모달(Multimodal)의 기술요소.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q09_멀티모달(Multimodal)의 기술요소.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q09_멀티모달(Multimodal)의 기술요소.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1209,7 +1205,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q10_GPU(Graphics Processing Unit)의 역할, 구조, 주요장점 및 활용분야.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q10_GPU(Graphics Processing Unit)의 역할, 구조, 주요장점 및 활용분야.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q10_GPU(Graphics Processing Unit)의 역할, 구조, 주요장점 및 활용분야.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1221,7 +1217,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q11_인공지능 시스템의 취약점.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q11_인공지능 시스템의 취약점.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q11_인공지능 시스템의 취약점.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1233,7 +1229,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q12_클라우드 네이티브 보안.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q12_클라우드 네이티브 보안.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q12_클라우드 네이티브 보안.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1245,7 +1241,7 @@
     },
     {
       "filename": "KPC_응_1교시_Q13_RISC-V.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_1교시_Q13_RISC-V.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_1교시_Q13_RISC-V.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 1,
@@ -1257,7 +1253,7 @@
     },
     {
       "filename": "KPC_응_2교시_Q01_공공 마이데이터 활용 방안에 대하여 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_2교시_Q01_공공 마이데이터 활용 방안에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_2교시_Q01_공공 마이데이터 활용 방안에 대하여 설명하시오..pdf",
       "source": "KPC",
       "exam": "응",
       "session": 2,
@@ -1269,7 +1265,7 @@
     },
     {
       "filename": "KPC_응_2교시_Q02_소프트웨어 프로세스(SP, Software Process) 품질인증 제도에 대하여 다음 사.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_2교시_Q02_소프트웨어 프로세스(SP, Software Process) 품질인증 제도에 대하여 다음 사.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_2교시_Q02_소프트웨어 프로세스(SP, Software Process) 품질인증 제도에 대하여 다음 사.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 2,
@@ -1281,7 +1277,7 @@
     },
     {
       "filename": "KPC_응_2교시_Q03_운영체제의 기아현상(Starvation)에 대하여 다음 사항을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_2교시_Q03_운영체제의 기아현상(Starvation)에 대하여 다음 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_2교시_Q03_운영체제의 기아현상(Starvation)에 대하여 다음 사항을 설명하시오..pdf",
       "source": "KPC",
       "exam": "응",
       "session": 2,
@@ -1293,7 +1289,7 @@
     },
     {
       "filename": "KPC_응_2교시_Q04_sLLM(smaller Large Language Model)에 대하여 다음 사항을 설명하.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_2교시_Q04_sLLM(smaller Large Language Model)에 대하여 다음 사항을 설명하.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_2교시_Q04_sLLM(smaller Large Language Model)에 대하여 다음 사항을 설명하.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 2,
@@ -1305,7 +1301,7 @@
     },
     {
       "filename": "KPC_응_2교시_Q05_소프트웨어 영향평가에 대하여 다음 사항을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_2교시_Q05_소프트웨어 영향평가에 대하여 다음 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_2교시_Q05_소프트웨어 영향평가에 대하여 다음 사항을 설명하시오..pdf",
       "source": "KPC",
       "exam": "응",
       "session": 2,
@@ -1317,7 +1313,7 @@
     },
     {
       "filename": "KPC_응_2교시_Q06_I_O(Input_Output).pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_2교시_Q06_I_O(Input_Output).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_2교시_Q06_I_O(Input_Output).pdf",
       "source": "KPC",
       "exam": "응",
       "session": 2,
@@ -1329,7 +1325,7 @@
     },
     {
       "filename": "KPC_응_3교시_Q01_클라우드컴퓨팅서비스유형에대하여다음을설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_3교시_Q01_클라우드컴퓨팅서비스유형에대하여다음을설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_3교시_Q01_클라우드컴퓨팅서비스유형에대하여다음을설명하시오..pdf",
       "source": "KPC",
       "exam": "응",
       "session": 3,
@@ -1341,7 +1337,7 @@
     },
     {
       "filename": "KPC_응_3교시_Q02_가상메모리주소변환을위해사용하는MMU(Memory Management Unit)에대하.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_3교시_Q02_가상메모리주소변환을위해사용하는MMU(Memory Management Unit)에대하.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_3교시_Q02_가상메모리주소변환을위해사용하는MMU(Memory Management Unit)에대하.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 3,
@@ -1353,7 +1349,7 @@
     },
     {
       "filename": "KPC_응_3교시_Q03_제조현장에서활용되고있는OPC UA(Open Platform Communications Un.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_3교시_Q03_제조현장에서활용되고있는OPC UA(Open Platform Communications Un.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_3교시_Q03_제조현장에서활용되고있는OPC UA(Open Platform Communications Un.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 3,
@@ -1365,7 +1361,7 @@
     },
     {
       "filename": "KPC_응_3교시_Q04_실시간시스템에서발생할수있는우선순위역전(Priority Inversion) 현상에대하.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_3교시_Q04_실시간시스템에서발생할수있는우선순위역전(Priority Inversion) 현상에대하.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_3교시_Q04_실시간시스템에서발생할수있는우선순위역전(Priority Inversion) 현상에대하.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 3,
@@ -1377,7 +1373,7 @@
     },
     {
       "filename": "KPC_응_3교시_Q05_샌드박스와화이트박스의목적, 적용방법및예시를설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_3교시_Q05_샌드박스와화이트박스의목적, 적용방법및예시를설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_3교시_Q05_샌드박스와화이트박스의목적, 적용방법및예시를설명하시오..pdf",
       "source": "KPC",
       "exam": "응",
       "session": 3,
@@ -1389,7 +1385,7 @@
     },
     {
       "filename": "KPC_응_3교시_Q06_시스템버스(System Bus)와버스중재(Bus Arbitration) 방식을설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_3교시_Q06_시스템버스(System Bus)와버스중재(Bus Arbitration) 방식을설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_3교시_Q06_시스템버스(System Bus)와버스중재(Bus Arbitration) 방식을설명하시오.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 3,
@@ -1401,7 +1397,7 @@
     },
     {
       "filename": "KPC_응_4교시_Q01_영상압축기법에대하여다음을설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_4교시_Q01_영상압축기법에대하여다음을설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_4교시_Q01_영상압축기법에대하여다음을설명하시오..pdf",
       "source": "KPC",
       "exam": "응",
       "session": 4,
@@ -1413,7 +1409,7 @@
     },
     {
       "filename": "KPC_응_4교시_Q02_AIaaS(AI as a Service)의개념, 특징및도입시고려사항에대하여설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_4교시_Q02_AIaaS(AI as a Service)의개념, 특징및도입시고려사항에대하여설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_4교시_Q02_AIaaS(AI as a Service)의개념, 특징및도입시고려사항에대하여설명하시오..pdf",
       "source": "KPC",
       "exam": "응",
       "session": 4,
@@ -1425,7 +1421,7 @@
     },
     {
       "filename": "KPC_응_4교시_Q03_양자머신러닝(QML, Quantum Machine Learning)의주요기술및알고리즘을설.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_4교시_Q03_양자머신러닝(QML, Quantum Machine Learning)의주요기술및알고리즘을설.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_4교시_Q03_양자머신러닝(QML, Quantum Machine Learning)의주요기술및알고리즘을설.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 4,
@@ -1437,7 +1433,7 @@
     },
     {
       "filename": "KPC_응_4교시_Q04_DNS(Domain Name System)에대하여다음사항을설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_4교시_Q04_DNS(Domain Name System)에대하여다음사항을설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_4교시_Q04_DNS(Domain Name System)에대하여다음사항을설명하시오..pdf",
       "source": "KPC",
       "exam": "응",
       "session": 4,
@@ -1449,7 +1445,7 @@
     },
     {
       "filename": "KPC_응_4교시_Q05_침입차단시스템(Firewall), 침입탐지시스템(IDS, Intrusion Detectio.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_4교시_Q05_침입차단시스템(Firewall), 침입탐지시스템(IDS, Intrusion Detectio.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_4교시_Q05_침입차단시스템(Firewall), 침입탐지시스템(IDS, Intrusion Detectio.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 4,
@@ -1461,7 +1457,7 @@
     },
     {
       "filename": "KPC_응_4교시_Q06_디지털서비스전문계약제도에대하여주요특징, 디지털서비스종류및기대효과를설.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/KPC_응_4교시_Q06_디지털서비스전문계약제도에대하여주요특징, 디지털서비스종류및기대효과를설.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/KPC_응_4교시_Q06_디지털서비스전문계약제도에대하여주요특징, 디지털서비스종류및기대효과를설.pdf",
       "source": "KPC",
       "exam": "응",
       "session": 4,
@@ -1473,7 +1469,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q01_동적 라우팅 프로토콜인 IGP (Interior Gateway Protocol)와 EGP.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q01_동적 라우팅 프로토콜인 IGP (Interior Gateway Protocol)와 EGP.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q01_동적 라우팅 프로토콜인 IGP (Interior Gateway Protocol)와 EGP.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1485,7 +1481,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q02_디지털 포렌식에서 아티팩트(Artifact)를 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q02_디지털 포렌식에서 아티팩트(Artifact)를 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q02_디지털 포렌식에서 아티팩트(Artifact)를 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1497,7 +1493,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q03_MODBUS 프로토콜을 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q03_MODBUS 프로토콜을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q03_MODBUS 프로토콜을 설명하시오.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1509,7 +1505,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q04_4. 암호문 공격(Ciphertext Attack) 을 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q04_4. 암호문 공격(Ciphertext Attack) 을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q04_4. 암호문 공격(Ciphertext Attack) 을 설명하시오.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1521,7 +1517,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q05_GNN(Graph Neural Network)을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q05_GNN(Graph Neural Network)을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q05_GNN(Graph Neural Network)을 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1533,7 +1529,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q06_AI 거버넌스(Artificial Intelligence Governance)를 설명하시오.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q06_AI 거버넌스(Artificial Intelligence Governance)를 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q06_AI 거버넌스(Artificial Intelligence Governance)를 설명하시오.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1545,7 +1541,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q07_Q7.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q07_Q7.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q07_Q7.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1557,7 +1553,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q08_AI 신뢰성 검인증 제도(CAT)를 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q08_AI 신뢰성 검인증 제도(CAT)를 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q08_AI 신뢰성 검인증 제도(CAT)를 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1569,7 +1565,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q09_9. A_B 테스팅을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q09_9. A_B 테스팅을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q09_9. A_B 테스팅을 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1581,7 +1577,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q10_1. 데이터 늪(Data Swamp)을 설명하시오...pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q10_1. 데이터 늪(Data Swamp)을 설명하시오...pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q10_1. 데이터 늪(Data Swamp)을 설명하시오...pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1593,7 +1589,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q11_11. 소프트웨어 역공학과 재공학을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q11_11. 소프트웨어 역공학과 재공학을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q11_11. 소프트웨어 역공학과 재공학을 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1605,7 +1601,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q12_이진 탐색 트리를 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q12_이진 탐색 트리를 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q12_이진 탐색 트리를 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1617,7 +1613,7 @@
     },
     {
       "filename": "동기회_관_1교시_Q13_데이터마이닝의 연관 규칙 분석(Association Rule Analysis) 지표를 설명.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_1교시_Q13_데이터마이닝의 연관 규칙 분석(Association Rule Analysis) 지표를 설명.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_1교시_Q13_데이터마이닝의 연관 규칙 분석(Association Rule Analysis) 지표를 설명.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 1,
@@ -1629,7 +1625,7 @@
     },
     {
       "filename": "동기회_관_2교시_Q01_캐시 메모리(Cache Memory)에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_2교시_Q01_캐시 메모리(Cache Memory)에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_2교시_Q01_캐시 메모리(Cache Memory)에 대하여 다음을 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 2,
@@ -1641,7 +1637,7 @@
     },
     {
       "filename": "동기회_관_2교시_Q02_(A)기업은 전자상거래 정보시스템 개발 프로젝트를 완료하고, 운영으로 전환하고자한다..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_2교시_Q02_(A)기업은 전자상거래 정보시스템 개발 프로젝트를 완료하고, 운영으로 전환하고자한다..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_2교시_Q02_(A)기업은 전자상거래 정보시스템 개발 프로젝트를 완료하고, 운영으로 전환하고자한다..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 2,
@@ -1653,7 +1649,7 @@
     },
     {
       "filename": "동기회_관_2교시_Q03_3. MCP(Model Context Protocol)를 이용한 인공지능 서비스 구축 시.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_2교시_Q03_3. MCP(Model Context Protocol)를 이용한 인공지능 서비스 구축 시.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_2교시_Q03_3. MCP(Model Context Protocol)를 이용한 인공지능 서비스 구축 시.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 2,
@@ -1665,7 +1661,7 @@
     },
     {
       "filename": "동기회_관_2교시_Q04_“공공부문 초거대 AI 도입·활용 가이드라인 2.0”에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_2교시_Q04_“공공부문 초거대 AI 도입·활용 가이드라인 2.0”에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_2교시_Q04_“공공부문 초거대 AI 도입·활용 가이드라인 2.0”에 대하여 다음을 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 2,
@@ -1677,7 +1673,7 @@
     },
     {
       "filename": "동기회_관_2교시_Q05_소프트웨어 테스트 중 동적 테스트에 대하여 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_2교시_Q05_소프트웨어 테스트 중 동적 테스트에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_2교시_Q05_소프트웨어 테스트 중 동적 테스트에 대하여 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 2,
@@ -1689,7 +1685,7 @@
     },
     {
       "filename": "동기회_관_2교시_Q06_Q6.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_2교시_Q06_Q6.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 2,
@@ -1701,7 +1697,7 @@
     },
     {
       "filename": "동기회_관_3교시_Q01_운영체제 스케줄링 기법에 대한 각 내용을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_3교시_Q01_운영체제 스케줄링 기법에 대한 각 내용을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_3교시_Q01_운영체제 스케줄링 기법에 대한 각 내용을 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 3,
@@ -1713,7 +1709,7 @@
     },
     {
       "filename": "동기회_관_3교시_Q02_2. 정보시스템 감리의 시스템 운영 및 유지보수 감리에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_3교시_Q02_2. 정보시스템 감리의 시스템 운영 및 유지보수 감리에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_3교시_Q02_2. 정보시스템 감리의 시스템 운영 및 유지보수 감리에 대하여 다음을 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 3,
@@ -1725,7 +1721,7 @@
     },
     {
       "filename": "동기회_관_3교시_Q03_3. 다중지역 동시 가동방식(Multi - Region Active - Active) 재해.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_3교시_Q03_3. 다중지역 동시 가동방식(Multi - Region Active - Active) 재해.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_3교시_Q03_3. 다중지역 동시 가동방식(Multi - Region Active - Active) 재해.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 3,
@@ -1737,7 +1733,7 @@
     },
     {
       "filename": "동기회_관_3교시_Q04_4. 데이터베이스 트랜잭션 격리 수준(Transaction Isolation Level)과.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_3교시_Q04_4. 데이터베이스 트랜잭션 격리 수준(Transaction Isolation Level)과.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_3교시_Q04_4. 데이터베이스 트랜잭션 격리 수준(Transaction Isolation Level)과.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 3,
@@ -1749,7 +1745,7 @@
     },
     {
       "filename": "동기회_관_3교시_Q05_5. 통신 프로토콜에 대하여 각 항목을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_3교시_Q05_5. 통신 프로토콜에 대하여 각 항목을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_3교시_Q05_5. 통신 프로토콜에 대하여 각 항목을 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 3,
@@ -1761,7 +1757,7 @@
     },
     {
       "filename": "동기회_관_3교시_Q06_6. 2025 년 1 월 국가정보원에서는 공공기관을 대상으로 국가 망 보안체계(Nation.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_3교시_Q06_6. 2025 년 1 월 국가정보원에서는 공공기관을 대상으로 국가 망 보안체계(Nation.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_3교시_Q06_6. 2025 년 1 월 국가정보원에서는 공공기관을 대상으로 국가 망 보안체계(Nation.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 3,
@@ -1773,7 +1769,7 @@
     },
     {
       "filename": "동기회_관_4교시_Q01_BPFdoor((Berkeley Packet Filter door) 악성코드와 관련하여 다.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_4교시_Q01_BPFdoor((Berkeley Packet Filter door) 악성코드와 관련하여 다.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_4교시_Q01_BPFdoor((Berkeley Packet Filter door) 악성코드와 관련하여 다.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 4,
@@ -1785,7 +1781,7 @@
     },
     {
       "filename": "동기회_관_4교시_Q02_벡터 데이터베이스(Vector Database)의 효율적 검색을 위한 HNSW(Hierar.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_4교시_Q02_벡터 데이터베이스(Vector Database)의 효율적 검색을 위한 HNSW(Hierar.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_4교시_Q02_벡터 데이터베이스(Vector Database)의 효율적 검색을 위한 HNSW(Hierar.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 4,
@@ -1797,7 +1793,7 @@
     },
     {
       "filename": "동기회_관_4교시_Q03_3. 쿠버네티스(Kubernetes)에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_4교시_Q03_3. 쿠버네티스(Kubernetes)에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_4교시_Q03_3. 쿠버네티스(Kubernetes)에 대하여 다음을 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 4,
@@ -1809,7 +1805,7 @@
     },
     {
       "filename": "동기회_관_4교시_Q04_4. UML(Unified Modeling Language)에서 사용하는 행위 다이어그램(.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_4교시_Q04_4. UML(Unified Modeling Language)에서 사용하는 행위 다이어그램(.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_4교시_Q04_4. UML(Unified Modeling Language)에서 사용하는 행위 다이어그램(.pdf",
       "source": "동기회",
       "exam": "관",
       "session": 4,
@@ -1821,7 +1817,7 @@
     },
     {
       "filename": "동기회_관_4교시_Q05_5. 유전 알고리즘 (Genetic Algorithm)에 대해서 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_4교시_Q05_5. 유전 알고리즘 (Genetic Algorithm)에 대해서 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_4교시_Q05_5. 유전 알고리즘 (Genetic Algorithm)에 대해서 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 4,
@@ -1833,7 +1829,7 @@
     },
     {
       "filename": "동기회_관_4교시_Q06_6. 소프트웨어 사업 대가산정에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_관_4교시_Q06_6. 소프트웨어 사업 대가산정에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_관_4교시_Q06_6. 소프트웨어 사업 대가산정에 대하여 다음을 설명하시오..pdf",
       "source": "동기회",
       "exam": "관",
       "session": 4,
@@ -1845,7 +1841,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q01_멀티미디어 스트리밍 프로토콜의 종류.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q01_멀티미디어 스트리밍 프로토콜의 종류.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q01_멀티미디어 스트리밍 프로토콜의 종류.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1857,7 +1853,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q02_2. 클라우드 AI 와 온디바이스 AI 의 개념 비교.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q02_2. 클라우드 AI 와 온디바이스 AI 의 개념 비교.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q02_2. 클라우드 AI 와 온디바이스 AI 의 개념 비교.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1869,7 +1865,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q03_3. 지능형 엣지 컴퓨팅.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q03_3. 지능형 엣지 컴퓨팅.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q03_3. 지능형 엣지 컴퓨팅.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1881,7 +1877,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q04_4. IEEE 표준과 IEC 국제표준의 비교.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q04_4. IEEE 표준과 IEC 국제표준의 비교.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q04_4. IEEE 표준과 IEC 국제표준의 비교.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1893,7 +1889,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q05_보안 운영체제(Secure OS)..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q05_보안 운영체제(Secure OS)..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q05_보안 운영체제(Secure OS)..pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1905,7 +1901,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q06_SIL(Software-in-the-Loop)과 HIL(Hardware-in-the-Loo.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q06_SIL(Software-in-the-Loop)과 HIL(Hardware-in-the-Loo.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q06_SIL(Software-in-the-Loop)과 HIL(Hardware-in-the-Loo.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1917,7 +1913,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q07_HBM(High Bandwidth Memory).pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q07_HBM(High Bandwidth Memory).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q07_HBM(High Bandwidth Memory).pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1929,7 +1925,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q08_1. RAG (Retrieval Augmented Generation)와 Fine Tuni.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q08_1. RAG (Retrieval Augmented Generation)와 Fine Tuni.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q08_1. RAG (Retrieval Augmented Generation)와 Fine Tuni.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1941,7 +1937,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q09_9. 멀티모달(Multimodal)의 기술요소.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q09_9. 멀티모달(Multimodal)의 기술요소.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q09_9. 멀티모달(Multimodal)의 기술요소.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1953,7 +1949,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q10_GPU(Graphics Processing Unit)의 역할, 구조, 주요 장점 및 활용분.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q10_GPU(Graphics Processing Unit)의 역할, 구조, 주요 장점 및 활용분.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q10_GPU(Graphics Processing Unit)의 역할, 구조, 주요 장점 및 활용분.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1965,7 +1961,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q11_인공지능 시스템의 취약점.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q11_인공지능 시스템의 취약점.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q11_인공지능 시스템의 취약점.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1977,7 +1973,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q12_Q12.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q12_Q12.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q12_Q12.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -1989,7 +1985,7 @@
     },
     {
       "filename": "동기회_응_1교시_Q13_RISC-V.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_1교시_Q13_RISC-V.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_1교시_Q13_RISC-V.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 1,
@@ -2001,7 +1997,7 @@
     },
     {
       "filename": "동기회_응_2교시_Q01_1. 공공 마이데이터 활용 방안에 대하여 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_2교시_Q01_1. 공공 마이데이터 활용 방안에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_2교시_Q01_1. 공공 마이데이터 활용 방안에 대하여 설명하시오..pdf",
       "source": "동기회",
       "exam": "응",
       "session": 2,
@@ -2013,7 +2009,7 @@
     },
     {
       "filename": "동기회_응_2교시_Q02_2. 소프트웨어 프로세스(SP, Software Process) 품질인증 제도에 대하여 다.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_2교시_Q02_2. 소프트웨어 프로세스(SP, Software Process) 품질인증 제도에 대하여 다.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_2교시_Q02_2. 소프트웨어 프로세스(SP, Software Process) 품질인증 제도에 대하여 다.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 2,
@@ -2025,7 +2021,7 @@
     },
     {
       "filename": "동기회_응_2교시_Q03_3. 운영체제의 기아현상(Starvation)에 대하여 다음 사항을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_2교시_Q03_3. 운영체제의 기아현상(Starvation)에 대하여 다음 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_2교시_Q03_3. 운영체제의 기아현상(Starvation)에 대하여 다음 사항을 설명하시오..pdf",
       "source": "동기회",
       "exam": "응",
       "session": 2,
@@ -2037,7 +2033,7 @@
     },
     {
       "filename": "동기회_응_2교시_Q04_4. sLLM(smaller Large Language Model)에 대하여 다음 사항을.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_2교시_Q04_4. sLLM(smaller Large Language Model)에 대하여 다음 사항을.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_2교시_Q04_4. sLLM(smaller Large Language Model)에 대하여 다음 사항을.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 2,
@@ -2049,7 +2045,7 @@
     },
     {
       "filename": "동기회_응_2교시_Q05_5. 소프트웨어 영향평가에 대하여 다음 사항을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_2교시_Q05_5. 소프트웨어 영향평가에 대하여 다음 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_2교시_Q05_5. 소프트웨어 영향평가에 대하여 다음 사항을 설명하시오..pdf",
       "source": "동기회",
       "exam": "응",
       "session": 2,
@@ -2061,7 +2057,7 @@
     },
     {
       "filename": "동기회_응_2교시_Q06_I_O(Input_Output) 장치와 메모리 사이에서 데이터를 직접 주고받기위해 사용하는.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_2교시_Q06_I_O(Input_Output) 장치와 메모리 사이에서 데이터를 직접 주고받기위해 사용하는.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_2교시_Q06_I_O(Input_Output) 장치와 메모리 사이에서 데이터를 직접 주고받기위해 사용하는.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 2,
@@ -2073,7 +2069,7 @@
     },
     {
       "filename": "동기회_응_3교시_Q01_클라우드 컴퓨팅 서비스 유형에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_3교시_Q01_클라우드 컴퓨팅 서비스 유형에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_3교시_Q01_클라우드 컴퓨팅 서비스 유형에 대하여 다음을 설명하시오..pdf",
       "source": "동기회",
       "exam": "응",
       "session": 3,
@@ -2085,7 +2081,7 @@
     },
     {
       "filename": "동기회_응_3교시_Q02_2. 가상메모리 주소 변환을 위해 사용하는 MMU(Memory Management Unit.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_3교시_Q02_2. 가상메모리 주소 변환을 위해 사용하는 MMU(Memory Management Unit.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_3교시_Q02_2. 가상메모리 주소 변환을 위해 사용하는 MMU(Memory Management Unit.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 3,
@@ -2097,7 +2093,7 @@
     },
     {
       "filename": "동기회_응_3교시_Q03_3. 제조현장에서 활용되고 있는 OPC UA(Open Platform Communicati.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_3교시_Q03_3. 제조현장에서 활용되고 있는 OPC UA(Open Platform Communicati.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_3교시_Q03_3. 제조현장에서 활용되고 있는 OPC UA(Open Platform Communicati.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 3,
@@ -2109,7 +2105,7 @@
     },
     {
       "filename": "동기회_응_3교시_Q04_4. 실시간 시스템에서 발생할 수 있는 우선순위 역전(Priority Inversion).pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_3교시_Q04_4. 실시간 시스템에서 발생할 수 있는 우선순위 역전(Priority Inversion).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_3교시_Q04_4. 실시간 시스템에서 발생할 수 있는 우선순위 역전(Priority Inversion).pdf",
       "source": "동기회",
       "exam": "응",
       "session": 3,
@@ -2121,7 +2117,7 @@
     },
     {
       "filename": "동기회_응_3교시_Q05_5. 샌드박스와 화이트박스의 목적, 적용 방법 및 예시를 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_3교시_Q05_5. 샌드박스와 화이트박스의 목적, 적용 방법 및 예시를 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_3교시_Q05_5. 샌드박스와 화이트박스의 목적, 적용 방법 및 예시를 설명하시오..pdf",
       "source": "동기회",
       "exam": "응",
       "session": 3,
@@ -2133,7 +2129,7 @@
     },
     {
       "filename": "동기회_응_3교시_Q06_시스템 버스(System Bus)와 버스 중재(Bus Arbitration) 방식을 설명하.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_3교시_Q06_시스템 버스(System Bus)와 버스 중재(Bus Arbitration) 방식을 설명하.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_3교시_Q06_시스템 버스(System Bus)와 버스 중재(Bus Arbitration) 방식을 설명하.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 3,
@@ -2145,7 +2141,7 @@
     },
     {
       "filename": "동기회_응_4교시_Q01_1. 영상압축기법에 대하여 다음을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_4교시_Q01_1. 영상압축기법에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_4교시_Q01_1. 영상압축기법에 대하여 다음을 설명하시오..pdf",
       "source": "동기회",
       "exam": "응",
       "session": 4,
@@ -2157,7 +2153,7 @@
     },
     {
       "filename": "동기회_응_4교시_Q02_2. AIaaS(AI as a Service)의 개념, 특징 및 도입 시 고려사항에 대하여.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_4교시_Q02_2. AIaaS(AI as a Service)의 개념, 특징 및 도입 시 고려사항에 대하여.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_4교시_Q02_2. AIaaS(AI as a Service)의 개념, 특징 및 도입 시 고려사항에 대하여.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 4,
@@ -2169,7 +2165,7 @@
     },
     {
       "filename": "동기회_응_4교시_Q03_3. 양자 머신러닝(QML, Quantum Machine Learning)의 주요 기술 및.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_4교시_Q03_3. 양자 머신러닝(QML, Quantum Machine Learning)의 주요 기술 및.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_4교시_Q03_3. 양자 머신러닝(QML, Quantum Machine Learning)의 주요 기술 및.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 4,
@@ -2181,7 +2177,7 @@
     },
     {
       "filename": "동기회_응_4교시_Q04_4. DNS (Domain Name System)에 대하여 다음 사항을 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_4교시_Q04_4. DNS (Domain Name System)에 대하여 다음 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_4교시_Q04_4. DNS (Domain Name System)에 대하여 다음 사항을 설명하시오..pdf",
       "source": "동기회",
       "exam": "응",
       "session": 4,
@@ -2193,7 +2189,7 @@
     },
     {
       "filename": "동기회_응_4교시_Q05_Q5.pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_4교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_4교시_Q05_Q5.pdf",
       "source": "동기회",
       "exam": "응",
       "session": 4,
@@ -2205,7 +2201,7 @@
     },
     {
       "filename": "동기회_응_4교시_Q06_디지털서비스 전문계약제도에 대하여 주요 특징, 디지털서비스 종류 및 기대효과를 설명하시오..pdf",
-      "path": "/Users/turtlesoup0-macmini/obsidian/turtlesoup0/기술사토픽/split_pdfs/137회/동기회_응_4교시_Q06_디지털서비스 전문계약제도에 대하여 주요 특징, 디지털서비스 종류 및 기대효과를 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/137회/동기회_응_4교시_Q06_디지털서비스 전문계약제도에 대하여 주요 특징, 디지털서비스 종류 및 기대효과를 설명하시오..pdf",
       "source": "동기회",
       "exam": "응",
       "session": 4,
@@ -2216,7 +2212,20 @@
       "needs_ocr": false
     }
   ],
-  "failed": [],
+  "failed": [
+    {
+      "pdf": "ITPE 137분석.pdf",
+      "error": "1교시 no bounds"
+    },
+    {
+      "pdf": "ITPE 137분석.pdf",
+      "error": "2교시 no bounds"
+    },
+    {
+      "pdf": "ITPE 137분석.pdf",
+      "error": "4교시 no bounds"
+    }
+  ],
   "verification_issues": [
     {
       "file": "ITPE_관_1교시_Q06_AI 거버넌스(Artificial Intelligence Governance)를 설명하시오.pdf",
@@ -2247,10 +2256,6 @@
       "issue": "TITLE_MISMATCH (expected: Q6...)"
     },
     {
-      "file": "ITPE_관_4교시_Q05_Q5.pdf",
-      "issue": "TITLE_MISMATCH (expected: Q5...)"
-    },
-    {
       "file": "ITPE_응_1교시_Q02_클라우드 AI 와 온디바이스 AI 의 개념 비교.pdf",
       "issue": "TITLE_MISMATCH (expected: 클라우드 AI 와 ...)"
     },
@@ -2276,18 +2281,6 @@
     },
     {
       "file": "ITPE_응_3교시_Q06_Q6.pdf",
-      "issue": "TITLE_MISMATCH (expected: Q6...)"
-    },
-    {
-      "file": "ITPE_응_4교시_Q04_침입차단시스템(Firewall), 침입탐지시스템(IDS, Intrusion Detectio.pdf",
-      "issue": "TITLE_MISMATCH (expected: 침입차단시스템(Fi...)"
-    },
-    {
-      "file": "ITPE_응_4교시_Q05_Q5.pdf",
-      "issue": "TITLE_MISMATCH (expected: Q5...)"
-    },
-    {
-      "file": "ITPE_응_4교시_Q06_Q6.pdf",
       "issue": "TITLE_MISMATCH (expected: Q6...)"
     },
     {

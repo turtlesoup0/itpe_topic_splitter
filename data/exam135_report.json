@@ -1,0 +1,1563 @@
+{
+  "timestamp": "2026-02-20T14:48:47.434598",
+  "exam": "135회",
+  "total": 112,
+  "results": [
+    {
+      "filename": "ITPE_관_1교시_Q01_Q1.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q01_Q1.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "Q1",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q02_Multimodal LLM(Large Language Model).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q02_Multimodal LLM(Large Language Model).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "Multimodal LLM(Large Language Model)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q03_요구사항 추적표(Requirement Traceability Matrix).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q03_요구사항 추적표(Requirement Traceability Matrix).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "요구사항 추적표(Requirement Traceability Matrix)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q04_IBN(Intent-Based Networking).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q04_IBN(Intent-Based Networking).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "IBN(Intent-Based Networking)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q05_SIEM(Security Information & Event Management) & SO.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q05_SIEM(Security Information & Event Management) & SO.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "SIEM(Security Information & Event Management) & SOAR(Security Orchestration",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q06_실루엣 계수(Silhouette Coefficient).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q06_실루엣 계수(Silhouette Coefficient).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "실루엣 계수(Silhouette Coefficient)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q07_개인정보 안심구역.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q07_개인정보 안심구역.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "개인정보 안심구역",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q08_불편추정량(Unbiased Estimator).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q08_불편추정량(Unbiased Estimator).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "불편추정량(Unbiased Estimator)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q09_소프트웨어 기술 부채의 유형과 관리 방법.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q09_소프트웨어 기술 부채의 유형과 관리 방법.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "소프트웨어 기술 부채의 유형과 관리 방법",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q10_IEEE 802.11bn.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q10_IEEE 802.11bn.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "IEEE 802.11bn",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q11_팬텀 충돌(Phantom Conflict).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q11_팬텀 충돌(Phantom Conflict).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "팬텀 충돌(Phantom Conflict)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q12_VAE(Variational AutoEncoder).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q12_VAE(Variational AutoEncoder).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "VAE(Variational AutoEncoder)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q13_AGI(Artificial General Intelligence) 측면에서 ANI(Arti.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_1교시_Q13_AGI(Artificial General Intelligence) 측면에서 ANI(Arti.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "AGI(Artificial General Intelligence) 측면에서 ANI(Artificial Narrow Intelligence)의",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q01_물리 데이터 모델링 중 반정규화에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_2교시_Q01_물리 데이터 모델링 중 반정규화에 대하여 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "물리 데이터 모델링 중 반정규화에 대하여 다음을 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q02_CI_CD(Continuous Integration_Continuous Delivery o.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_2교시_Q02_CI_CD(Continuous Integration_Continuous Delivery o.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "CI/CD(Continuous Integration/Continuous Delivery or Continuous Deployment)",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q03_회귀모형에서 오차의 등분산성(Homoscedasticity)과 다중공선성(Multicoll.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_2교시_Q03_회귀모형에서 오차의 등분산성(Homoscedasticity)과 다중공선성(Multicoll.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "회귀모형에서 오차의 등분산성(Homoscedasticity)과 다중공선성(Multicollinearity)에",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_2교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_2교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_2교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q01_프로젝트 관리에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_3교시_Q01_프로젝트 관리에 대하여 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "프로젝트 관리에 대하여 다음을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q02_프롬프트 엔지니어링(Prompt Enginerng)의 기술 요소와 활용 방안에 대하여.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_3교시_Q02_프롬프트 엔지니어링(Prompt Enginerng)의 기술 요소와 활용 방안에 대하여.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "프롬프트 엔지니어링(Prompt Enginerng)의 기술 요소와 활용 방안에 대하여",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q03_멀티클라우드(MultiCloud)에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_3교시_Q03_멀티클라우드(MultiCloud)에 대하여 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "멀티클라우드(MultiCloud)에 대하여 다음을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_3교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_3교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_3교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q01_확장성 해싱 (Extendible Hashing)기법에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_4교시_Q01_확장성 해싱 (Extendible Hashing)기법에 대하여 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "확장성 해싱 (Extendible Hashing)기법에 대하여 다음을 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q02_릴레이션 무결성 제약의 유형과 사례를 제시하고, 구현 방법에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_4교시_Q02_릴레이션 무결성 제약의 유형과 사례를 제시하고, 구현 방법에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "릴레이션 무결성 제약의 유형과 사례를 제시하고, 구현 방법에 대하여 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q03_이항 분포(Binomial Distribution)와 포아송 분포(Poisson Distr.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_4교시_Q03_이항 분포(Binomial Distribution)와 포아송 분포(Poisson Distr.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "이항 분포(Binomial Distribution)와 포아송 분포(Poisson Distribution)를 비교",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_4교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_4교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_관_4교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q01_지식재산권의 종류.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q01_지식재산권의 종류.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "지식재산권의 종류",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q02_SOAP(Simple Object Access Protocol)와 REST(Represen.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q02_SOAP(Simple Object Access Protocol)와 REST(Represen.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "SOAP(Simple Object Access Protocol)와 REST(Representational State Transter)를",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q03_MMU(Memory Management Unit).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q03_MMU(Memory Management Unit).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "MMU(Memory Management Unit)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q04_몬테카를로 트리탐색(Monte Carlo Tree Search).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q04_몬테카를로 트리탐색(Monte Carlo Tree Search).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "몬테카를로 트리탐색(Monte Carlo Tree Search)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q05_모놀리식 아키텍처(Monolithic Architecture)와 마이크로서비스 아키.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q05_모놀리식 아키텍처(Monolithic Architecture)와 마이크로서비스 아키.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "모놀리식 아키텍처(Monolithic Architecture)와 마이크로서비스 아키",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q06_멀티클라우드(Multicloud).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q06_멀티클라우드(Multicloud).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "멀티클라우드(Multicloud)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q07_채널용량(샤논 제3 정리, Information Capacity Theorem).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q07_채널용량(샤논 제3 정리, Information Capacity Theorem).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "채널용량(샤논 제3 정리, Information Capacity Theorem)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q08_[정보시스템 하드웨어 규모산정 지침 (TTAKIKO-10.0292_R3) 에 따른 하드 웨.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q08_[정보시스템 하드웨어 규모산정 지침 (TTAKIKO-10.0292_R3) 에 따른 하드 웨.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "[정보시스템 하드웨어 규모산정 지침 (TTAKIKO-10.0292/R3) 에 따른 하드 웨어",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q09_인공지능 성능 관련 차원의 저주 (Curse of Dimensionality).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q09_인공지능 성능 관련 차원의 저주 (Curse of Dimensionality).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "인공지능 성능 관련 차원의 저주 (Curse of Dimensionality)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q10_공공데이터 품질인증.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q10_공공데이터 품질인증.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "공공데이터 품질인증",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q11_운영제제(Operating System)에서 태스크 우선순위 상속(Priority Inhe.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q11_운영제제(Operating System)에서 태스크 우선순위 상속(Priority Inhe.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "운영제제(Operating System)에서 태스크 우선순위 상속(Priority Inheritance)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q12_RAG(Retrieval-Augmented Generation).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q12_RAG(Retrieval-Augmented Generation).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "RAG(Retrieval-Augmented Generation)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q13_European Telecommunications Standards Institute(ET.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_1교시_Q13_European Telecommunications Standards Institute(ET.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "European Telecommunications Standards Institute(ETSI)의 Zero-touch network",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q01_「생성형 인공지능 학습을 위한 멀티모달 데이터의 품질검증 방법(정보통신단체표준,.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_2교시_Q01_「생성형 인공지능 학습을 위한 멀티모달 데이터의 품질검증 방법(정보통신단체표준,.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "「생성형 인공지능 학습을 위한 멀티모달 데이터의 품질검증 방법(정보통신단체표준,",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q02_인구 구조적 변화와 환경문제 해결책으로 제시되는 지속 가능한 스마트시티(Smart.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_2교시_Q02_인구 구조적 변화와 환경문제 해결책으로 제시되는 지속 가능한 스마트시티(Smart.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "인구 구조적 변화와 환경문제 해결책으로 제시되는 지속 가능한 스마트시티(Smart",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q03_정보시스템의 접근통제 정책에는 강제적 접근통제(MAC, Mandatory Access Co.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_2교시_Q03_정보시스템의 접근통제 정책에는 강제적 접근통제(MAC, Mandatory Access Co.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "정보시스템의 접근통제 정책에는 강제적 접근통제(MAC, Mandatory Access Control),",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_2교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_2교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_2교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q01_데이터처리의 효율성과 속도를 높이기 위한 엣지 컴퓨팅(Edge Computing)에 대하여.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_3교시_Q01_데이터처리의 효율성과 속도를 높이기 위한 엣지 컴퓨팅(Edge Computing)에 대하여.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "데이터처리의 효율성과 속도를 높이기 위한 엣지 컴퓨팅(Edge Computing)에 대하여",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q02_「안티드론 시스템 프레임워크(정보통신단체표준, TTAK, KO-10. 1460)」에 대하여.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_3교시_Q02_「안티드론 시스템 프레임워크(정보통신단체표준, TTAK, KO-10. 1460)」에 대하여.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "「안티드론 시스템 프레임워크(정보통신단체표준, TTAK, KO-10. 1460)」에 대하여",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q03_과학기술정보통신부는 2024 년 12 월 「철통 인증 지침(제로트러스트 가이드라인).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_3교시_Q03_과학기술정보통신부는 2024 년 12 월 「철통 인증 지침(제로트러스트 가이드라인).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "과학기술정보통신부는 2024 년 12 월 「철통 인증 지침(제로트러스트 가이드라인)",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_3교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_3교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_3교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q01_중앙은행 디지털 화폐(CBDC, Central Bank Digital Currency) 설.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_4교시_Q01_중앙은행 디지털 화폐(CBDC, Central Bank Digital Currency) 설.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "중앙은행 디지털 화폐(CBDC, Central Bank Digital Currency) 설계를 위한 고려",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q02_스마트시티 데이터 거버넌스(Smart City Data Governance)에 대하여 설명.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_4교시_Q02_스마트시티 데이터 거버넌스(Smart City Data Governance)에 대하여 설명.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "스마트시티 데이터 거버넌스(Smart City Data Governance)에 대하여 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q03_서버 이중화 구성 방안에 대하여 아래 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_4교시_Q03_서버 이중화 구성 방안에 대하여 아래 사항을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "서버 이중화 구성 방안에 대하여 아래 사항을 설명하시오.",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_4교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_4교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/ITPE_응_4교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q01_PR(Precision Recall) 곡선과 ROC(Receiver Operating Ch.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q01_PR(Precision Recall) 곡선과 ROC(Receiver Operating Ch.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "PR(Precision Recall) 곡선과 ROC(Receiver Operating Characteristic) 곡선",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q02_Multimodal LLM(Large Language Model).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q02_Multimodal LLM(Large Language Model).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "Multimodal LLM(Large Language Model)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q03_요구사항 추적표(Requirement Traceabillity Matrix).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q03_요구사항 추적표(Requirement Traceabillity Matrix).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "요구사항 추적표(Requirement Traceabillity Matrix)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q04_IBN(Intent-Based Networking).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q04_IBN(Intent-Based Networking).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "IBN(Intent-Based Networking)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q05_SIEM(Security Information & Event Management)와 SOA.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q05_SIEM(Security Information & Event Management)와 SOA.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "SIEM(Security Information & Event Management)와 SOAR(Security",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q06_실루엣 계수(Silhouette Coefficient).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q06_실루엣 계수(Silhouette Coefficient).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "실루엣 계수(Silhouette Coefficient)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q07_개인정보 안심구역.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q07_개인정보 안심구역.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "개인정보 안심구역",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q08_불편추정량(Unbiased Estimator).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q08_불편추정량(Unbiased Estimator).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "불편추정량(Unbiased Estimator)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q09_소프트웨어 기술 부채의 유형과 관리 방법.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q09_소프트웨어 기술 부채의 유형과 관리 방법.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "소프트웨어 기술 부채의 유형과 관리 방법",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q10_IEEE 802.11bn.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q10_IEEE 802.11bn.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "IEEE 802.11bn",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q11_팬텀충돌(Phantom Conflict).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q11_팬텀충돌(Phantom Conflict).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "팬텀충돌(Phantom Conflict)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q12_VAE(Variational AutoEncoder).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q12_VAE(Variational AutoEncoder).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "VAE(Variational AutoEncoder)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q13_AGI(Artificial General Intelligence) 측면에서 ANI(Arti.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_1교시_Q13_AGI(Artificial General Intelligence) 측면에서 ANI(Arti.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "AGI(Artificial General Intelligence) 측면에서 ANI(Artificial Narrow",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q01_물리 데이터 모델링 중 반정규화에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_2교시_Q01_물리 데이터 모델링 중 반정규화에 대하여 다음을 설명하시오..pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "물리 데이터 모델링 중 반정규화에 대하여 다음을 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q02_CI_CD(Continuous.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_2교시_Q02_CI_CD(Continuous.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "CI/CD(Continuous",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q03_희귀모형에서 오차의 등분산성(Homoscedasticity)과 다중공선성(Multicoll.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_2교시_Q03_희귀모형에서 오차의 등분산성(Homoscedasticity)과 다중공선성(Multicoll.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "희귀모형에서 오차의 등분산성(Homoscedasticity)과 다중공선성(Multicollineari",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q04_6G 이동통신기술에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_2교시_Q04_6G 이동통신기술에 대하여 다음을 설명하시오..pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "6G 이동통신기술에 대하여 다음을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q05_최근 많은 공공기관에서 거대 언어 모델(Large Language Model)의 적용을 준.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_2교시_Q05_최근 많은 공공기관에서 거대 언어 모델(Large Language Model)의 적용을 준.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "최근 많은 공공기관에서 거대 언어 모델(Large Language Model)의 적용을 준비하",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q06_AI 디지털교과서에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_2교시_Q06_AI 디지털교과서에 대하여 다음을 설명하시오..pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "AI 디지털교과서에 대하여 다음을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q02_Q2.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_4교시_Q02_Q2.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "Q2",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q03_Q3.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_4교시_Q03_Q3.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "Q3",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_4교시_Q04_Q4.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_4교시_Q05_Q5.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_4교시_Q06_Q6.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 18,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q01_Q1.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_관_4교시_Q01_Q1.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "Q1",
+      "pages": 68,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q01_지식재산권의 종류.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q01_지식재산권의 종류.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "지식재산권의 종류",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q02_SOAP(Simple Object Access Protocol)와 REST(Represen.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q02_SOAP(Simple Object Access Protocol)와 REST(Represen.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "SOAP(Simple Object Access Protocol)와 REST(Representational State Transfer)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q03_MMU (Memory Management Unit).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q03_MMU (Memory Management Unit).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "MMU (Memory Management Unit)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q04_몬테카를로 트리탐색(Monte Carlo Tree Search).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q04_몬테카를로 트리탐색(Monte Carlo Tree Search).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "몬테카를로 트리탐색(Monte Carlo Tree Search)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q05_모놀리식 아키텍처(Monolithic Architecture)와 마이크로서비스 아키텍처(M.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q05_모놀리식 아키텍처(Monolithic Architecture)와 마이크로서비스 아키텍처(M.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "모놀리식 아키텍처(Monolithic Architecture)와 마이크로서비스 아키텍처(MicroService",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q06_멀티클라우드(Multicloud).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q06_멀티클라우드(Multicloud).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "멀티클라우드(Multicloud)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q07_채널용량(샤논 제3 정리, Information Capacity Theorem).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q07_채널용량(샤논 제3 정리, Information Capacity Theorem).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "채널용량(샤논 제3 정리, Information Capacity Theorem)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q08_「정보시스템 하드웨어 규모산정 지침(TTAK.KO-10.0292_R3)」에 따른 하드웨어.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q08_「정보시스템 하드웨어 규모산정 지침(TTAK.KO-10.0292_R3)」에 따른 하드웨어.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "「정보시스템 하드웨어 규모산정 지침(TTAK.KO-10.0292/R3)」에 따른 하드웨어 규모산",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q09_인공지능 성능 관련 차원의 저주(Curse of Dimensionality).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q09_인공지능 성능 관련 차원의 저주(Curse of Dimensionality).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "인공지능 성능 관련 차원의 저주(Curse of Dimensionality)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q10_공공데이터 품질인증.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q10_공공데이터 품질인증.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "공공데이터 품질인증",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q12_RAG (Retrieval-Augmented Generation).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q12_RAG (Retrieval-Augmented Generation).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "RAG (Retrieval-Augmented Generation)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q13_European Telecommunications Standards Institute(ET.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_1교시_Q13_European Telecommunications Standards Institute(ET.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "European Telecommunications Standards Institute(ETSI)의 Zero-touch network",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q01_「생성형 인공지능 학습을 위한 멀티모달 데이터의 품질검증 방법(정보통신단체표준,.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_2교시_Q01_「생성형 인공지능 학습을 위한 멀티모달 데이터의 품질검증 방법(정보통신단체표준,.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "「생성형 인공지능 학습을 위한 멀티모달 데이터의 품질검증 방법(정보통신단체표준,",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q02_인구 구조적 변화와 환경문제 해결책으로 제시되는 지속 가능한 스마트시티(Smart.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_2교시_Q02_인구 구조적 변화와 환경문제 해결책으로 제시되는 지속 가능한 스마트시티(Smart.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "인구 구조적 변화와 환경문제 해결책으로 제시되는 지속 가능한 스마트시티(Smart",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q03_정보시스템의 접근통제 정책에서는 강제적 접근통제(MAC, Mandatory Access.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_2교시_Q03_정보시스템의 접근통제 정책에서는 강제적 접근통제(MAC, Mandatory Access.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "정보시스템의 접근통제 정책에서는 강제적 접근통제(MAC, Mandatory Access",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q04_캐쉬 메모리(Cache Memory)에 대하여 아래 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_2교시_Q04_캐쉬 메모리(Cache Memory)에 대하여 아래 사항을 설명하시오..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "캐쉬 메모리(Cache Memory)에 대하여 아래 사항을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q05_트래픽 폴리싱(Traffic Policing)과 트래픽 쉐이핑(Traffic Shaping.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_2교시_Q05_트래픽 폴리싱(Traffic Policing)과 트래픽 쉐이핑(Traffic Shaping.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "트래픽 폴리싱(Traffic Policing)과 트래픽 쉐이핑(Traffic Shaping)에 대하여 아",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q06_데이터베이스 트랜잭션 회복(Recovery) 기법에 대하여 아래 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_2교시_Q06_데이터베이스 트랜잭션 회복(Recovery) 기법에 대하여 아래 사항을 설명하시오..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "데이터베이스 트랜잭션 회복(Recovery) 기법에 대하여 아래 사항을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_3교시_Q06_연결 리스트(Linked List)에 대하여 아래 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_3교시_Q06_연결 리스트(Linked List)에 대하여 아래 사항을 설명하시오..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "연결 리스트(Linked List)에 대하여 아래 사항을 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q01_중앙은행디지털화폐(CBDC, Central Bank Digital Currency) 설계를.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_4교시_Q01_중앙은행디지털화폐(CBDC, Central Bank Digital Currency) 설계를.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "중앙은행디지털화폐(CBDC, Central Bank Digital Currency) 설계를위한고려",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q02_스마트시티데이터거버넌스(Smart City Data Governance)에대하여설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_4교시_Q02_스마트시티데이터거버넌스(Smart City Data Governance)에대하여설명하시오..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "스마트시티데이터거버넌스(Smart City Data Governance)에대하여설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q03_서버이중화구성방안에대하여아래사항을설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_4교시_Q03_서버이중화구성방안에대하여아래사항을설명하시오..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "서버이중화구성방안에대하여아래사항을설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q04_소프트웨어의무중단배포(Zero Downtime Deployment) 방식에대하여설명하시.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_4교시_Q04_소프트웨어의무중단배포(Zero Downtime Deployment) 방식에대하여설명하시.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "소프트웨어의무중단배포(Zero Downtime Deployment) 방식에대하여설명하시",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q05_고장허용(Fault Tolerant) 시스템과고가용성(High Availability) 시.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_4교시_Q05_고장허용(Fault Tolerant) 시스템과고가용성(High Availability) 시.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "고장허용(Fault Tolerant) 시스템과고가용성(High Availability) 시스템에대하여",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q06_파이프라인해저드(Pipeline Hazard)에대하여아래사항을설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/135회/KPC_응_4교시_Q06_파이프라인해저드(Pipeline Hazard)에대하여아래사항을설명하시오..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "파이프라인해저드(Pipeline Hazard)에대하여아래사항을설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    }
+  ],
+  "failed": [
+    {
+      "pdf": "KPC 135관-합.pdf",
+      "error": "3교시 no bounds"
+    },
+    {
+      "pdf": "동기회 135관.pdf",
+      "error": "no bounds"
+    },
+    {
+      "pdf": "동기회 135응.pdf",
+      "error": "no bounds"
+    }
+  ],
+  "verification_issues": [
+    {
+      "file": "ITPE_관_1교시_Q01_Q1.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q1...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q01_확장성 해싱 (Extendible Hashing)기법에 대하여 다음을 설명하시오..pdf",
+      "issue": "TITLE_MISMATCH (expected: 확장성 해싱 (Ex...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_응_2교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_응_2교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_응_2교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_응_3교시_Q02_「안티드론 시스템 프레임워크(정보통신단체표준, TTAK, KO-10. 1460)」에 대하여.pdf",
+      "issue": "TITLE_MISMATCH (expected: 「안티드론 시스템 ...)"
+    },
+    {
+      "file": "ITPE_응_3교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_응_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_응_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_응_4교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_응_4교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_응_4교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "KPC_관_1교시_Q03_요구사항 추적표(Requirement Traceabillity Matrix).pdf",
+      "issue": "TITLE_MISMATCH (expected: 요구사항 추적표(R...)"
+    },
+    {
+      "file": "KPC_관_1교시_Q06_실루엣 계수(Silhouette Coefficient).pdf",
+      "issue": "TITLE_MISMATCH (expected: 실루엣 계수(Sil...)"
+    },
+    {
+      "file": "KPC_관_1교시_Q07_개인정보 안심구역.pdf",
+      "issue": "TITLE_MISMATCH (expected: 개인정보 안심구역...)"
+    },
+    {
+      "file": "KPC_관_1교시_Q09_소프트웨어 기술 부채의 유형과 관리 방법.pdf",
+      "issue": "TITLE_MISMATCH (expected: 소프트웨어 기술 부...)"
+    },
+    {
+      "file": "KPC_관_2교시_Q01_물리 데이터 모델링 중 반정규화에 대하여 다음을 설명하시오..pdf",
+      "issue": "TITLE_MISMATCH (expected: 물리 데이터 모델링...)"
+    },
+    {
+      "file": "KPC_관_2교시_Q03_희귀모형에서 오차의 등분산성(Homoscedasticity)과 다중공선성(Multicoll.pdf",
+      "issue": "TITLE_MISMATCH (expected: 희귀모형에서 오차의...)"
+    },
+    {
+      "file": "KPC_관_2교시_Q05_최근 많은 공공기관에서 거대 언어 모델(Large Language Model)의 적용을 준.pdf",
+      "issue": "TITLE_MISMATCH (expected: 최근 많은 공공기관...)"
+    },
+    {
+      "file": "KPC_관_4교시_Q02_Q2.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q2...)"
+    },
+    {
+      "file": "KPC_관_4교시_Q03_Q3.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q3...)"
+    },
+    {
+      "file": "KPC_관_4교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "KPC_관_4교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "KPC_관_4교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "KPC_관_4교시_Q01_Q1.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q1...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q01_지식재산권의 종류.pdf",
+      "issue": "TITLE_MISMATCH (expected: 지식재산권의 종류...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q04_몬테카를로 트리탐색(Monte Carlo Tree Search).pdf",
+      "issue": "TITLE_MISMATCH (expected: 몬테카를로 트리탐색...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q05_모놀리식 아키텍처(Monolithic Architecture)와 마이크로서비스 아키텍처(M.pdf",
+      "issue": "TITLE_MISMATCH (expected: 모놀리식 아키텍처(...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q07_채널용량(샤논 제3 정리, Information Capacity Theorem).pdf",
+      "issue": "TITLE_MISMATCH (expected: 채널용량(샤논 제3...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q08_「정보시스템 하드웨어 규모산정 지침(TTAK.KO-10.0292_R3)」에 따른 하드웨어.pdf",
+      "issue": "TITLE_MISMATCH (expected: 「정보시스템 하드웨...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q09_인공지능 성능 관련 차원의 저주(Curse of Dimensionality).pdf",
+      "issue": "TITLE_MISMATCH (expected: 인공지능 성능 관련...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q10_공공데이터 품질인증.pdf",
+      "issue": "TITLE_MISMATCH (expected: 공공데이터 품질인증...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q12_RAG (Retrieval-Augmented Generation).pdf",
+      "issue": "TITLE_MISMATCH (expected: RAG (Retri...)"
+    },
+    {
+      "file": "KPC_응_2교시_Q01_「생성형 인공지능 학습을 위한 멀티모달 데이터의 품질검증 방법(정보통신단체표준,.pdf",
+      "issue": "TITLE_MISMATCH (expected: 「생성형 인공지능 ...)"
+    },
+    {
+      "file": "KPC_응_2교시_Q02_인구 구조적 변화와 환경문제 해결책으로 제시되는 지속 가능한 스마트시티(Smart.pdf",
+      "issue": "TITLE_MISMATCH (expected: 인구 구조적 변화와...)"
+    },
+    {
+      "file": "KPC_응_2교시_Q03_정보시스템의 접근통제 정책에서는 강제적 접근통제(MAC, Mandatory Access.pdf",
+      "issue": "TITLE_MISMATCH (expected: 정보시스템의 접근통...)"
+    },
+    {
+      "file": "KPC_응_2교시_Q04_캐쉬 메모리(Cache Memory)에 대하여 아래 사항을 설명하시오..pdf",
+      "issue": "TITLE_MISMATCH (expected: 캐쉬 메모리(Cac...)"
+    },
+    {
+      "file": "KPC_응_2교시_Q05_트래픽 폴리싱(Traffic Policing)과 트래픽 쉐이핑(Traffic Shaping.pdf",
+      "issue": "TITLE_MISMATCH (expected: 트래픽 폴리싱(Tr...)"
+    },
+    {
+      "file": "KPC_응_2교시_Q06_데이터베이스 트랜잭션 회복(Recovery) 기법에 대하여 아래 사항을 설명하시오..pdf",
+      "issue": "TITLE_MISMATCH (expected: 데이터베이스 트랜잭...)"
+    },
+    {
+      "file": "KPC_응_3교시_Q06_연결 리스트(Linked List)에 대하여 아래 사항을 설명하시오..pdf",
+      "issue": "TITLE_MISMATCH (expected: 연결 리스트(Lin...)"
+    }
+  ]
+}

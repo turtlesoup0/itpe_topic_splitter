@@ -19,7 +19,7 @@ from typing import Optional
 
 # ─── 공통 패턴 ────────────────────────────────────────────────────
 _끝_PAT = re.compile(r'^[\u201c\u201d"\']?끝[\u201c\u201d"\']?\s*$')
-_ROMAN_I_PAT = re.compile(r'^I\.\s+.{8,}')
+_ROMAN_I_PAT = re.compile(r'^I\.\s+.{3,}')
 _MENTI_PAT = re.compile(r'^문\s*제\s+(\d{1,2})\.\s+(.+)', re.DOTALL)
 _STD_NUM_PAT = re.compile(r'^(\d{1,2})\.\s+(.{5,})')
 _IGNORE_PAT = re.compile(
@@ -419,7 +419,7 @@ def score_boundaries(elements: list, session_block: SessionBlock,
     # 비토픽(noise) 페이지 식별: 통계, 도입부, 참고자료 등
     noise_pages = _detect_noise_pages(block_elems, repeated_headers)
 
-    # 실제 콘텐츠 시작 페이지 (표지 다음)
+    # 실제 콘텐츠 시작 페이지 (표지/qlist 다음)
     content_start = _find_content_start(
         elements, ps, pe, repeated_headers
     ) if ps in cover_pages_in_block else ps
@@ -511,6 +511,10 @@ def score_boundaries(elements: list, session_block: SessionBlock,
     # KPC 등에서 "N. ...설명하시오." 형태의 시험 문제가 직접 본문에 삽입됨
     _apply_question_text_signal(block_elems, page_scores, weights,
                                 repeated_headers, cover_pages_in_block)
+
+    # ── 신호 7: 한글 소제목 "가." 리셋 → 새 토픽 시작 ───────────────
+    _apply_kr_restart_signal(block_elems, page_scores,
+                             repeated_headers, cover_pages_in_block)
 
     # ── 블록 첫 콘텐츠 페이지는 항상 토픽 시작 후보 ──────────────────
     if content_start in page_scores and page_scores[content_start].score == 0:
@@ -732,6 +736,68 @@ def _apply_question_text_signal(block_elems: list, page_scores: dict,
             page_scores[pg].title = title
 
 
+def _apply_kr_restart_signal(block_elems: list, page_scores: dict,
+                              repeated_headers: set,
+                              cover_pages: set):
+    """
+    한글 소제목 "가." 리셋 신호.
+
+    기술사 답안에서 각 토픽은 "가. 정의 → 나. 특징 → 다. 비교" 순서로 진행.
+    "나." 이상이 나타난 후 "가."가 다시 등장하면 새 토픽 시작 가능성.
+
+    인포레버 138응처럼 "I." 없이 "가./나." 소제목만으로 시작하는 토픽에서
+    경계를 감지하는 보조 신호.
+
+    단, 같은 페이지 또는 인접 페이지에 "II./III." 등 로마 숫자가 있으면
+    동일 토픽 내 섹션 전환이므로 신호를 무시.
+    """
+    KR_ORDER = {'가': 0, '나': 1, '다': 2, '라': 3, '마': 4,
+                '바': 5, '사': 6, '아': 7}
+    _ROMAN_GE2 = re.compile(r'^(II|III|IV|V)\.\s+')
+
+    # 페이지별 첫 한글 소제목 + 로마 숫자 II+ 존재 여부 수집
+    page_first_kr: dict[int, tuple[int, str]] = {}
+    page_has_roman_ge2: dict[int, bool] = {}
+
+    for e in sorted(block_elems, key=lambda x: x["page"]):
+        c = e["content"].strip()
+        if c in repeated_headers or _IGNORE_PAT.search(c):
+            continue
+        pg = e["page"]
+        if pg in cover_pages:
+            continue
+
+        if _ROMAN_GE2.match(c):
+            page_has_roman_ge2[pg] = True
+
+        if pg in page_first_kr:
+            continue
+        m = _KR_SUB_PAT.match(c)
+        if m and m.group(1) in KR_ORDER:
+            page_first_kr[pg] = (KR_ORDER[m.group(1)], m.group(2).strip()[:70])
+
+    if not page_first_kr:
+        return
+
+    # "가." 리셋 탐지
+    prev_order = -1
+    for pg in sorted(page_first_kr.keys()):
+        order, title = page_first_kr[pg]
+        if order == 0 and prev_order >= 1:
+            # 같은 페이지 또는 인접 페이지에 II./III. 있으면 무시
+            if (page_has_roman_ge2.get(pg, False) or
+                    page_has_roman_ge2.get(pg - 1, False)):
+                prev_order = max(prev_order, order)
+                continue
+            score = 6.0
+            if pg in page_scores:
+                page_scores[pg].score += score
+                page_scores[pg].signals["kr_restart"] = score
+                if not page_scores[pg].title or len(title) > len(page_scores[pg].title):
+                    page_scores[pg].title = title
+        prev_order = max(prev_order, order)
+
+
 def _extract_title(elements: list, page: int, repeated_headers: set) -> str:
     """페이지에서 토픽 제목 후보를 추출"""
     for e in elements:
@@ -904,7 +970,7 @@ def detect_boundaries_v2(elements: list, total_pages: int,
             span = page_end - cand.page + 1
             # 1교시 단답형(기대 ~2p)에서 3p 이상이면 sub-split 시도
             # 2-4교시 서술형(기대 ~5p)에서 8p 이상이면 sub-split 시도
-            max_span = 3 if sess.expected_topics >= 10 else 8
+            max_span = 3 if sess.expected_topics >= 10 else 6
             sub_splits = []
             if span > max_span:
                 sub_splits = _sub_split_long_section(
@@ -998,6 +1064,13 @@ def _sub_split_long_section(elements: list, start: int, end: int,
             subs = [{"page": start, "title": _extract_title(
                 sec_elems, start, repeated)}] + kr_subs
 
+    # sub 없거나 1개면 서술형 heading으로 최후 시도
+    if len(subs) <= 1 and try_kr_heading:
+        heading_subs = _sub_split_by_heading_title(sec_elems, start, end, repeated)
+        if heading_subs:
+            subs = [{"page": start, "title": _extract_title(
+                sec_elems, start, repeated)}] + heading_subs
+
     # sub 없거나 1개면 분할하지 않음
     if len(subs) <= 1:
         return []
@@ -1051,5 +1124,45 @@ def _sub_split_by_kr_heading(sec_elems: list, start: int,
         if order == 0 and prev_order >= 1:
             subs.append({"page": pg, "title": title})
         prev_order = max(prev_order, order)
+
+    return subs
+
+
+def _sub_split_by_heading_title(sec_elems: list, start: int, end: int,
+                                 repeated: set) -> list[dict]:
+    """
+    최후 수단: 긴 서술형 heading으로 토픽 경계를 감지.
+
+    "I." 없이 시작하는 토픽에서 긴(25자+) 서술형 heading이
+    페이지의 첫 의미 있는 element로 등장하면 새 토픽 시작으로 판단.
+
+    소제목 형식(N., 가., I.)은 제외하여 과분할을 방지.
+    """
+    # 페이지별 첫 의미 있는 element 수집
+    page_first_meaningful: dict[int, dict] = {}
+    for e in sorted(sec_elems, key=lambda x: x["page"]):
+        c = e["content"].strip()
+        if c in repeated or _IGNORE_PAT.search(c) or len(c) < 5:
+            continue
+        pg = e["page"]
+        if pg not in page_first_meaningful:
+            page_first_meaningful[pg] = e
+
+    subs = []
+    for pg in sorted(page_first_meaningful.keys()):
+        if pg == start:
+            continue
+        e = page_first_meaningful[pg]
+        if e["type"] != "heading":
+            continue
+        c = e["content"].strip()
+        if len(c) < 25:
+            continue
+        # 소제목/번호 형식 제외
+        if _STD_NUM_PAT.match(c) or _KR_SUB_PAT.match(c) or _ROMAN_I_PAT.match(c):
+            continue
+        if _끝_PAT.match(c):
+            continue
+        subs.append({"page": pg, "title": c[:70]})
 
     return subs

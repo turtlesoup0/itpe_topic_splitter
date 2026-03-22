@@ -1,0 +1,515 @@
+{
+  "timestamp": "2026-02-20T14:47:28.490836",
+  "exam": "127회",
+  "total": 36,
+  "results": [
+    {
+      "filename": "ITPE_관_1교시_Q01_대체불가능 토큰(Non-Fungible Token).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q01_대체불가능 토큰(Non-Fungible Token).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "대체불가능 토큰(Non-Fungible Token)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q02_모델옵스(ModelOps).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q02_모델옵스(ModelOps).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "모델옵스(ModelOps)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q03_추정통계의 표본과 불편 추정량.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q03_추정통계의 표본과 불편 추정량.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "추정통계의 표본과 불편 추정량",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q04_균형성과기록표(Balanced Score Card)의 구성요소.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q04_균형성과기록표(Balanced Score Card)의 구성요소.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "균형성과기록표(Balanced Score Card)의 구성요소",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q05_메시지 인증 코드(Message Authentication Code).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q05_메시지 인증 코드(Message Authentication Code).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "메시지 인증 코드(Message Authentication Code)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q06_스프링 부트(Spring Boot).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q06_스프링 부트(Spring Boot).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "스프링 부트(Spring Boot)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q07_테스트 커버리지(Test Coverage)와 코드 커버리지(Code Coverage).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q07_테스트 커버리지(Test Coverage)와 코드 커버리지(Code Coverage).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "테스트 커버리지(Test Coverage)와 코드 커버리지(Code Coverage)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q08_MongoDB 의 개념 및 특징.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q08_MongoDB 의 개념 및 특징.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "MongoDB 의 개념 및 특징",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q09_변조(Modification)와 위조(Fabrication).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q09_변조(Modification)와 위조(Fabrication).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "변조(Modification)와 위조(Fabrication)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q10_SVM(Support Vector Machine).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q10_SVM(Support Vector Machine).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "SVM(Support Vector Machine)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q11_과적합(Overfitting)의 발생이유와 해결방안.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q11_과적합(Overfitting)의 발생이유와 해결방안.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "과적합(Overfitting)의 발생이유와 해결방안",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q12_디지털 트윈(Digital Twin)과 메타버스(Metaverse).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q12_디지털 트윈(Digital Twin)과 메타버스(Metaverse).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "디지털 트윈(Digital Twin)과 메타버스(Metaverse)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q13_DaaS(Desktop as a Service).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_1교시_Q13_DaaS(Desktop as a Service).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "DaaS(Desktop as a Service)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q01_국제연합(UN)은 매 2 년마다 전체 회원국을 대상으로 전자정부 평가를 실시한다..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_2교시_Q01_국제연합(UN)은 매 2 년마다 전체 회원국을 대상으로 전자정부 평가를 실시한다..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "국제연합(UN)은 매 2 년마다 전체 회원국을 대상으로 전자정부 평가를 실시한다.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q02_소프트웨어 개발 방법론이 발전하면서 제품은 더 빨리 출시되며 기능 추가와 보완을.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_2교시_Q02_소프트웨어 개발 방법론이 발전하면서 제품은 더 빨리 출시되며 기능 추가와 보완을.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "소프트웨어 개발 방법론이 발전하면서 제품은 더 빨리 출시되며 기능 추가와 보완을",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q03_데이터 용량이 증가할수록 데이터베이스 튜닝(Tuning)의 필요성이 증가하고 있다..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_2교시_Q03_데이터 용량이 증가할수록 데이터베이스 튜닝(Tuning)의 필요성이 증가하고 있다..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "데이터 용량이 증가할수록 데이터베이스 튜닝(Tuning)의 필요성이 증가하고 있다.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_2교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_2교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_2교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q01_정보전략계획(Information Strategy Planning)에 대하여 아래의 사항을.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_3교시_Q01_정보전략계획(Information Strategy Planning)에 대하여 아래의 사항을.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "정보전략계획(Information Strategy Planning)에 대하여 아래의 사항을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q02_리팩토링(Refactoring)에 대한 아래의 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_3교시_Q02_리팩토링(Refactoring)에 대한 아래의 사항을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "리팩토링(Refactoring)에 대한 아래의 사항을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q03_A 기업에서는 비지니스 수행과정에서 수집된 많은 양의 빅데이터(Bigdata)를 통합.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_3교시_Q03_A 기업에서는 비지니스 수행과정에서 수집된 많은 양의 빅데이터(Bigdata)를 통합.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "A 기업에서는 비지니스 수행과정에서 수집된 많은 양의 빅데이터(Bigdata)를 통합",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_3교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_3교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_3교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q01_최근 여러 기업에서 MSA(Micro Service Architecture) 도입이 활발하.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_4교시_Q01_최근 여러 기업에서 MSA(Micro Service Architecture) 도입이 활발하.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "최근 여러 기업에서 MSA(Micro Service Architecture) 도입이 활발하게 이루어지고",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q02_데이터 커머스(Data Commerce)의 중요성이 점차 증대되고 있다. 데이터 커머스에.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_4교시_Q02_데이터 커머스(Data Commerce)의 중요성이 점차 증대되고 있다. 데이터 커머스에.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "데이터 커머스(Data Commerce)의 중요성이 점차 증대되고 있다. 데이터 커머스에 대한",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q03_데이터베이스 샤딩(Sharding)에 대한 아래의 사항을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_4교시_Q03_데이터베이스 샤딩(Sharding)에 대한 아래의 사항을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "데이터베이스 샤딩(Sharding)에 대한 아래의 사항을 설명하시오.",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_4교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_4교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/ITPE_관_4교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/KPC_관_1교시_Q05_Q5.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/KPC_관_1교시_Q06_Q6.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 6,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q01_Q1.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/KPC_관_1교시_Q01_Q1.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "Q1",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q02_Q2.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/KPC_관_1교시_Q02_Q2.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "Q2",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q03_Q3.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/127회/KPC_관_1교시_Q03_Q3.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "Q3",
+      "pages": 13,
+      "image_pages": 0,
+      "needs_ocr": false
+    }
+  ],
+  "failed": [
+    {
+      "pdf": "동기회127관.pdf",
+      "error": "no bounds"
+    }
+  ],
+  "verification_issues": [
+    {
+      "file": "ITPE_관_1교시_Q01_대체불가능 토큰(Non-Fungible Token).pdf",
+      "issue": "TITLE_MISMATCH (expected: 대체불가능 토큰(N...)"
+    },
+    {
+      "file": "ITPE_관_1교시_Q08_MongoDB 의 개념 및 특징.pdf",
+      "issue": "TITLE_MISMATCH (expected: MongoDB 의 ...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q03_A 기업에서는 비지니스 수행과정에서 수집된 많은 양의 빅데이터(Bigdata)를 통합.pdf",
+      "issue": "TITLE_MISMATCH (expected: A 기업에서는 비지...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "KPC_관_1교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "KPC_관_1교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "KPC_관_1교시_Q01_Q1.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q1...)"
+    },
+    {
+      "file": "KPC_관_1교시_Q02_Q2.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q2...)"
+    },
+    {
+      "file": "KPC_관_1교시_Q03_Q3.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q3...)"
+    }
+  ]
+}

@@ -1,0 +1,890 @@
+{
+  "timestamp": "2026-02-20T14:48:54.426530",
+  "exam": "136회",
+  "total": 67,
+  "results": [
+    {
+      "filename": "ITPE_관_1교시_Q01_화이트 레이블 마케팅(White Label Marketing).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q01_화이트 레이블 마케팅(White Label Marketing).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "화이트 레이블 마케팅(White Label Marketing)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q02_범용 AI(General-Purpose AI) 위험관리 프레임워크.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q02_범용 AI(General-Purpose AI) 위험관리 프레임워크.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "범용 AI(General-Purpose AI) 위험관리 프레임워크",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q03_에이전틱 AI(Agentic AI).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q03_에이전틱 AI(Agentic AI).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "에이전틱 AI(Agentic AI)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q04_제4 정규형.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q04_제4 정규형.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "제4 정규형",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q05_프록시 디자인 패턴.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q05_프록시 디자인 패턴.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "프록시 디자인 패턴",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q06_DevOps 장점과 단점.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q06_DevOps 장점과 단점.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "DevOps 장점과 단점",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q07_세그먼테이션 오류(Segmantation Fault).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q07_세그먼테이션 오류(Segmantation Fault).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "세그먼테이션 오류(Segmantation Fault)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q08_CXL(Compute Express Link).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q08_CXL(Compute Express Link).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "CXL(Compute Express Link)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q09_서버리스 컴퓨팅(Serverless Computing).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q09_서버리스 컴퓨팅(Serverless Computing).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "서버리스 컴퓨팅(Serverless Computing)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q10_Q10.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q10_Q10.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "Q10",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q11_CC(Common Criteria).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q11_CC(Common Criteria).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "CC(Common Criteria)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q12_타원곡선 암호(ECC, Eliptic Curve Cryptography).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q12_타원곡선 암호(ECC, Eliptic Curve Cryptography).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "타원곡선 암호(ECC, Eliptic Curve Cryptography)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q13_MCP(Model Context Protocol).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_1교시_Q13_MCP(Model Context Protocol).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "MCP(Model Context Protocol)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q01_공급망관리(SCM, Supply Chain Management)에 대하여 다음을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_2교시_Q01_공급망관리(SCM, Supply Chain Management)에 대하여 다음을 설명하시오.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "공급망관리(SCM, Supply Chain Management)에 대하여 다음을 설명하시오.",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q02_정보시스템 구축 사업의 성공적인 수행을 위해 정보시스템 감리와 PMO(전자정부사업.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_2교시_Q02_정보시스템 구축 사업의 성공적인 수행을 위해 정보시스템 감리와 PMO(전자정부사업.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "정보시스템 구축 사업의 성공적인 수행을 위해 정보시스템 감리와 PMO(전자정부사업",
+      "pages": 6,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q03_AI 기반 소프트웨어 개발에서 LLM(Large Language Model)을 도입할 때.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_2교시_Q03_AI 기반 소프트웨어 개발에서 LLM(Large Language Model)을 도입할 때.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "AI 기반 소프트웨어 개발에서 LLM(Large Language Model)을 도입할 때 고려해야 할",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_2교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_2교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_2교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q01_IT 프로젝트 수행 시 PM 은 프로젝트 내 외부의 다양한 갈등을 관리하고 해소하여야.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_3교시_Q01_IT 프로젝트 수행 시 PM 은 프로젝트 내 외부의 다양한 갈등을 관리하고 해소하여야.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "IT 프로젝트 수행 시 PM 은 프로젝트 내 외부의 다양한 갈등을 관리하고 해소하여야",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q02_최근 인공지능(AI)을 활용한 기업의 디지털 전환(AX, Al Transformation).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_3교시_Q02_최근 인공지능(AI)을 활용한 기업의 디지털 전환(AX, Al Transformation).pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "최근 인공지능(AI)을 활용한 기업의 디지털 전환(AX, Al Transformation)이 다양한 산업",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q03_소프트웨어 품질보증과 관련하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_3교시_Q03_소프트웨어 품질보증과 관련하여 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "소프트웨어 품질보증과 관련하여 다음을 설명하시오.",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_3교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_3교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_3교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q01_국내 인공지능(AI) 윤리기준과 생성형 AI 에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_4교시_Q01_국내 인공지능(AI) 윤리기준과 생성형 AI 에 대하여 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "국내 인공지능(AI) 윤리기준과 생성형 AI 에 대하여 다음을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q02_프로세스 간 통신을 위해 사용되는 IPC(Inter Process Communication.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_4교시_Q02_프로세스 간 통신을 위해 사용되는 IPC(Inter Process Communication.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "프로세스 간 통신을 위해 사용되는 IPC(Inter Process Communication)에 대하여 다음을",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q03_대규모 중요 소프트웨어 사업 평가의 전문성을 높이고 수요기관의 전문성을 보완해.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_4교시_Q03_대규모 중요 소프트웨어 사업 평가의 전문성을 높이고 수요기관의 전문성을 보완해.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "대규모 중요 소프트웨어 사업 평가의 전문성을 높이고 수요기관의 전문성을 보완해",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_4교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_4교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/ITPE_관_4교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/KPC_관_3교시_Q05_Q5.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/KPC_관_3교시_Q06_Q6.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 6,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q01_Q1.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/KPC_관_3교시_Q01_Q1.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "Q1",
+      "pages": 7,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q03_Q3.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/KPC_관_3교시_Q03_Q3.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "Q3",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/KPC_관_3교시_Q04_Q4.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 12,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q01_화이트 레이블 마케팅(White Label Marketing).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q01_화이트 레이블 마케팅(White Label Marketing).pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "화이트 레이블 마케팅(White Label Marketing)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q02_범용 AI(General-Purpose AI) 위험관리 프레임워크.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q02_범용 AI(General-Purpose AI) 위험관리 프레임워크.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "범용 AI(General-Purpose AI) 위험관리 프레임워크",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q03_에이전틱 AI(Agentic AI).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q03_에이전틱 AI(Agentic AI).pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "에이전틱 AI(Agentic AI)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q04_제4 정규형.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q04_제4 정규형.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "제4 정규형",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q05_프록시(Proxy) 디자인 패턴.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q05_프록시(Proxy) 디자인 패턴.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "프록시(Proxy) 디자인 패턴",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q06_DevOps 장점과 단점.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q06_DevOps 장점과 단점.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "DevOps 장점과 단점",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q07_세그먼테이션 오류(Segmentation Fault).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q07_세그먼테이션 오류(Segmentation Fault).pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "세그먼테이션 오류(Segmentation Fault)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q08_CXL(Compute Express Link).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q08_CXL(Compute Express Link).pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "CXL(Compute Express Link)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q09_서버리스 컴퓨팅(Serverless Computing).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q09_서버리스 컴퓨팅(Serverless Computing).pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "서버리스 컴퓨팅(Serverless Computing)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q10_개인정보 안심구역과 데이터 안심구역 비교.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q10_개인정보 안심구역과 데이터 안심구역 비교.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "개인정보 안심구역과 데이터 안심구역 비교",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q11_CC(Common Criteria).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q11_CC(Common Criteria).pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "CC(Common Criteria)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q12_타원곡선 암호(ECC, Elliptic Curve Cryptography).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q12_타원곡선 암호(ECC, Elliptic Curve Cryptography).pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "타원곡선 암호(ECC, Elliptic Curve Cryptography)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_1교시_Q13_MCP(Model Context Protocol).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_1교시_Q13_MCP(Model Context Protocol).pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "MCP(Model Context Protocol)",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_2교시_Q01_공급망관리(SCM, Supply Chain Management)에 대하여 다음을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_2교시_Q01_공급망관리(SCM, Supply Chain Management)에 대하여 다음을 설명하시오.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "공급망관리(SCM, Supply Chain Management)에 대하여 다음을 설명하시오. ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_2교시_Q02_정보시스템 구축 사업의 성공적인 수행을 위해 정보시스템 감리와 PMO(전자정부사업관리.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_2교시_Q02_정보시스템 구축 사업의 성공적인 수행을 위해 정보시스템 감리와 PMO(전자정부사업관리.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "정보시스템 구축 사업의 성공적인 수행을 위해 정보시스템 감리와 PMO(전자정부사업관리 ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_2교시_Q03_AI 기반 소프트웨어 개발에서 LLM(Large Language Model)을 도입할 때.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_2교시_Q03_AI 기반 소프트웨어 개발에서 LLM(Large Language Model)을 도입할 때.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "AI 기반 소프트웨어 개발에서 LLM(Large Language Model)을 도입할 때 고려해야 할 보안 ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_2교시_Q04_소프트웨어 개발방법론 중 하나인 제품계열(Product Line) 방법론에 대하여 다음을.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_2교시_Q04_소프트웨어 개발방법론 중 하나인 제품계열(Product Line) 방법론에 대하여 다음을.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "소프트웨어 개발방법론 중 하나인 제품계열(Product Line) 방법론에 대하여 다음을 설명하시오. ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_2교시_Q05_데이터베이스 인덱스(Index)를 설명하고, 클러스터드 인덱스(Clustered Index.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_2교시_Q05_데이터베이스 인덱스(Index)를 설명하고, 클러스터드 인덱스(Clustered Index.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "데이터베이스 인덱스(Index)를 설명하고, 클러스터드 인덱스(Clustered Index)와 논클러스터드 ",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_2교시_Q06_인터넷 통신에서 보안성 강화를 위해 활용되는 TLS(Transport Layer Secur.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_2교시_Q06_인터넷 통신에서 보안성 강화를 위해 활용되는 TLS(Transport Layer Secur.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "인터넷 통신에서 보안성 강화를 위해 활용되는 TLS(Transport Layer Security) 1.2 에 대한 ",
+      "pages": 6,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_3교시_Q01_IT 프로젝트 수행 시 PM 은 프로젝트 내·외부의 다양한 갈등을 관리하고 해소하여야 한다.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_3교시_Q01_IT 프로젝트 수행 시 PM 은 프로젝트 내·외부의 다양한 갈등을 관리하고 해소하여야 한다.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "IT 프로젝트 수행 시 PM 은 프로젝트 내·외부의 다양한 갈등을 관리하고 해소하여야 한다. ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_3교시_Q02_최근 인공지능(AI)을 활용한 기업의 디지털 전환(AX, AI Transformation).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_3교시_Q02_최근 인공지능(AI)을 활용한 기업의 디지털 전환(AX, AI Transformation).pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "최근 인공지능(AI)을 활용한 기업의 디지털 전환(AX, AI Transformation)이 다양한 산업 분야에서 ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_3교시_Q03_소프트웨어 품질보증과 관련하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_3교시_Q03_소프트웨어 품질보증과 관련하여 다음을 설명하시오..pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "소프트웨어 품질보증과 관련하여 다음을 설명하시오. ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_3교시_Q04_데이터 분석 시 아웃라이어(Outlier)에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_3교시_Q04_데이터 분석 시 아웃라이어(Outlier)에 대하여 다음을 설명하시오..pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "데이터 분석 시 아웃라이어(Outlier)에 대하여 다음을 설명하시오. ",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_3교시_Q05_혼동행렬(Confusion Matrix) 결과를 참고하여 다음을 계산하고 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_3교시_Q05_혼동행렬(Confusion Matrix) 결과를 참고하여 다음을 계산하고 설명하시오..pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "혼동행렬(Confusion Matrix) 결과를 참고하여 다음을 계산하고 설명하시오. ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_3교시_Q06_메모리 관리 기법 중 동적 메모리 할당과 관련하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_3교시_Q06_메모리 관리 기법 중 동적 메모리 할당과 관련하여 다음을 설명하시오..pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "메모리 관리 기법 중 동적 메모리 할당과 관련하여 다음을 설명하시오. ",
+      "pages": 6,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_4교시_Q01_국내 인공지능(AI) 윤리기준과 생성형 AI 에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_4교시_Q01_국내 인공지능(AI) 윤리기준과 생성형 AI 에 대하여 다음을 설명하시오..pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "국내 인공지능(AI) 윤리기준과 생성형 AI 에 대하여 다음을 설명하시오. ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_4교시_Q02_프로세스 간 통신을 위해 사용되는 IPC(Inter Process Communication.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_4교시_Q02_프로세스 간 통신을 위해 사용되는 IPC(Inter Process Communication.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "프로세스 간 통신을 위해 사용되는 IPC(Inter Process Communication)에 대하여 다음을 ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_4교시_Q03_대규모 중요 소프트웨어 사업 평가의 전문성을 높이고 수요기관의 전문성을 보완해 공정한.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_4교시_Q03_대규모 중요 소프트웨어 사업 평가의 전문성을 높이고 수요기관의 전문성을 보완해 공정한.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "대규모 중요 소프트웨어 사업 평가의 전문성을 높이고 수요기관의 전문성을 보완해 공정한 ",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_4교시_Q04_공급망 보안(Supply Chain Security)을 설명하고, 제로트러스트(Zero T.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_4교시_Q04_공급망 보안(Supply Chain Security)을 설명하고, 제로트러스트(Zero T.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "공급망 보안(Supply Chain Security)을 설명하고, 제로트러스트(Zero Trust) 기반 공급망 보안 ",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_4교시_Q05_대형언어모델(LLM, Large Language Model)의 활용이 급격히 증가함에 따라.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_4교시_Q05_대형언어모델(LLM, Large Language Model)의 활용이 급격히 증가함에 따라.pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "대형언어모델(LLM, Large Language Model)의 활용이 급격히 증가함에 따라 그와 관련된 보안 ",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "동기회_관_4교시_Q06_소프트웨어 품질 속성 중 보안 품질에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/136회/동기회_관_4교시_Q06_소프트웨어 품질 속성 중 보안 품질에 대하여 다음을 설명하시오..pdf",
+      "source": "동기회",
+      "exam": "관",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "소프트웨어 품질 속성 중 보안 품질에 대하여 다음을 설명하시오. ",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    }
+  ],
+  "failed": [],
+  "verification_issues": [
+    {
+      "file": "ITPE_관_1교시_Q04_제4 정규형.pdf",
+      "issue": "TITLE_MISMATCH (expected: 제4 정규형...)"
+    },
+    {
+      "file": "ITPE_관_1교시_Q10_Q10.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q10...)"
+    },
+    {
+      "file": "ITPE_관_1교시_Q11_CC(Common Criteria).pdf",
+      "issue": "TITLE_MISMATCH (expected: CC(Common ...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q03_AI 기반 소프트웨어 개발에서 LLM(Large Language Model)을 도입할 때.pdf",
+      "issue": "TITLE_MISMATCH (expected: AI 기반 소프트웨...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q01_IT 프로젝트 수행 시 PM 은 프로젝트 내 외부의 다양한 갈등을 관리하고 해소하여야.pdf",
+      "issue": "TITLE_MISMATCH (expected: IT 프로젝트 수행...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "KPC_관_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "KPC_관_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "KPC_관_3교시_Q01_Q1.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q1...)"
+    },
+    {
+      "file": "KPC_관_3교시_Q03_Q3.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q3...)"
+    },
+    {
+      "file": "KPC_관_3교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    }
+  ]
+}

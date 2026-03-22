@@ -3,13 +3,15 @@
 기출 해설 PDF 분할 스크립트
 
 지원 출처: KPC, ITPE, 동기회 (아이리포는 텍스트 추출 제한으로 제외)
-지원 회차: 137회, 138회 (--exam 으로 지정)
+지원 회차: 117-138회 (--exam 또는 --all 로 지정)
 
 사용법:
-  python3 split_exam.py                      # 137회 dry-run (기본)
-  python3 split_exam.py --exam 138            # 138회 dry-run
-  python3 split_exam.py --exam 138 --run      # 138회 실제 분할
-  python3 split_exam.py --exam 138 --run --ocr  # 138회 분할 + OCR
+  python3 split_exam.py                          # 137회 dry-run (기본)
+  python3 split_exam.py --exam 138               # 138회 dry-run
+  python3 split_exam.py --exam 138 --run         # 138회 실제 분할
+  python3 split_exam.py --exam 138 --run --ocr   # 138회 분할 + OCR
+  python3 split_exam.py --all                    # 전체 회차 dry-run (117-138)
+  python3 split_exam.py --all --run              # 전체 회차 실제 분할
 """
 
 import os, re, sys, json, unicodedata
@@ -174,12 +176,27 @@ def _bounds_kpc(doc, problems, sess):
                 num = int(m.group(1))
                 title = m.group(2).strip()
 
-            # Pattern 2: "N. title" with "문/제" in prev lines
+            # Pattern 2: "N. title" with "문제" marker in prev lines
+            # KPC PDFs show "문제" in two variants:
+            #   (a) Single-line: '문제'          (교시-분리 파일, e.g. 122회)
+            #   (b) Split lines: '문' / '제 '    (합본 파일, e.g. 137관-합)
+            # Old check '문' in prev AND '제' in prev caught both but also false-positived
+            # on "기출풀이의견" commentary where sentences contain "문제선택이쉽지않은문제".
+            # Fix: require '문제' or '문'+'제*' as STANDALONE SHORT lines (≤2 chars),
+            # which eliminates sentence-embedded occurrences.
             if num is None:
                 m2 = re.match(r'^(\d{1,2})\.\s+(.+)', ls)
                 if m2:
-                    prev = '\n'.join(l.strip() for l in lines[max(0, li - 5):li])
-                    if '\ubb38' in prev and '\uc81c' in prev:
+                    prev_lines = [l.strip() for l in lines[max(0, li - 5):li]]
+                    has_marker = False
+                    for idx, pl in enumerate(prev_lines):
+                        if pl == '\ubb38\uc81c':  # '문제' single-line variant
+                            has_marker = True
+                            break
+                        if pl == '\ubb38' and idx + 1 < len(prev_lines) and prev_lines[idx + 1].startswith('\uc81c'):
+                            has_marker = True  # '문' / '제...' split-line variant
+                            break
+                    if has_marker:
                         num = int(m2.group(1))
                         title = m2.group(2).strip()
 
@@ -484,11 +501,19 @@ def find_exam_pdfs(exam_dir):
             if src in ('UNKNOWN', '\uc544\uc774\ub9ac\ud3ec'):
                 continue
             exam = detect_exam(fn)
-            # Detect per-교시 session from filename (e.g., "ITPE 138관-2교시_v1.0.pdf")
+            # Detect per-교시 session from filename
+            # Priority 1: "N교시" text  (e.g., "ITPE 138관-1교시_v1.0.pdf")
             sess_m = re.search(r'(\d)\uad50\uc2dc', fn)
+            # Priority 2: "-N.pdf" suffix  (e.g., "KPC122관-1.pdf")
+            # "-합.pdf" 합본 파일은 sess=None 유지 (전 교시 통합본)
+            if not sess_m and '\ud569' not in fn:
+                sess_m = re.search(r'-(\d)\.pdf$', fn, re.IGNORECASE)
             sess = int(sess_m.group(1)) if sess_m else None
-            # Dedup key: prefer main dir over bak, prefer latest version
-            dedup_key = (src, exam, sess or 0)
+            # Dedup key: 파일명 기준 (각 물리적 파일은 고유)
+            # 목적: bak/X.pdf와 X.pdf(메인)가 동시에 존재할 때 메인 우선.
+            # 구 tuple 키 (src, exam, sess or 0)는 서로 다른 교시를 같은 키로
+            # 충돌시키는 버그가 있었음 → 파일명으로 교체.
+            dedup_key = fn.lower()
             file_map[dedup_key] = {
                 'path': full, 'filename': fn, 'source': src,
                 'exam': exam, 'file_session': sess,
@@ -707,4 +732,26 @@ if __name__ == "__main__":
     for i, a in enumerate(sys.argv):
         if a == '--exam' and i + 1 < len(sys.argv):
             exam_num = int(sys.argv[i + 1])
-    run_pipeline(exam_num=exam_num, do_split=do_split, do_ocr=do_ocr)
+
+    if "--all" in sys.argv:
+        # 각 회차를 별도 서브프로세스로 실행 (손상된 PDF의 세그폴트 격리)
+        import glob as _glob
+        dirs = sorted(_glob.glob(os.path.join(EXAM_BASE, "[0-9]*")))
+        script = os.path.abspath(__file__)
+        for d in dirs:
+            if not os.path.isdir(d):
+                continue
+            num_str = os.path.basename(nfc(d))
+            if not num_str.isdigit():
+                continue
+            args = [sys.executable, script, "--exam", num_str]
+            if do_split:
+                args.append("--run")
+            if do_ocr:
+                args.append("--ocr")
+            print('\n[--all] %s회 처리 중...' % num_str)
+            result = subprocess.run(args, capture_output=False)
+            if result.returncode != 0:
+                print('  ⚠ %s회: 프로세스 비정상 종료 (code=%d)' % (num_str, result.returncode))
+    else:
+        run_pipeline(exam_num=exam_num, do_split=do_split, do_ocr=do_ocr)

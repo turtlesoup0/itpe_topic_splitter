@@ -1,0 +1,755 @@
+{
+  "timestamp": "2026-02-20T16:31:05.967053",
+  "exam": "122회",
+  "total": 56,
+  "results": [
+    {
+      "filename": "KPC_관_1교시_Q01_세마포어(Semaphore)와모니터(Monitor).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_1교시_Q01_세마포어(Semaphore)와모니터(Monitor).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "세마포어(Semaphore)와모니터(Monitor)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q03_LOD(Linked Open Data).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_1교시_Q03_LOD(Linked Open Data).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "LOD(Linked Open Data)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q05_군집분석(Cluster Analysis).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_1교시_Q05_군집분석(Cluster Analysis).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "군집분석(Cluster Analysis)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q07_DAS(Direct Attached Storage), NAS(Network Attached.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_1교시_Q07_DAS(Direct Attached Storage), NAS(Network Attached.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "DAS(Direct Attached Storage), NAS(Network Attached Storage),",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q08_하이퍼바이저(Hypervisor).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_1교시_Q08_하이퍼바이저(Hypervisor).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "하이퍼바이저(Hypervisor)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q09_스프라이트(Sprite).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_1교시_Q09_스프라이트(Sprite).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "스프라이트(Sprite)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q11_오피니언마이닝(Opinion Mining).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_1교시_Q11_오피니언마이닝(Opinion Mining).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "오피니언마이닝(Opinion Mining)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_1교시_Q13_스타스키마(Star Schema).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_1교시_Q13_스타스키마(Star Schema).pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "스타스키마(Star Schema)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q01_파이썬(Python)의특징및자료형(Data Type)을설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_2교시_Q01_파이썬(Python)의특징및자료형(Data Type)을설명하시오.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "파이썬(Python)의특징및자료형(Data Type)을설명하시오",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q02_블록체인합의알고리즘(Consensus Algorithm)에대하여다음을설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_2교시_Q02_블록체인합의알고리즘(Consensus Algorithm)에대하여다음을설명하시오.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "블록체인합의알고리즘(Consensus Algorithm)에대하여다음을설명하시오",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q03_개방형API(Open Application Programming Interface)와관련하.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_2교시_Q03_개방형API(Open Application Programming Interface)와관련하.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "개방형API(Open Application Programming Interface)와관련하여다음을설명하시오",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q04_서비스워커(Service Worker)에대하여다음을설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_2교시_Q04_서비스워커(Service Worker)에대하여다음을설명하시오.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "서비스워커(Service Worker)에대하여다음을설명하시오",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_2교시_Q05_Q5.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_2교시_Q06_Q6.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q01_웹크롤링(Web Crawling)에 대하여 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_3교시_Q01_웹크롤링(Web Crawling)에 대하여 설명하시오.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "웹크롤링(Web Crawling)에 대하여 설명하시오",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q02_ISO_IEC 27017(클라우드 서비스 정보보호 통제)을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_3교시_Q02_ISO_IEC 27017(클라우드 서비스 정보보호 통제)을 설명하시오.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "ISO/IEC 27017(클라우드 서비스 정보보호 통제)을 설명하시오",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q03_분산 ID(Decentralized Identity)와 관련하여 다음을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_3교시_Q03_분산 ID(Decentralized Identity)와 관련하여 다음을 설명하시오.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "분산 ID(Decentralized Identity)와 관련하여 다음을 설명하시오",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q04_블랙박스 테스트(Blackbox Test) 기법을 설명하고, YYYY-MM-DD 형식의 날.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_3교시_Q04_블랙박스 테스트(Blackbox Test) 기법을 설명하고, YYYY-MM-DD 형식의 날.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "블랙박스 테스트(Blackbox Test) 기법을 설명하고, YYYY-MM-DD 형식의 날짜처리 모듈을",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_3교시_Q05_Q5.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_3교시_Q06_Q6.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q01_IaaS(Infrastructure as a Service), Paas(Platform a.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_4교시_Q01_IaaS(Infrastructure as a Service), Paas(Platform a.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "IaaS(Infrastructure as a Service), Paas(Platform as a Service), SaaS(Software as a",
+      "pages": 7,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q03_2020 년 5 월에 공인인증서와 사설인증서의 구별을 없애는 전자서명법이 개정되었다. 이에.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_4교시_Q03_2020 년 5 월에 공인인증서와 사설인증서의 구별을 없애는 전자서명법이 개정되었다. 이에.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "2020 년 5 월에 공인인증서와 사설인증서의 구별을 없애는 전자서명법이 개정되었다. 이에 따",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q04_IT 프로젝트 관리과정에서의 IT 개발 요구사항과 관련하여 다음을 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_4교시_Q04_IT 프로젝트 관리과정에서의 IT 개발 요구사항과 관련하여 다음을 설명하시오.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "IT 프로젝트 관리과정에서의 IT 개발 요구사항과 관련하여 다음을 설명하시오",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_4교시_Q05_Q5.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_관_4교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_관_4교시_Q06_Q6.pdf",
+      "source": "KPC",
+      "exam": "관",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q01_전가산기(Full Adder).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q01_전가산기(Full Adder).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "전가산기(Full Adder)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q02_RAID(Redundant Array of Inexpensive Disks).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q02_RAID(Redundant Array of Inexpensive Disks).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "RAID(Redundant Array of Inexpensive Disks)",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q03_모바일 엣지 컴퓨팅(Mobile Edge Computing).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q03_모바일 엣지 컴퓨팅(Mobile Edge Computing).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "모바일 엣지 컴퓨팅(Mobile Edge Computing)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q04_해밍거리(Hamming Distance).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q04_해밍거리(Hamming Distance).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "해밍거리(Hamming Distance)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q05_IMDG(In-Memory Data Grid).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q05_IMDG(In-Memory Data Grid).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "IMDG(In-Memory Data Grid)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q06_Graph DB.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q06_Graph DB.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "Graph DB",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q07_Scale-Up_Scale-Out.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q07_Scale-Up_Scale-Out.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "Scale-Up/Scale-Out",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q08_GPU(Graphic Processing Unit)와 CPU(Central Processi.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q08_GPU(Graphic Processing Unit)와 CPU(Central Processi.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "GPU(Graphic Processing Unit)와 CPU(Central Processing Unit) 차이점",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q09_백트래킹(Backtracking), 분할정복, 탐욕법, 동적계획법의 개념 및 알고리즘.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q09_백트래킹(Backtracking), 분할정복, 탐욕법, 동적계획법의 개념 및 알고리즘.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "백트래킹(Backtracking), 분할정복, 탐욕법, 동적계획법의 개념 및 알고리즘",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q10_인공지능 데이터의 평가를 위한 고려사항.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q10_인공지능 데이터의 평가를 위한 고려사항.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "인공지능 데이터의 평가를 위한 고려사항",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q11_제로 트러스트(Zero Trust) 보안 모델.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q11_제로 트러스트(Zero Trust) 보안 모델.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "제로 트러스트(Zero Trust) 보안 모델",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q12_생성적 적대 신경망(Generative Adversarial Network _ GAN).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q12_생성적 적대 신경망(Generative Adversarial Network _ GAN).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "생성적 적대 신경망(Generative Adversarial Network : GAN)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_1교시_Q13_기울기 소실 문제(Vanishing Gradient Problem).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_1교시_Q13_기울기 소실 문제(Vanishing Gradient Problem).pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "기울기 소실 문제(Vanishing Gradient Problem)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q01_자율주행의 기술동향 및 핵심기술에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_2교시_Q01_자율주행의 기술동향 및 핵심기술에 대하여 설명하시오..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "자율주행의 기술동향 및 핵심기술에 대하여 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q02_OSI 7-Layer 의 데이터링크 계층에서 제공하는 서비스에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_2교시_Q02_OSI 7-Layer 의 데이터링크 계층에서 제공하는 서비스에 대하여 설명하시오..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "OSI 7-Layer 의 데이터링크 계층에서 제공하는 서비스에 대하여 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q03_데이터 웨어하우스(Data Warehouse)와 데이터 레이크(Data Lake)의 특징을.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_2교시_Q03_데이터 웨어하우스(Data Warehouse)와 데이터 레이크(Data Lake)의 특징을.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "데이터 웨어하우스(Data Warehouse)와 데이터 레이크(Data Lake)의 특징을 비교하고,",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q04_최근 개정된 데이터 3 법의 주요 개정내용과 개인정보_가명정보_익명정보의 활용 가능범위,.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_2교시_Q04_최근 개정된 데이터 3 법의 주요 개정내용과 개인정보_가명정보_익명정보의 활용 가능범위,.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "최근 개정된 데이터 3 법의 주요 개정내용과 개인정보/가명정보/익명정보의 활용 가능범위,",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q05_패션 의류용 이미지를 분류하는 다층 신경망을 만들려고 한다. 의류용 이미지는 바지, 치마,.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_2교시_Q05_패션 의류용 이미지를 분류하는 다층 신경망을 만들려고 한다. 의류용 이미지는 바지, 치마,.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "패션 의류용 이미지를 분류하는 다층 신경망을 만들려고 한다. 의류용 이미지는 바지, 치마,",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_2교시_Q06_인공지능(AI) 윤리의 개념, 주요사례, 고려사항 및 추진방향을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_2교시_Q06_인공지능(AI) 윤리의 개념, 주요사례, 고려사항 및 추진방향을 설명하시오..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "인공지능(AI) 윤리의 개념, 주요사례, 고려사항 및 추진방향을 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_3교시_Q01_오픈소스 솔루션은 상용 소프트웨어처럼 사용료는 요구하지 않지만, 대신 반드시 준수해야 하.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_3교시_Q01_오픈소스 솔루션은 상용 소프트웨어처럼 사용료는 요구하지 않지만, 대신 반드시 준수해야 하.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "오픈소스 솔루션은 상용 소프트웨어처럼 사용료는 요구하지 않지만, 대신 반드시 준수해야 하",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_3교시_Q02_4 차 산업혁명의 주요 기술로서 블록체인기술이 활용되고 있다..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_3교시_Q02_4 차 산업혁명의 주요 기술로서 블록체인기술이 활용되고 있다..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "4 차 산업혁명의 주요 기술로서 블록체인기술이 활용되고 있다.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_3교시_Q03_DNS(Domain Name System)가 제공하는 서비스에 대하여 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_3교시_Q03_DNS(Domain Name System)가 제공하는 서비스에 대하여 설명하시오.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "DNS(Domain Name System)가 제공하는 서비스에 대하여 설명하시오",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_3교시_Q04_6G 이동통신기술에 대하여 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_3교시_Q04_6G 이동통신기술에 대하여 설명하시오.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "6G 이동통신기술에 대하여 설명하시오",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_3교시_Q05_Q5.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_3교시_Q06_Q6.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q01_종료단계 감리 시 감리원은 구현기능을 직접 테스트하여 과업이행여부를 판정하도록 정보시스.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_4교시_Q01_종료단계 감리 시 감리원은 구현기능을 직접 테스트하여 과업이행여부를 판정하도록 정보시스.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "종료단계 감리 시 감리원은 구현기능을 직접 테스트하여 과업이행여부를 판정하도록 정보시스",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q02_정렬 알고리즘은 컴퓨터 분야에서 가장 많이 연구된 분야 중 하나이다..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_4교시_Q02_정렬 알고리즘은 컴퓨터 분야에서 가장 많이 연구된 분야 중 하나이다..pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "정렬 알고리즘은 컴퓨터 분야에서 가장 많이 연구된 분야 중 하나이다.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q03_UDP(User Datagram Protocol)가 제공하는 서비스를 설명하시오.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_4교시_Q03_UDP(User Datagram Protocol)가 제공하는 서비스를 설명하시오.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "UDP(User Datagram Protocol)가 제공하는 서비스를 설명하시오",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_4교시_Q04_Q4.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_4교시_Q05_Q5.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "KPC_응_4교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/122회/KPC_응_4교시_Q06_Q6.pdf",
+      "source": "KPC",
+      "exam": "응",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    }
+  ],
+  "failed": [
+    {
+      "pdf": "동기회122관.pdf",
+      "error": "no bounds"
+    },
+    {
+      "pdf": "동기회122응.pdf",
+      "error": "no bounds"
+    }
+  ],
+  "verification_issues": [
+    {
+      "file": "KPC_관_1교시_Q07_DAS(Direct Attached Storage), NAS(Network Attached.pdf",
+      "issue": "TITLE_MISMATCH (expected: DAS(Direct...)"
+    },
+    {
+      "file": "KPC_관_2교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "KPC_관_2교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "KPC_관_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "KPC_관_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "KPC_관_4교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "KPC_관_4교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q07_Scale-Up_Scale-Out.pdf",
+      "issue": "TITLE_MISMATCH (expected: Scale-Up/S...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q08_GPU(Graphic Processing Unit)와 CPU(Central Processi.pdf",
+      "issue": "TITLE_MISMATCH (expected: GPU(Graphi...)"
+    },
+    {
+      "file": "KPC_응_1교시_Q09_백트래킹(Backtracking), 분할정복, 탐욕법, 동적계획법의 개념 및 알고리즘.pdf",
+      "issue": "TITLE_MISMATCH (expected: 백트래킹(Backt...)"
+    },
+    {
+      "file": "KPC_응_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "KPC_응_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "KPC_응_4교시_Q01_종료단계 감리 시 감리원은 구현기능을 직접 테스트하여 과업이행여부를 판정하도록 정보시스.pdf",
+      "issue": "TITLE_MISMATCH (expected: 종료단계 감리 시 ...)"
+    },
+    {
+      "file": "KPC_응_4교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "KPC_응_4교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "KPC_응_4교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    }
+  ]
+}

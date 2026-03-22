@@ -1,0 +1,851 @@
+{
+  "timestamp": "2026-02-20T14:47:31.173632",
+  "exam": "128회",
+  "total": 62,
+  "results": [
+    {
+      "filename": "ITPE_관_1교시_Q01_WBS(Work Breakdown Structure)에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q01_WBS(Work Breakdown Structure)에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "WBS(Work Breakdown Structure)에 대하여 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q02_IT-ROI 투자 성과평가 모델에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q02_IT-ROI 투자 성과평가 모델에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "IT-ROI 투자 성과평가 모델에 대하여 설명하시오.",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q03_POP(Point Of Production)에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q03_POP(Point Of Production)에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "POP(Point Of Production)에 대하여 설명하시오.",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q04_기계학습(Machine Learning) 모델링(Modeling)과 모델옵스(ModelOp.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q04_기계학습(Machine Learning) 모델링(Modeling)과 모델옵스(ModelOp.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "기계학습(Machine Learning) 모델링(Modeling)과 모델옵스(ModelOps)에 대하여",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q05_소프트웨어 개발 프로젝트 품질비용 항목 4 가지를 제시하고, 각 항목별로 사례를 들어.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q05_소프트웨어 개발 프로젝트 품질비용 항목 4 가지를 제시하고, 각 항목별로 사례를 들어.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "소프트웨어 개발 프로젝트 품질비용 항목 4 가지를 제시하고, 각 항목별로 사례를 들어",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q06_NoSQL 의 3 가지 구조에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q06_NoSQL 의 3 가지 구조에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "NoSQL 의 3 가지 구조에 대하여 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q07_소프트웨어 아키텍처 평가모델 중 CBAM(Cost Benefit Analysis Metho.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q07_소프트웨어 아키텍처 평가모델 중 CBAM(Cost Benefit Analysis Metho.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "소프트웨어 아키텍처 평가모델 중 CBAM(Cost Benefit Analysis Method)에 대하여",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q08_빅데이터 분석에서 상관관계(Correlation)와 인과관계(Causation)에 대하여.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q08_빅데이터 분석에서 상관관계(Correlation)와 인과관계(Causation)에 대하여.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "빅데이터 분석에서 상관관계(Correlation)와 인과관계(Causation)에 대하여 비교하여",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q09_뉴로모픽 칩(Neuromorphic Chip)에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q09_뉴로모픽 칩(Neuromorphic Chip)에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "뉴로모픽 칩(Neuromorphic Chip)에 대하여 설명하시오.",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q10_개인정보의 가명 익명처리 기술에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q10_개인정보의 가명 익명처리 기술에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "개인정보의 가명 익명처리 기술에 대하여 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q11_메모리 인터리빙(Memory Interleaving)에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q11_메모리 인터리빙(Memory Interleaving)에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "메모리 인터리빙(Memory Interleaving)에 대하여 설명하시오.",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q12_랜섬웨어(Ransomware)와 RaaS(Ransomware as a Service)에 대.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q12_랜섬웨어(Ransomware)와 RaaS(Ransomware as a Service)에 대.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "랜섬웨어(Ransomware)와 RaaS(Ransomware as a Service)에 대하여 설명하시오.",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_1교시_Q13_큐비트(Qubit)에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_1교시_Q13_큐비트(Qubit)에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "큐비트(Qubit)에 대하여 설명하시오.",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q01_인공지능(AI, Artificial Intelligence) 학습용 데이터 품질의 중요성이.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_2교시_Q01_인공지능(AI, Artificial Intelligence) 학습용 데이터 품질의 중요성이.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "인공지능(AI, Artificial Intelligence) 학습용 데이터 품질의 중요성이 대두됨에 따라,",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q02_공공부문에서 민간 클라우드 서비스를 활용하여 운영하고자 한다. 다음 사항들에 대하여.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_2교시_Q02_공공부문에서 민간 클라우드 서비스를 활용하여 운영하고자 한다. 다음 사항들에 대하여.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "공공부문에서 민간 클라우드 서비스를 활용하여 운영하고자 한다. 다음 사항들에 대하여",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q03_코로나 19 로 인한 중국 물류수급 문제 및 반도체 대란에 따른 전체 산업분야에서.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_2교시_Q03_코로나 19 로 인한 중국 물류수급 문제 및 반도체 대란에 따른 전체 산업분야에서.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "코로나 19 로 인한 중국 물류수급 문제 및 반도체 대란에 따른 전체 산업분야에서",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_2교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_2교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_2교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q01_소프트웨어 모듈(Module)과 관련하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_3교시_Q01_소프트웨어 모듈(Module)과 관련하여 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "소프트웨어 모듈(Module)과 관련하여 다음을 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q02_최근에는 웹기반 서비스의 증가와 모바일 퍼스트(Mobile First)에 따른 웹기반 서비.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_3교시_Q02_최근에는 웹기반 서비스의 증가와 모바일 퍼스트(Mobile First)에 따른 웹기반 서비.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "최근에는 웹기반 서비스의 증가와 모바일 퍼스트(Mobile First)에 따른 웹기반 서비스의",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q03_최근 시스템이 복잡해지고 안전(Safety)이 중요시되면서 다양한 위험분석 방법이.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_3교시_Q03_최근 시스템이 복잡해지고 안전(Safety)이 중요시되면서 다양한 위험분석 방법이.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "최근 시스템이 복잡해지고 안전(Safety)이 중요시되면서 다양한 위험분석 방법이",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_3교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_3교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_3교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q01_최근 NFT(Non-Fungible Token) 시장의 활성화 및 생태계 형성의 견인차인.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_4교시_Q01_최근 NFT(Non-Fungible Token) 시장의 활성화 및 생태계 형성의 견인차인.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "최근 NFT(Non-Fungible Token) 시장의 활성화 및 생태계 형성의 견인차인 NFT",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q02_웹서버의 안전한 운영을 위해 다양한 방안을 고려할 수 있다. 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_4교시_Q02_웹서버의 안전한 운영을 위해 다양한 방안을 고려할 수 있다. 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "웹서버의 안전한 운영을 위해 다양한 방안을 고려할 수 있다. 다음을 설명하시오.",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q03_6G 이동통신을 위한 위성-상공-지상 통합형 무선 네트워크(Satelite-Aerial-.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_4교시_Q03_6G 이동통신을 위한 위성-상공-지상 통합형 무선 네트워크(Satelite-Aerial-.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "6G 이동통신을 위한 위성-상공-지상 통합형 무선 네트워크(Satelite-Aerial-",
+      "pages": 1,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_4교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_4교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_관_4교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_관_4교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "관",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q01_DID(Digital Information Display).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q01_DID(Digital Information Display).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 1,
+      "q_title": "DID(Digital Information Display)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q02_SOC(System On Chip) 구조.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q02_SOC(System On Chip) 구조.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 2,
+      "q_title": "SOC(System On Chip) 구조",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q03_VM(Virtual Machine)과 Container.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q03_VM(Virtual Machine)과 Container.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 3,
+      "q_title": "VM(Virtual Machine)과 Container",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q04_버스중재(Bus Arbitration) 방식.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q04_버스중재(Bus Arbitration) 방식.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 4,
+      "q_title": "버스중재(Bus Arbitration) 방식",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q05_뉴로모픽(Neuromorphic) 반도체.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q05_뉴로모픽(Neuromorphic) 반도체.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 5,
+      "q_title": "뉴로모픽(Neuromorphic) 반도체",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q06_DRM(Digital Rights Management), DLP(Data Loss Prev.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q06_DRM(Digital Rights Management), DLP(Data Loss Prev.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 6,
+      "q_title": "DRM(Digital Rights Management), DLP(Data Loss Prevention)의 비교",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q07_CNN(Convolutional Neural Network) 계층(Layer).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q07_CNN(Convolutional Neural Network) 계층(Layer).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 7,
+      "q_title": "CNN(Convolutional Neural Network) 계층(Layer)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q08_입출력장치 인터페이스의 개념과 필요성.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q08_입출력장치 인터페이스의 개념과 필요성.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 8,
+      "q_title": "입출력장치 인터페이스의 개념과 필요성",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q09_시스템 위험분석(위험성평가)기법 중 ETA(Event Tree Analysis).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q09_시스템 위험분석(위험성평가)기법 중 ETA(Event Tree Analysis).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 9,
+      "q_title": "시스템 위험분석(위험성평가)기법 중 ETA(Event Tree Analysis)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q10_소프트웨어사업 영향평가.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q10_소프트웨어사업 영향평가.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 10,
+      "q_title": "소프트웨어사업 영향평가",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q11_CAPTCHA(Completely Automated Public Turing test to.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q11_CAPTCHA(Completely Automated Public Turing test to.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 11,
+      "q_title": "CAPTCHA(Completely Automated Public Turing test to tell Computers and",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q12_디피-헬만 알고리즘(Diffie-Hellman Algorithm).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q12_디피-헬만 알고리즘(Diffie-Hellman Algorithm).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 12,
+      "q_title": "디피-헬만 알고리즘(Diffie-Hellman Algorithm)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_1교시_Q13_데이터 독립성(Data Independency).pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_1교시_Q13_데이터 독립성(Data Independency).pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 1,
+      "q_num": 13,
+      "q_title": "데이터 독립성(Data Independency)",
+      "pages": 2,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q01_네트워크에서 다음 각 주소의 개념과 구조를 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_2교시_Q01_네트워크에서 다음 각 주소의 개념과 구조를 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 1,
+      "q_title": "네트워크에서 다음 각 주소의 개념과 구조를 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q02_I_O(Input_Output) 전송방식의 필요성과 종류에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_2교시_Q02_I_O(Input_Output) 전송방식의 필요성과 종류에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 2,
+      "q_title": "I/O(Input/Output) 전송방식의 필요성과 종류에 대하여 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q03_UAM(Urban Air Mobility)에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_2교시_Q03_UAM(Urban Air Mobility)에 대하여 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 3,
+      "q_title": "UAM(Urban Air Mobility)에 대하여 다음을 설명하시오.",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_2교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_2교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_2교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_2교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 2,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q01_계층구조의 통신 프로토콜 설계 시 고려해야 할 다음 각 요소에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_3교시_Q01_계층구조의 통신 프로토콜 설계 시 고려해야 할 다음 각 요소에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 1,
+      "q_title": "계층구조의 통신 프로토콜 설계 시 고려해야 할 다음 각 요소에 대하여 설명하시오.",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q02_TCP(Transmission Control Protocol)에 대하여 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_3교시_Q02_TCP(Transmission Control Protocol)에 대하여 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 2,
+      "q_title": "TCP(Transmission Control Protocol)에 대하여 다음을 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q03_디지털 포렌식(forensic) 과정에서 실제로 증거를 수집하려면 네트워크, 시스템,.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_3교시_Q03_디지털 포렌식(forensic) 과정에서 실제로 증거를 수집하려면 네트워크, 시스템,.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 3,
+      "q_title": "디지털 포렌식(forensic) 과정에서 실제로 증거를 수집하려면 네트워크, 시스템,",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q04_Q4.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_3교시_Q04_Q4.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 4,
+      "q_title": "Q4",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q05_Q5.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_3교시_Q05_Q5.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 5,
+      "q_title": "Q5",
+      "pages": 6,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_3교시_Q06_Q6.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_3교시_Q06_Q6.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 3,
+      "q_num": 6,
+      "q_title": "Q6",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q01_머신러닝(Machine Learning)에서 교차검증(Cross Validation)에 대.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_4교시_Q01_머신러닝(Machine Learning)에서 교차검증(Cross Validation)에 대.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 1,
+      "q_title": "머신러닝(Machine Learning)에서 교차검증(Cross Validation)에 대하여 설명하시오.",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q02_5G 와 6G 이동통신에 대한 특징과 발전 동향에 대하여 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_4교시_Q02_5G 와 6G 이동통신에 대한 특징과 발전 동향에 대하여 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 2,
+      "q_title": "5G 와 6G 이동통신에 대한 특징과 발전 동향에 대하여 설명하시오.",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q03_엣지 컴퓨팅(Edge Computing)의 장단점과 적용사례 및 보안취약점에 대하여.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_4교시_Q03_엣지 컴퓨팅(Edge Computing)의 장단점과 적용사례 및 보안취약점에 대하여.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 3,
+      "q_title": "엣지 컴퓨팅(Edge Computing)의 장단점과 적용사례 및 보안취약점에 대하여",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q04_대용량 비휘발성 저장장치로 불리우는 SSD(Solid State Drive) 제어기의 플래.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_4교시_Q04_대용량 비휘발성 저장장치로 불리우는 SSD(Solid State Drive) 제어기의 플래.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 4,
+      "q_title": "대용량 비휘발성 저장장치로 불리우는 SSD(Solid State Drive) 제어기의 플래시 변환",
+      "pages": 5,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q05_의료용 3D(Dimension) 모델링 소프트웨어 관련으로 다음을 설명하시오..pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_4교시_Q05_의료용 3D(Dimension) 모델링 소프트웨어 관련으로 다음을 설명하시오..pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 5,
+      "q_title": "의료용 3D(Dimension) 모델링 소프트웨어 관련으로 다음을 설명하시오.",
+      "pages": 4,
+      "image_pages": 0,
+      "needs_ocr": false
+    },
+    {
+      "filename": "ITPE_응_4교시_Q06_클라우드 서비스의 품질 성능에 관한 기준 제정의 추진배경 및 평가 기준에 대하여.pdf",
+      "path": "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter/split_pdfs/128회/ITPE_응_4교시_Q06_클라우드 서비스의 품질 성능에 관한 기준 제정의 추진배경 및 평가 기준에 대하여.pdf",
+      "source": "ITPE",
+      "exam": "응",
+      "session": 4,
+      "q_num": 6,
+      "q_title": "클라우드 서비스의 품질 성능에 관한 기준 제정의 추진배경 및 평가 기준에 대하여",
+      "pages": 3,
+      "image_pages": 0,
+      "needs_ocr": false
+    }
+  ],
+  "failed": [
+    {
+      "pdf": "KPC128관-합.pdf",
+      "error": "no sessions"
+    },
+    {
+      "pdf": "KPC128응-합.pdf",
+      "error": "no sessions"
+    },
+    {
+      "pdf": "동기회128관.pdf",
+      "error": "no bounds"
+    },
+    {
+      "pdf": "동기회128응.pdf",
+      "error": "no bounds"
+    }
+  ],
+  "verification_issues": [
+    {
+      "file": "ITPE_관_1교시_Q06_NoSQL 의 3 가지 구조에 대하여 설명하시오..pdf",
+      "issue": "TITLE_MISMATCH (expected: NoSQL 의 3 ...)"
+    },
+    {
+      "file": "ITPE_관_1교시_Q09_뉴로모픽 칩(Neuromorphic Chip)에 대하여 설명하시오..pdf",
+      "issue": "TITLE_MISMATCH (expected: 뉴로모픽 칩(Neu...)"
+    },
+    {
+      "file": "ITPE_관_1교시_Q10_개인정보의 가명 익명처리 기술에 대하여 설명하시오..pdf",
+      "issue": "TITLE_MISMATCH (expected: 개인정보의 가명 익...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q03_코로나 19 로 인한 중국 물류수급 문제 및 반도체 대란에 따른 전체 산업분야에서.pdf",
+      "issue": "TITLE_MISMATCH (expected: 코로나 19 로 인...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_2교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_관_4교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_응_2교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_응_2교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_응_2교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_응_3교시_Q04_Q4.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q4...)"
+    },
+    {
+      "file": "ITPE_응_3교시_Q05_Q5.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q5...)"
+    },
+    {
+      "file": "ITPE_응_3교시_Q06_Q6.pdf",
+      "issue": "TITLE_MISMATCH (expected: Q6...)"
+    },
+    {
+      "file": "ITPE_응_4교시_Q02_5G 와 6G 이동통신에 대한 특징과 발전 동향에 대하여 설명하시오..pdf",
+      "issue": "TITLE_MISMATCH (expected: 5G 와 6G 이동...)"
+    }
+  ]
+}
