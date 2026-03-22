@@ -1,5 +1,7 @@
 split_pdfs/
+split_pdfs_odl/
 *.pdf
 __pycache__/
 *.pyc
 .DS_Store
+venv/
