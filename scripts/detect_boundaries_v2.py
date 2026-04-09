@@ -508,12 +508,28 @@ def calibrate_weights(elements: list, total_pages: int) -> SignalWeights:
     if star_count >= 3:
         w.star_rating = min(star_count / 10, 1.0)
 
-    # "N교시 M번" heading 수 (라이지움)
+    # "N교시 M번" heading 수 (라이지움/동기회)
+    # 직접 매칭 + 같은 페이지 내 "N교시"/"M번" 분리 heading 재조합
     session_topic_count = sum(
         1 for e in elements
-        if e.get("type") == "heading"
-        and _SESSION_TOPIC_PAT.search(_norm(e.get("content", "")))
+        if _SESSION_TOPIC_PAT.search(_norm(e.get("content", "")))
     )
+    if session_topic_count < 3:
+        # 분리된 heading 재조합: 같은 페이지에 "N교시" + "M번" heading 쌍
+        _cal_num = re.compile(r'^(\d+)\s*번$')
+        pg_has_session = set()
+        pg_has_num = set()
+        for e in elements:
+            c = _norm(e.get("content", ""))
+            if len(c) > 15:
+                continue
+            if not (e.get("type") == "heading" or e.get("is_table_cell")):
+                continue
+            if _SESSION_PAT.search(c):
+                pg_has_session.add(e["page"])
+            if _cal_num.match(c):
+                pg_has_num.add(e["page"])
+        session_topic_count = len(pg_has_session & pg_has_num)
     if session_topic_count >= 3:
         w.session_topic_num = min(session_topic_count / 10, 1.0)
 
@@ -675,7 +691,8 @@ def _detect_noise_pages(block_elems: list, repeated_headers: set) -> set:
             if c in repeated_headers or _IGNORE_PAT.search(c) or len(c) < 5:
                 continue
             if (_ROMAN_I_PAT.match(c) or _MENTI_PAT.match(c)
-                    or _SESSION_TOPIC_PAT.search(c)):
+                    or _SESSION_TOPIC_PAT.search(c)
+                    or _SESSION_PAT.search(c)):
                 first_signal_page = e["page"]
                 break
 
@@ -1285,17 +1302,21 @@ def _apply_session_topic_signal(block_elems: list, page_scores: dict,
         page_scores[pg].score += score
         page_scores[pg].signals["session_topic"] = score
 
-    # Pass 2: 테이블 셀 재조합 — 같은 페이지에 "N교시" 셀과 "M번" 셀이 분리된 경우
+    # Pass 2: 분리된 요소 재조합 — 같은 페이지에 "N교시"와 "M번"이 별도 요소인 경우
+    # kordoc 2.2.0에서 "1교시:1번"이 heading 2개("1 교시", "1 번")로 분리됨
     _NUM_PAT = re.compile(r'^(\d+)\s*번$')
     page_session_cells: dict[int, list] = {}  # page -> list of session nums
     page_num_cells: dict[int, list] = {}      # page -> list of question nums
     for e in block_elems:
-        if not e.get("is_table_cell"):
-            continue
         c = _norm(e.get("content", ""))
         pg = e["page"]
+        # 짧은 heading 또는 테이블 셀에서만 매칭 (긴 문장 내 교시 언급 제외)
+        if len(c) > 15:
+            continue
+        if not (e.get("type") == "heading" or e.get("is_table_cell")):
+            continue
         sm = _SESSION_PAT.search(c)
-        if sm and len(c) < 15:  # 짧은 셀만 (긴 문장 내 교시 언급 제외)
+        if sm:
             page_session_cells.setdefault(pg, []).append(int(sm.group(1)))
         nm = _NUM_PAT.match(c)
         if nm:
