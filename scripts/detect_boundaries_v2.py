@@ -34,6 +34,7 @@ _SESSION_PAT = re.compile(r'제?\s*(\d)\s*교시')
 # 주의: "기출문제", "기출해설집"은 KPC 등 일반 헤더에도 있으므로 제외
 _NOISE_PAGE_PAT = re.compile(
     r'출제\s*빈도|출제\s*비율|도메인\s*별\s*출제|^\[참고\]|교시형\s*출제'
+    r'|출제\s*경향|감사의?\s*글|기출\s*풀이집'
 )
 _Q_KEYWORDS = re.compile(
     r"설명하시오|논하시오|서술하시오|비교하시오|구분하시오|기술하시오"
@@ -44,7 +45,7 @@ _MARKER_HEADING_PAT = re.compile(r'^[□■◇◆●○▶►▷]\s*.{3,}')
 # KPC: ★ 난이도 마커가 포함된 토픽 시작 paragraph
 _STAR_RATING_PAT = re.compile(r'★[★☆]{1,4}')
 # 라이지움: "N교시 M번" heading = 토픽 시작
-_SESSION_TOPIC_PAT = re.compile(r'(\d)\s*교시\s*(\d+)\s*번')
+_SESSION_TOPIC_PAT = re.compile(r'(\d)\s*교시\s*[:\s]*(\d+)\s*번')
 # 아이리포: 반복 헤더의 "IT trends" 뒤 키워드 추출
 _HEADER_KW_PAT = re.compile(r'IT\s*trends\s+(.+?)(?:\s*\|\s*PM|\s+PM\s)', re.DOTALL)
 # 합숙: "N일차" 기반 블록 분리
@@ -673,7 +674,8 @@ def _detect_noise_pages(block_elems: list, repeated_headers: set) -> set:
             c = _norm(e["content"])
             if c in repeated_headers or _IGNORE_PAT.search(c) or len(c) < 5:
                 continue
-            if _ROMAN_I_PAT.match(c) or _MENTI_PAT.match(c):
+            if (_ROMAN_I_PAT.match(c) or _MENTI_PAT.match(c)
+                    or _SESSION_TOPIC_PAT.search(c)):
                 first_signal_page = e["page"]
                 break
 
@@ -1260,14 +1262,15 @@ def _apply_session_topic_signal(block_elems: list, page_scores: dict,
                                  repeated_headers: set,
                                  cover_pages: set):
     """
-    라이지움 "N교시 M번" heading 기반 토픽 시작 탐지.
+    "N교시 M번" / "N교시:M번" heading 기반 토픽 시작 탐지.
 
-    라이지움은 각 토픽을 "1교시 1 번", "2교시3번" 등 heading으로 구분.
-    _SESSION_TOPIC_PAT으로 매칭하여 각 발견 위치를 토픽 시작으로 마킹.
+    heading 요소에서 직접 매칭 + paragraph(테이블 셀)에서 "N교시"와 "M번"이
+    같은 페이지 내 분리된 셀로 존재하는 경우도 재조합하여 탐지.
     """
+    matched_pages = set()
+
+    # Pass 1: heading/paragraph 요소에서 직접 매칭
     for e in sorted(block_elems, key=lambda x: x["page"]):
-        if e.get("type") != "heading":
-            continue
         c = _norm(e.get("content", ""))
         m = _SESSION_TOPIC_PAT.search(c)
         if not m:
@@ -1275,14 +1278,38 @@ def _apply_session_topic_signal(block_elems: list, page_scores: dict,
         pg = e["page"]
         if pg in cover_pages or pg not in page_scores:
             continue
-        # 이미 강한 신호가 있으면 보강만
-        existing = page_scores[pg].signals
-        if existing.get("session_topic"):
+        if pg in matched_pages:
             continue
-
+        matched_pages.add(pg)
         score = weights.session_topic_num * 10
         page_scores[pg].score += score
         page_scores[pg].signals["session_topic"] = score
+
+    # Pass 2: 테이블 셀 재조합 — 같은 페이지에 "N교시" 셀과 "M번" 셀이 분리된 경우
+    _NUM_PAT = re.compile(r'^(\d+)\s*번$')
+    page_session_cells: dict[int, list] = {}  # page -> list of session nums
+    page_num_cells: dict[int, list] = {}      # page -> list of question nums
+    for e in block_elems:
+        if not e.get("is_table_cell"):
+            continue
+        c = _norm(e.get("content", ""))
+        pg = e["page"]
+        sm = _SESSION_PAT.search(c)
+        if sm and len(c) < 15:  # 짧은 셀만 (긴 문장 내 교시 언급 제외)
+            page_session_cells.setdefault(pg, []).append(int(sm.group(1)))
+        nm = _NUM_PAT.match(c)
+        if nm:
+            page_num_cells.setdefault(pg, []).append(int(nm.group(1)))
+
+    for pg in set(page_session_cells) & set(page_num_cells):
+        if pg in matched_pages or pg in cover_pages or pg not in page_scores:
+            continue
+        if page_scores[pg].signals.get("session_topic"):
+            continue
+        score = weights.session_topic_num * 10
+        page_scores[pg].score += score
+        page_scores[pg].signals["session_topic"] = score
+        matched_pages.add(pg)
 
 
 def _apply_header_keyword_signal(block_elems: list, page_scores: dict,
