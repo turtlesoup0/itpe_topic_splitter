@@ -1433,11 +1433,33 @@ def _apply_kr_restart_signal(block_elems: list, page_scores: dict,
         prev_order = max(prev_order, order)
 
 
+_QUESTION_META_PAT = re.compile(
+    r'^(도메인|난이도|키워드|출제배경|참고문헌|해설자)$'
+)
+
+
 def _extract_title(elements: list, page: int, repeated_headers: set) -> str:
     """페이지에서 토픽 제목 후보를 추출"""
-    for e in elements:
-        if e["page"] != page:
+    page_elems = [e for e in elements if e["page"] == page]
+
+    # 우선순위 1: "M 번" heading 직후 첫 번째 문제 텍스트 (동기회 포맷)
+    # "M 번" heading 뒤의 첫 테이블 셀 중 메타 레이블이 아닌 실질 텍스트
+    _num_heading = re.compile(r'^\d+\s*번$')
+    found_num_heading = False
+    for e in page_elems:
+        c = _norm(e["content"])
+        if e.get("type") == "heading" and _num_heading.match(c):
+            found_num_heading = True
             continue
+        if found_num_heading and e.get("is_table_cell"):
+            if _QUESTION_META_PAT.match(c):
+                break  # 메타 레이블 도달 → 문제 텍스트 없음
+            if len(c) >= 4:
+                # 문제 텍스트 — 첫 줄만 사용, 최대 80자
+                title = c.split("\n")[0].strip()[:80]
+                return title
+
+    for e in page_elems:
         c = _norm(e["content"])
         if c in repeated_headers or _IGNORE_PAT.search(c) or len(c) < 5:
             continue
