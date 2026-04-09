@@ -100,6 +100,7 @@ async def api_split(file: UploadFile = File(...)):
                 "page_end": b.page_end,
                 "fmt": b.fmt,
                 "session": b.session,
+                "session_q": b.session_q,
                 "confidence": b.confidence,
             }
             for b in boundaries_v2

@@ -266,19 +266,24 @@ def split_pdf(source_path: str, boundaries: list, output_dir: str,
         new_doc.insert_pdf(doc, from_page=sp, to_page=ep)
 
         topic_name = safe_filename(b["title"], max_len=60)
+        is_question_sheet = (b.get("fmt") == "question_pages")
         # 메타 정보가 있으면 기존 형식, 없으면 교시+번호 기반 간결 형식
         has_meta = any([gen.strip("_ "), week.strip("_ "),
                         subject.strip("_ "), session.strip("_ ")])
         if has_meta:
-            fname = (f"{gen}_{safe_filename(week, 20)}_{subject}"
-                     f"_{session}_Q{b['num']:02d}_{topic_name}.pdf")
+            if is_question_sheet:
+                sess_num = b.get("session", 0)
+                fname = (f"{gen}_{safe_filename(week, 20)}_{subject}"
+                         f"_문제지_{sess_num}교시.pdf")
+            else:
+                fname = (f"{gen}_{safe_filename(week, 20)}_{subject}"
+                         f"_{session}_Q{b['num']:02d}_{topic_name}.pdf")
         else:
             sess_num = b.get("session", 0)
-            if sess_num:
-                # 교시 내 번호 계산: 같은 session의 이전 boundary 수 + 1
-                sess_q = sum(1 for prev in boundaries[:boundaries.index(b)]
-                             if prev.get("session") == sess_num) + 1
-                fname = (f"Q{b['num']:02d}_{sess_num}교시_{sess_q}번"
+            if is_question_sheet:
+                fname = f"문제지_{sess_num}교시.pdf"
+            elif sess_num:
+                fname = (f"Q{b['num']:02d}_{sess_num}교시_{b.get('session_q', 0)}번"
                          f"_{topic_name}.pdf")
             else:
                 fname = f"Q{b['num']:02d}_{topic_name}.pdf"

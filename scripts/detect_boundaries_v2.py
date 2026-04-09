@@ -142,6 +142,7 @@ class TopicBoundary:
     page_end: int
     session: int             # 교시 번호
     confidence: float        # 0.0~1.0
+    session_q: int = 0       # 교시 내 번호 (문제지는 0)
     fmt: str = "multi_signal"
 
 
@@ -1825,9 +1826,7 @@ def detect_boundaries_v2(elements: list, total_pages: int,
                 combined.append(all_boundaries[h_idx])
                 h_idx += 1
         all_boundaries = combined
-        # 번호 재부여
-        for i, b in enumerate(all_boundaries):
-            b.num = i + 1
+        _renumber_boundaries(all_boundaries)
 
     # 3.6 단일 페이지 토픽 병합 (과분할 방지)
     all_boundaries = _merge_short_topics(all_boundaries, sessions)
@@ -1981,11 +1980,25 @@ def _merge_short_topics(boundaries: list[TopicBoundary],
             # 병합 불가 (세션 내 유일한 토픽) → 유지
             merged.append(b)
 
-    # 번호 재부여
-    for i, b in enumerate(merged):
-        b.num = i + 1
+    _renumber_boundaries(merged)
 
     return merged
+
+
+def _renumber_boundaries(boundaries: list):
+    """토픽 번호 + 교시 내 번호 재부여. 문제지(question_pages)는 Q번호에서 제외."""
+    topic_num = 0
+    session_counters: dict[int, int] = {}
+    for b in boundaries:
+        if b.fmt == "question_pages":
+            b.num = 0  # 문제지는 Q번호 없음
+            b.session_q = 0
+        else:
+            topic_num += 1
+            b.num = topic_num
+            sess = b.session
+            session_counters[sess] = session_counters.get(sess, 0) + 1
+            b.session_q = session_counters[sess]
 
 
 _KR_SUB_PAT = re.compile(r'^(가|나|다|라|마|바|사|아)\.\s+(.{5,})')
