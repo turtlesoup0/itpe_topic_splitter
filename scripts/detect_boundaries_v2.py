@@ -150,12 +150,22 @@ class TopicBoundary:
 def _detect_repeated_headers(elements: list, total_pages: int) -> set:
     """문서 전체에서 반복 등장하는 헤더/푸터를 탐지.
     kordoc --no-header-footer로 위치 기반 헤더는 제거되지만,
-    본문 내 반복 헤딩(예: 학원명, 회차 표시)은 여전히 남으므로 이 함수 유지."""
+    본문 내 반복 헤딩(예: 학원명, 회차 표시)은 여전히 남으므로 이 함수 유지.
+    짧은(≤15자) paragraph/table cell 중 다수 반복되는 텍스트도 포함
+    (KPC "출제빈도", "난이도" 등 메타 레이블)."""
     heading_counts = Counter(
         _norm(e["content"]) for e in elements if e["type"] == "heading"
     )
+    # 짧은 paragraph도 반복이면 포함 (테이블 메타 레이블 등)
+    short_para_counts = Counter(
+        _norm(e["content"]) for e in elements
+        if e.get("type") == "paragraph"
+        and len(_norm(e["content"])) <= 15
+    )
     threshold = max(3, total_pages * 0.15)
-    return {c for c, n in heading_counts.items() if n >= threshold}
+    result = {c for c, n in heading_counts.items() if n >= threshold}
+    result |= {c for c, n in short_para_counts.items() if n >= threshold}
+    return result
 
 
 # ─── Phase 1: 교시 분리 ──────────────────────────────────────────
@@ -498,12 +508,11 @@ def calibrate_weights(elements: list, total_pages: int) -> SignalWeights:
     if marker_heading_count >= 3:
         w.marker_heading = min(marker_heading_count / 10, 1.0)
 
-    # ★ 난이도 마커 수 (KPC: paragraph에 ★★ + "1." 패턴)
+    # ★ 난이도 마커 수 (KPC: paragraph에 ★★★ 패턴)
     star_count = sum(
         1 for e in elements
         if e.get("type") == "paragraph"
         and _STAR_RATING_PAT.search(e.get("content", ""))
-        and len(e.get("content", "")) > 10
     )
     if star_count >= 3:
         w.star_rating = min(star_count / 10, 1.0)
@@ -1252,7 +1261,7 @@ def _apply_star_rating_signal(block_elems: list, page_scores: dict,
         if e.get("type") != "paragraph":
             continue
         c = e.get("content", "")
-        if _STAR_RATING_PAT.search(c) and len(c) > 10:
+        if _STAR_RATING_PAT.search(c):
             page_star[pg] = e
 
     for pg, e in page_star.items():
@@ -1866,7 +1875,7 @@ def _build_question_boundaries(elements: list,
             # 해설 콘텐츠 마커 (이 페이지에 해설이 있으면 문제지가 아님)
             if _ROMAN_I_PAT.match(c) or _끝_PAT.match(c):
                 page_has_content[pg] = True
-            if _STAR_RATING_PAT.search(c) and len(c) > 10:
+            if _STAR_RATING_PAT.search(c):
                 page_has_content[pg] = True
 
         qpages = set()
