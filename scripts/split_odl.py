@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-ODL 기반 FB반 리뷰 PDF 분할 스크립트
+kordoc + v2 경계 탐지 기반 FB반 리뷰 PDF 분할 스크립트
 
-기존 split_and_ocr.py 의 한계:
-  - PyMuPDF가 한글을 글자 단위(문\n제\n영\n역)로 분절
-  - 페이지별 regex 스캔으로 경계를 추론 → 복잡한 워크어라운드 필요
-  - 이미지 페이지(sparse) 완전 스킵
+기존 ODL(Java) 기반 접근의 한계:
+  - Java 런타임 필수 (OpenJDK)
+  - 폰트 크기/스타일 정보 미제공 → PyMuPDF로 이중 파싱 필요
+  - 테이블 구조 미제공 → 텍스트 패턴으로만 noise 감지
 
-이 스크립트의 접근:
-  1. ODL JSON으로 PDF를 파싱 → element 단위(type + page number + content)
-  2. heading element에서 토픽 경계 + 정확한 페이지 번호를 직접 추출
-  3. fitz(PyMuPDF)로 해당 페이지 범위를 PDF로 분할
+kordoc 기반 접근:
+  1. kordoc CLI(Node.js)로 PDF를 파싱 → IRBlock[] (type, text, pageNumber, style, table)
+  2. IRBlock → element 변환 (heading/paragraph/table 구조 + font_size + font_ratio)
+  3. detect_boundaries_v2로 다중 신호 경계 탐지
+  4. fitz(PyMuPDF)로 해당 페이지 범위를 PDF로 분할
 
 사용법:
   python3 split_odl.py --single <path>        # 단일 PDF
@@ -22,6 +23,7 @@ import os
 import re
 import sys
 import json
+import subprocess
 import unicodedata
 import tempfile
 from pathlib import Path
@@ -29,8 +31,10 @@ from typing import List, Optional
 from datetime import datetime
 
 import fitz  # PyMuPDF (PDF 분할용)
-from opendataloader_pdf import convert as odl_convert
 from detect_boundaries_v2 import detect_boundaries_v2
+
+# kordoc CLI 경로 (환경변수 또는 로컬 빌드)
+KORDOC_CLI = os.environ.get("KORDOC_CLI", "/tmp/kordoc/dist/cli.js")
 
 # ─── Configuration ────────────────────────────────────────────────
 BASE_DIR = "/Users/turtlesoup0-macmini/Library/Mobile Documents/com~apple~CloudDocs/공부/4_FB반 자료"
@@ -78,110 +82,149 @@ def extract_session(filename: str) -> str:
     return f"{m.group(1)}교시" if m else "0교시"
 
 
-# ─── ODL JSON 파싱 ────────────────────────────────────────────────
-def collect_elements(node: dict, results: list):
-    """ODL JSON 노드에서 type/page/content 를 재귀적으로 수집"""
-    t = node.get("type", "?")
-    pg = node.get("page number")
-    content = node.get("content", "").strip()
+# ─── kordoc PDF 파싱 ─────────────────────────────────────────────
 
-    if content and pg is not None:
-        results.append({"type": t, "page": pg, "content": content})
-
-    for kid in node.get("kids", []):
-        collect_elements(kid, results)
-
-
-def parse_odl_json(pdf_path: str) -> tuple[list, int]:
+def parse_kordoc(pdf_path: str) -> tuple[list, int]:
     """
-    ODL로 PDF를 JSON 변환하고 elements를 반환
-    sparse(이미지) 페이지는 PyMuPDF OCR로 보강
+    kordoc CLI로 PDF를 파싱하고 detect_boundaries_v2 호환 elements를 반환.
+
+    kordoc IRBlock → element 변환 규칙:
+      - heading → heading (font_size/font_ratio 포함)
+      - paragraph → paragraph
+      - list → paragraph (텍스트 평탄화)
+      - table → 셀 텍스트를 개별 paragraph로 추출 + is_table 마킹
+
     Returns: (elements, total_pages)
     """
-    with tempfile.TemporaryDirectory() as tmpdir:
-        odl_convert(
-            input_path=pdf_path,
-            output_dir=tmpdir,
-            format="json",
-            quiet=True,
-            reading_order="xycut",
-        )
-        jfiles = [f for f in Path(tmpdir).rglob("*.json") if f.is_file()]
-        if not jfiles:
-            return [], 0
-        data = json.loads(jfiles[0].read_text(encoding="utf-8"))
+    result = subprocess.run(
+        ["node", KORDOC_CLI, pdf_path, "--format", "json",
+         "--no-header-footer", "--silent"],
+        capture_output=True, text=True, timeout=60,
+    )
+    # kordoc가 Warning을 stdout에 출력할 수 있으므로
+    # JSON 시작 위치({)를 찾아서 파싱
+    raw = result.stdout
+    json_start = raw.find("{")
+
+    # 이미지 기반 PDF: kordoc가 FAIL (returncode!=0) 또는 JSON 없음
+    # → PyMuPDF OCR로 전체 폴백
+    if result.returncode != 0 or json_start < 0:
+        stderr_hint = result.stderr[:200] if result.stderr else ""
+        is_image_fail = "이미지 기반" in stderr_hint or "0자" in stderr_hint
+        if is_image_fail or json_start < 0:
+            print(f"  [kordoc] 이미지 기반 PDF 감지 — OCR 폴백")
+            # 페이지 수만 fitz로 취득 후 전체 OCR
+            try:
+                doc = fitz.open(pdf_path)
+                total_pages = doc.page_count
+                doc.close()
+            except Exception:
+                total_pages = 0
+            if total_pages > 0:
+                return _ocr_image_pdf(pdf_path, [], total_pages), total_pages
+            raise RuntimeError(f"이미지 PDF 페이지 수 확인 실패")
+        raise RuntimeError(f"kordoc 실패: {stderr_hint}")
+
+    data = json.loads(raw[json_start:])
+    if not data.get("success", True):
+        raise RuntimeError(f"kordoc 파싱 실패: {data.get('error', '?')}")
+
+    blocks = data.get("blocks", [])
+    metadata = data.get("metadata", {})
+    total_pages = metadata.get("pageCount") or data.get("totalPages") or 0
+    if not total_pages and blocks:
+        total_pages = max((b.get("pageNumber", 0) for b in blocks), default=0)
+    is_image_based = data.get("isImageBased", False)
+
+    if is_image_based:
+        print(f"  [kordoc] 이미지 기반 PDF — OCR 보강")
+
+    # median font size 계산 (font_ratio용)
+    all_sizes = [
+        b["style"]["fontSize"] for b in blocks
+        if b.get("style", {}).get("fontSize")
+    ]
+    if all_sizes:
+        sorted_sizes = sorted(all_sizes)
+        mid = len(sorted_sizes) // 2
+        median_size = ((sorted_sizes[mid - 1] + sorted_sizes[mid]) / 2
+                       if len(sorted_sizes) % 2 == 0 else sorted_sizes[mid])
+    else:
+        median_size = 10.0  # fallback
 
     elements = []
-    for kid in data.get("kids", []):
-        collect_elements(kid, elements)
+    for block in blocks:
+        pg = block.get("pageNumber", 0)
+        if not pg:
+            continue
+        btype = block.get("type", "paragraph")
+        text = (block.get("text") or "").strip()
+        fs = block.get("style", {}).get("fontSize", 0)
+        ratio = fs / median_size if fs and median_size > 0 else 1.0
 
-    total_pages = data.get("number of pages", 0)
+        if btype == "table":
+            # 테이블: 셀 텍스트를 개별 element로 추출
+            table_data = block.get("table", {})
+            cells = table_data.get("cells", [])
+            for row in cells:
+                for cell in row:
+                    ct = (cell.get("text") or "").strip()
+                    if ct and len(ct) > 2:
+                        elements.append({
+                            "type": "paragraph", "page": pg,
+                            "content": ct,
+                            "is_table_cell": True,
+                        })
+            # 테이블 자체도 noise 감지용으로 마킹
+            elements.append({
+                "type": "table_marker", "page": pg,
+                "content": f"[TABLE {table_data.get('rows',0)}x{table_data.get('cols',0)}]",
+                "table_rows": table_data.get("rows", 0),
+                "table_cols": table_data.get("cols", 0),
+            })
+        elif btype == "list":
+            # 리스트: 텍스트를 줄 단위로 분리하여 paragraph로 추가
+            for line in text.splitlines():
+                line = line.strip().lstrip("-•·○●◦▪▸►").strip()
+                if line and len(line) > 2:
+                    elements.append({
+                        "type": "paragraph", "page": pg,
+                        "content": line,
+                        "font_size": fs, "font_ratio": ratio,
+                    })
+        elif btype == "heading":
+            elements.append({
+                "type": "heading", "page": pg,
+                "content": text,
+                "font_size": fs, "font_ratio": ratio,
+                "heading_level": block.get("level", 0),
+            })
+        else:  # paragraph, separator, image, etc.
+            if text and len(text) > 1:
+                elements.append({
+                    "type": "paragraph", "page": pg,
+                    "content": text,
+                    "font_size": fs, "font_ratio": ratio,
+                })
 
-    # 이미지 페이지 OCR 보강
-    elements = _ocr_sparse_pages(pdf_path, elements, total_pages)
+    # 이미지 기반 PDF면 OCR 보강 시도
+    if is_image_based and total_pages > 0:
+        elements = _ocr_image_pdf(pdf_path, elements, total_pages)
 
     return elements, total_pages
 
 
-# ODL이 추출 못한 이미지 페이지에서 경계 신호 탐지용 패턴
-_OCR_끝_PAT  = re.compile(r'[\u201c\u201d"\'"]?끝[\u201c\u201d"\'"]?\s*$')
-_OCR_NUM_PAT = re.compile(r'^(\d{1,2})\.\s+(.{5,})')
-_OCR_ROMAN_I_PAT = re.compile(r'^I\.\s+.{3,}')
-_OCR_MENTI_PAT = re.compile(r'^문\s*제\s+\d{1,2}\.\s+.{5,}', re.DOTALL)
-_OCR_Q_KEYWORDS = re.compile(
-    r"설명하시오|논하시오|서술하시오|비교하시오|구분하시오|기술하시오"
-    r"|설명하고|논하고|비교하고"
-)
-
-
-def _ocr_sparse_pages(pdf_path: str, elements: list, total_pages: int) -> list:
-    """
-    의미 있는 element가 없는 '이미지 페이지'에 PyMuPDF Tesseract OCR을 적용해
-    경계 탐지에 필요한 신호(끝, 번호 제목, I. 토픽, 문제N., 질문)를 보강한다.
-
-    기존 한계: 반복 헤더만 있는 페이지를 sparse로 인식 못함 (element > 0)
-    개선: 반복 헤더를 제외하고 의미 있는 element 수로 sparse 판정
-
-    PyMuPDF 1.18+ 의 Page.get_textpage_ocr() 사용 (Tesseract 필요).
-    OCR 실패 시 조용히 원본 elements 반환.
-    """
-    if total_pages == 0:
-        return elements
-
-    # ── 반복 헤더 감지: 40%+ 페이지에 등장하는 content ──────────────
-    content_pages: dict[str, set] = {}
-    for e in elements:
-        c = e["content"].strip()
-        if c and len(c) > 5:
-            content_pages.setdefault(c, set()).add(e["page"])
-    rep_threshold = max(total_pages * 0.4, 5)
-    repeated_headers = {c for c, pgs in content_pages.items()
-                        if len(pgs) >= rep_threshold}
-
-    # ── 의미 있는 element 수 (반복 헤더 + ignore 패턴 제외) ─────────
-    _ignore = re.compile(r'^\d+$|Copyright|FB\d{2}|주간모의')
-    page_counts: dict[int, int] = {}
-    for e in elements:
-        c = e["content"].strip()
-        if c in repeated_headers:
-            continue
-        if not _ignore.search(c) and len(c) > 3:
-            page_counts[e["page"]] = page_counts.get(e["page"], 0) + 1
-
-    sparse = [pg for pg in range(1, total_pages + 1)
-              if page_counts.get(pg, 0) == 0]
-    if not sparse:
-        return elements
-
+def _ocr_image_pdf(pdf_path: str, elements: list, total_pages: int) -> list:
+    """이미지 기반 PDF에 PyMuPDF Tesseract OCR 적용 (kordoc이 isImageBased 감지)"""
     try:
         doc = fitz.open(pdf_path)
     except Exception:
         return elements
 
-    ocr_extras: list = []
-    for pg in sparse:
+    ocr_extras = []
+    for pi in range(doc.page_count):
         try:
-            page = doc[pg - 1]
+            page = doc[pi]
             tp = page.get_textpage_ocr(language="kor+eng", dpi=200, full=False)
             text = page.get_text(textpage=tp)
         except Exception:
@@ -189,38 +232,16 @@ def _ocr_sparse_pages(pdf_path: str, elements: list, total_pages: int) -> list:
 
         for line in text.splitlines():
             line = line.strip()
-            if not line or len(line) < 2:
-                continue
-            # 반복 헤더 스킵
-            if line in repeated_headers:
-                continue
-
-            # "끝" 마커 (짧은 줄에서만 → 오탐 방지)
-            if _OCR_끝_PAT.match(line) or (len(line) <= 6 and '끝' in line):
-                ocr_extras.append({"type": "paragraph", "page": pg,
-                                   "content": line, "source": "ocr"})
-            # "I. 토픽명" (로마 숫자 토픽 시작)
-            elif _OCR_ROMAN_I_PAT.match(line):
-                ocr_extras.append({"type": "heading", "page": pg,
-                                   "content": line, "source": "ocr"})
-            # "문 제 N. 질문" (시험문제 형식)
-            elif _OCR_MENTI_PAT.match(line):
-                ocr_extras.append({"type": "paragraph", "page": pg,
-                                   "content": line, "source": "ocr"})
-            # 번호 제목 "N. 제목..."
-            elif _OCR_NUM_PAT.match(line):
-                ocr_extras.append({"type": "heading", "page": pg,
-                                   "content": line, "source": "ocr"})
-            # 질문 키워드 포함 긴 줄 (토픽 질문문)
-            elif len(line) > 15 and _OCR_Q_KEYWORDS.search(line):
-                ocr_extras.append({"type": "paragraph", "page": pg,
-                                   "content": line, "source": "ocr"})
+            if line and len(line) > 2:
+                ocr_extras.append({
+                    "type": "paragraph", "page": pi + 1,
+                    "content": line, "source": "ocr",
+                })
 
     doc.close()
 
     if ocr_extras:
-        print(f"  [OCR] {len(sparse)}개 이미지 페이지 → "
-              f"{len(ocr_extras)}개 element 추가")
+        print(f"  [OCR] {total_pages}개 이미지 페이지 → {len(ocr_extras)}개 element 추가")
 
     return elements + ocr_extras
 
@@ -321,7 +342,7 @@ def run_pipeline(dry_run: bool = False, single_path: str = None):
         pdfs = find_review_pdfs()
 
     print(f"\n{'='*70}")
-    print(f" ODL 기반 FB반 리뷰 PDF 분할 파이프라인")
+    print(f" kordoc 기반 FB반 리뷰 PDF 분할 파이프라인")
     print(f" 대상: {len(pdfs)}개 | Dry-run: {'ON' if dry_run else 'OFF'}")
     print(f" 출력: {SPLIT_DIR}")
     print(f"{'='*70}\n")
@@ -335,14 +356,14 @@ def run_pipeline(dry_run: bool = False, single_path: str = None):
         print(label)
 
         try:
-            elements, total_pages = parse_odl_json(pdf["path"])
+            elements, total_pages = parse_kordoc(pdf["path"])
         except Exception as e:
-            print(f"  ✗ ODL 파싱 실패: {e}")
+            print(f"  ✗ kordoc 파싱 실패: {e}")
             failed.append({"pdf": pdf["filename"], "error": str(e)})
             continue
 
         if not elements:
-            print(f"  ✗ ODL 출력 없음")
+            print(f"  ✗ kordoc 출력 없음")
             failed.append({"pdf": pdf["filename"], "error": "no elements"})
             continue
 

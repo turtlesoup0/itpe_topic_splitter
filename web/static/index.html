@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITPE Topic Splitter</title>
+<style>
+  :root {
+    --bg: #0f172a; --surface: #1e293b; --border: #334155;
+    --text: #e2e8f0; --muted: #94a3b8; --accent: #3b82f6;
+    --accent-hover: #2563eb; --success: #22c55e; --error: #ef4444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  }
+  .container { max-width: 520px; width: 100%; padding: 20px; }
+  h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 24px; }
+
+  /* Drop Zone */
+  .dropzone {
+    border: 2px dashed var(--border); border-radius: 12px;
+    padding: 48px 24px; text-align: center; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .dropzone:hover, .dropzone.dragover {
+    border-color: var(--accent); background: rgba(59,130,246,0.05);
+  }
+  .dropzone-icon { font-size: 2.5rem; margin-bottom: 12px; }
+  .dropzone-text { color: var(--muted); font-size: 0.9rem; }
+  .dropzone-text strong { color: var(--accent); }
+  .dropzone-hint { color: var(--muted); font-size: 0.75rem; margin-top: 8px; }
+
+  /* File info */
+  .file-info {
+    display: none; margin-top: 16px; padding: 12px 16px;
+    background: var(--surface); border-radius: 8px;
+    font-size: 0.85rem; justify-content: space-between; align-items: center;
+  }
+  .file-info.show { display: flex; }
+  .file-name { color: var(--text); font-weight: 500; }
+  .file-size { color: var(--muted); }
+  .file-remove {
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 1.1rem; padding: 0 4px;
+  }
+  .file-remove:hover { color: var(--error); }
+
+  /* Button */
+  .btn {
+    display: none; width: 100%; margin-top: 16px; padding: 12px;
+    background: var(--accent); color: white; border: none; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s;
+  }
+  .btn:hover { background: var(--accent-hover); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn.show { display: block; }
+
+  /* Progress */
+  .progress {
+    display: none; margin-top: 16px;
+  }
+  .progress.show { display: block; }
+  .progress-bar-bg {
+    height: 6px; background: var(--surface); border-radius: 3px; overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%; background: var(--accent); border-radius: 3px;
+    width: 0%; transition: width 0.3s;
+  }
+  .progress-text {
+    color: var(--muted); font-size: 0.8rem; margin-top: 6px; text-align: center;
+  }
+
+  /* Result */
+  .result {
+    display: none; margin-top: 16px; padding: 16px;
+    border-radius: 8px; font-size: 0.85rem;
+  }
+  .result.show { display: block; }
+  .result.success { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); }
+  .result.error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); }
+  .result-title { font-weight: 600; margin-bottom: 4px; }
+  .result.success .result-title { color: var(--success); }
+  .result.error .result-title { color: var(--error); }
+  .result-detail { color: var(--muted); line-height: 1.5; }
+  .result-warnings { color: var(--muted); font-size: 0.78rem; margin-top: 8px; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>ITPE Topic Splitter</h1>
+  <p class="subtitle">PDF를 업로드하면 토픽별로 분할하여 ZIP으로 다운로드합니다.</p>
+
+  <div class="dropzone" id="dropzone">
+    <div class="dropzone-icon">&#128196;</div>
+    <div class="dropzone-text"><strong>클릭</strong> 또는 파일을 여기에 드래그</div>
+    <div class="dropzone-hint">PDF 파일 (최대 50MB)</div>
+    <input type="file" id="fileInput" accept=".pdf" hidden>
+  </div>
+
+  <div class="file-info" id="fileInfo">
+    <div>
+      <span class="file-name" id="fileName"></span>
+      <span class="file-size" id="fileSize"></span>
+    </div>
+    <button class="file-remove" id="fileRemove">&times;</button>
+  </div>
+
+  <button class="btn" id="splitBtn">분할 시작</button>
+
+  <div class="progress" id="progress">
+    <div class="progress-bar-bg">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">파싱 중...</div>
+  </div>
+
+  <div class="result" id="result">
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-detail" id="resultDetail"></div>
+    <div class="result-warnings" id="resultWarnings"></div>
+  </div>
+</div>
+
+<script>
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const fileInfo = document.getElementById('fileInfo');
+const fileName = document.getElementById('fileName');
+const fileSize = document.getElementById('fileSize');
+const fileRemove = document.getElementById('fileRemove');
+const splitBtn = document.getElementById('splitBtn');
+const progress = document.getElementById('progress');
+const progressBar = document.getElementById('progressBar');
+const progressText = document.getElementById('progressText');
+const result = document.getElementById('result');
+const resultTitle = document.getElementById('resultTitle');
+const resultDetail = document.getElementById('resultDetail');
+const resultWarnings = document.getElementById('resultWarnings');
+
+let selectedFile = null;
+
+// --- Drag & Drop ---
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if (f && f.name.toLowerCase().endsWith('.pdf')) selectFile(f);
+});
+fileInput.addEventListener('change', () => {
+  if (fileInput.files[0]) selectFile(fileInput.files[0]);
+});
+fileRemove.addEventListener('click', clearFile);
+
+function selectFile(f) {
+  selectedFile = f;
+  fileName.textContent = f.name;
+  fileSize.textContent = ` (${(f.size / 1024 / 1024).toFixed(1)}MB)`;
+  fileInfo.classList.add('show');
+  splitBtn.classList.add('show');
+  result.classList.remove('show');
+}
+
+function clearFile() {
+  selectedFile = null;
+  fileInput.value = '';
+  fileInfo.classList.remove('show');
+  splitBtn.classList.remove('show');
+  result.classList.remove('show');
+  progress.classList.remove('show');
+}
+
+// --- Split ---
+splitBtn.addEventListener('click', async () => {
+  if (!selectedFile) return;
+
+  splitBtn.disabled = true;
+  progress.classList.add('show');
+  result.classList.remove('show');
+  progressBar.style.width = '10%';
+  progressText.textContent = 'kordoc 파싱 중...';
+
+  const form = new FormData();
+  form.append('file', selectedFile);
+
+  // 진행률 시뮬레이션 (실제 서버는 단일 응답)
+  const stages = [
+    [20, 'kordoc 파싱 중...', 800],
+    [40, '경계 탐지 중...', 1200],
+    [60, 'PDF 분할 중...', 1000],
+    [80, 'ZIP 생성 중...', 600],
+  ];
+  let stageIdx = 0;
+  const timer = setInterval(() => {
+    if (stageIdx < stages.length) {
+      const [pct, text] = stages[stageIdx];
+      progressBar.style.width = pct + '%';
+      progressText.textContent = text;
+      stageIdx++;
+    }
+  }, stages[stageIdx]?.[2] || 1000);
+
+  try {
+    const resp = await fetch('/api/split', { method: 'POST', body: form });
+
+    clearInterval(timer);
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({ detail: resp.statusText }));
+      throw new Error(err.detail || '알 수 없는 오류');
+    }
+
+    // 성공 → ZIP 다운로드
+    progressBar.style.width = '100%';
+    progressText.textContent = '완료!';
+
+    const topicCount = resp.headers.get('X-Topic-Count') || '?';
+    const totalPages = resp.headers.get('X-Total-Pages') || '?';
+    const warnings = decodeURIComponent(resp.headers.get('X-Warnings') || '');
+
+    const blob = await resp.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = selectedFile.name.replace('.pdf', '_split.zip');
+    a.click();
+    URL.revokeObjectURL(url);
+
+    result.className = 'result show success';
+    resultTitle.textContent = '분할 완료';
+    resultDetail.textContent = `${topicCount}개 토픽 탐지 (총 ${totalPages}페이지)`;
+    resultWarnings.textContent = warnings ? `참고: ${warnings}` : '';
+
+  } catch (e) {
+    clearInterval(timer);
+    progressBar.style.width = '100%';
+    progressBar.style.background = 'var(--error)';
+    progressText.textContent = '실패';
+
+    result.className = 'result show error';
+    resultTitle.textContent = '분할 실패';
+    resultDetail.textContent = e.message;
+    resultWarnings.textContent = '';
+  }
+
+  splitBtn.disabled = false;
+  setTimeout(() => {
+    progressBar.style.background = '';
+  }, 2000);
+});
+</script>
+</body>
+</html>

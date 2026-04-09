@@ -1,0 +1,10 @@
+split_pdfs/
+split_pdfs_odl/
+data/
+bak/
+.git/
+__pycache__/
+*.pyc
+.env
+node_modules/
+.claude/
