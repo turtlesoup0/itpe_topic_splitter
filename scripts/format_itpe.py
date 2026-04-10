@@ -13,18 +13,14 @@ ITPE 포맷 특성:
 """
 
 import re
-from detect_boundaries_v2 import (
-    TopicBoundary, SessionBlock, BoundaryCandidate,
-    _norm, _끝_PAT, _IGNORE_PAT, _MENTI_PAT, _ROMAN_I_PAT,
-    _STD_NUM_PAT, _extract_title, _renumber_boundaries,
+from format_common import (
+    TopicBoundary, SessionBlock,
+    END_PAT, IGNORE_PAT, MENTI_PAT, ROMAN_I_PAT, STD_NUM_PAT,
+    norm, find_session, collect_marked_pages, renumber_boundaries,
 )
+from detect_boundaries_v2 import _extract_title
 
 # ─── ITPE 전용 패턴 ─────────────────────────────────────────────
-
-# "끝" 마커: curly quotes, straight quotes, 마침표 등 허용
-_ITPE_END_PAT = re.compile(
-    r'^[\u201c\u201d"\'\u2018\u2019]*끝[\u201c\u201d"\'\u2018\u2019.]*\s*$'
-)
 
 # 메타데이터 TC 레이블 (공백 제거 후 매칭)
 _META_LABELS = re.compile(
@@ -53,7 +49,7 @@ def detect_itpe_boundaries(elements: list, sessions: list[SessionBlock],
         TopicBoundary 리스트 (num, session_q는 _renumber_boundaries로 후처리)
     """
     # 1. "끝" 마커 페이지 수집
-    end_pages = _collect_end_pages(elements)
+    end_pages = collect_marked_pages(elements, END_PAT)
 
     # 2. 메타TC 클러스터 시작 페이지 수집
     meta_start_pages = _collect_meta_start_pages(elements, end_pages)
@@ -68,26 +64,12 @@ def detect_itpe_boundaries(elements: list, sessions: list[SessionBlock],
     )
 
     # 5. 번호 부여
-    _renumber_boundaries(boundaries)
+    renumber_boundaries(boundaries)
 
     return boundaries
 
 
 # ─── 내부 함수 ───────────────────────────────────────────────────
-
-def _collect_end_pages(elements: list) -> list[int]:
-    """모든 "끝" 마커 페이지를 수집 (정렬된 리스트)"""
-    pages = []
-    seen = set()
-    for e in elements:
-        c = e.get("content", "").strip()
-        if _ITPE_END_PAT.match(c):
-            pg = e["page"]
-            if pg not in seen:
-                pages.append(pg)
-                seen.add(pg)
-    return sorted(pages)
-
 
 def _collect_meta_start_pages(elements: list,
                               end_pages: list[int]) -> list[int]:
@@ -123,17 +105,6 @@ def _detect_cover_pages(elements: list, total_pages: int) -> set[int]:
         if _SELECT_PAT.search(c) and e.get("type") == "heading":
             cover.add(e["page"])
     return cover
-
-
-def _find_session(page: int, sessions: list[SessionBlock]) -> int:
-    """페이지가 속한 세션 번호 반환"""
-    for s in sessions:
-        if s.page_start <= page <= s.page_end:
-            return s.session_num
-    # 세션 못 찾으면 가장 가까운 세션
-    if sessions:
-        return sessions[-1].session_num
-    return 1
 
 
 def _build_boundaries(end_pages: list[int],
@@ -187,7 +158,7 @@ def _build_boundaries(end_pages: list[int],
             continue
 
         # 세션 할당
-        sess_num = _find_session(topic_start, sessions)
+        sess_num = find_session(topic_start, sessions)
 
         # 제목 추출
         title = _extract_title(elements, topic_start, repeated_headers)
@@ -212,7 +183,7 @@ def _build_boundaries(end_pages: list[int],
         if remaining_meta:
             topic_start = remaining_meta[0]
             if topic_start not in cover_pages:
-                sess_num = _find_session(topic_start, sessions)
+                sess_num = find_session(topic_start, sessions)
                 title = _extract_title(elements, topic_start, repeated_headers)
                 boundaries.append(TopicBoundary(
                     num=0,

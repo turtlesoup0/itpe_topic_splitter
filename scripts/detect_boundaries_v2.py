@@ -17,81 +17,37 @@ from collections import Counter
 from dataclasses import dataclass, field
 from typing import Optional
 
-# ─── 공통 패턴 ────────────────────────────────────────────────────
-_끝_PAT = re.compile(r'^[\u201c\u201d"\']?끝[\u201c\u201d"\']?\s*$')
-_ROMAN_I_PAT = re.compile(r'^I\.\s+.{3,}')
-_MENTI_PAT = re.compile(r'^문\s*제\s+(\d{1,2})\.\s+(.+)', re.DOTALL)
-_STD_NUM_PAT = re.compile(r'^(\d{1,2})\.\s+(.{5,})')
-_IGNORE_PAT = re.compile(
-    r'^\d+$|Copyright|FB\d{2}|주간모의|^※|^다음 문제|문제를 선택'
-    r'|누구나 ICT|cafe\.naver|All rights|기출풀이 의견'
+from format_common import (
+    # 데이터 클래스 (format_common이 정의의 원본)
+    SessionBlock, BoundaryCandidate, TopicBoundary,
+    # 공통 패턴
+    END_PAT, ROMAN_I_PAT, MENTI_PAT, STD_NUM_PAT, SESSION_PAT,
+    IGNORE_PAT, COVER_KEYWORDS, NOISE_PAGE_PAT, TOPIC_END_PAT,
+    STAR_RATING_PAT, MARKER_HEADING_PAT, SESSION_TOPIC_PAT,
+    Q_KEYWORDS, HEADER_KW_PAT, DAY_PAT,
+    # 공유 유틸리티
+    collapse_even_spacing, norm, find_session,
+    collect_marked_pages, renumber_boundaries, detect_repeated_headers,
 )
-_COVER_KEYWORDS = re.compile(r'국가기술자격|기술사\s*시험문제')
-# 토픽 종료 마커 (학원별로 다름: "끝", "기출풀이 의견" 등)
-_TOPIC_END_PAT = re.compile(r'^기출풀이\s*의견$')
-_SESSION_PAT = re.compile(r'제?\s*(\d)\s*교시')
-# 비토픽 페이지 패턴: 통계/도입/참고자료 — 토픽이 아닌 보조 페이지
-# 주의: "기출문제", "기출해설집"은 KPC 등 일반 헤더에도 있으므로 제외
-_NOISE_PAGE_PAT = re.compile(
-    r'출제\s*빈도|출제\s*비율|도메인\s*별\s*출제|^\[참고\]|교시형\s*출제'
-    r'|출제\s*경향|감사의?\s*글|기출\s*풀이집'
-)
-_Q_KEYWORDS = re.compile(
-    r"설명하시오|논하시오|서술하시오|비교하시오|구분하시오|기술하시오"
-    r"|설명하고|논하고|비교하고|이다\.|하시오\.|있다\."
-)
-# 마커 헤딩: □/■/◇/◆ + 텍스트 (일부 학원에서 토픽 시작 표시)
-_MARKER_HEADING_PAT = re.compile(r'^[□■◇◆●○▶►▷]\s*.{3,}')
-# KPC: ★ 난이도 마커가 포함된 토픽 시작 paragraph
-_STAR_RATING_PAT = re.compile(r'★[★☆]{1,4}')
-# 라이지움: "N교시 M번" heading = 토픽 시작
-_SESSION_TOPIC_PAT = re.compile(r'(\d)\s*교시\s*[:\s]*(\d+)\s*번')
-# 아이리포: 반복 헤더의 "IT trends" 뒤 키워드 추출
-_HEADER_KW_PAT = re.compile(r'IT\s*trends\s+(.+?)(?:\s*\|\s*PM|\s+PM\s)', re.DOTALL)
-# 합숙: "N일차" 기반 블록 분리
-_DAY_PAT = re.compile(r'(\d+)\s*일차')
 
-# ─── 한글 균등배분 공백 복원 (kordoc 포팅) ────────────────────────
-_KR_CHAR_RE = re.compile(r'[\uAC00-\uD7AF\u3131-\u318E]')
-
-
-_STRUCT_PREFIX_RE = re.compile(r'^[\dIVXa-zA-Z]+\.|^[가-아]\.')
-
-
-def _collapse_even_spacing(text: str) -> str:
-    """한글 균등배분 공백 제거: '기 출 풀 이 의 견' → '기출풀이의견'
-
-    PDF OCR/추출 시 균등배분 레이아웃의 글자 간 공백을 제거.
-    토큰의 70% 이상이 한글 1글자이면 균등배분으로 판단.
-    구조적 접두사("1.", "I.", "가." 등)로 시작하면 결합하지 않음.
-    (kordoc collapseEvenSpacing 알고리즘 포팅)
-    """
-    tokens = text.split(" ")
-    if len(tokens) >= 3:
-        # 구조적 접두사 보호: "1. 프 로 젝 트" 등 결합 방지
-        if tokens[0] and _STRUCT_PREFIX_RE.match(tokens[0]):
-            return text
-        kr_single = sum(1 for t in tokens
-                        if len(t) == 1 and _KR_CHAR_RE.match(t))
-        if kr_single / len(tokens) >= 0.7:
-            return "".join(tokens)
-    return text
-
-
-def _norm(raw: str) -> str:
-    """element content 정규화: strip + 균등배분 공백 제거"""
-    return _collapse_even_spacing(raw.strip())
-
-
-# ─── 데이터 클래스 ────────────────────────────────────────────────
-
-@dataclass
-class SessionBlock:
-    """교시 블록"""
-    session_num: int          # 1, 2, 3, 4
-    page_start: int
-    page_end: int
-    expected_topics: int      # 1교시=13, 2~4교시=6
+# ─── 내부 별칭 (기존 코드 호환) ─────────────────────────────────────
+_끝_PAT = END_PAT
+_ROMAN_I_PAT = ROMAN_I_PAT
+_MENTI_PAT = MENTI_PAT
+_STD_NUM_PAT = STD_NUM_PAT
+_IGNORE_PAT = IGNORE_PAT
+_COVER_KEYWORDS = COVER_KEYWORDS
+_TOPIC_END_PAT = TOPIC_END_PAT
+_SESSION_PAT = SESSION_PAT
+_NOISE_PAGE_PAT = NOISE_PAGE_PAT
+_Q_KEYWORDS = Q_KEYWORDS
+_MARKER_HEADING_PAT = MARKER_HEADING_PAT
+_STAR_RATING_PAT = STAR_RATING_PAT
+_SESSION_TOPIC_PAT = SESSION_TOPIC_PAT
+_HEADER_KW_PAT = HEADER_KW_PAT
+_DAY_PAT = DAY_PAT
+_collapse_even_spacing = collapse_even_spacing
+_norm = norm
 
 
 @dataclass
@@ -124,49 +80,9 @@ class SignalWeights:
         return max(signals, key=signals.get)
 
 
-@dataclass
-class BoundaryCandidate:
-    """경계 후보"""
-    page: int
-    score: float
-    title: str
-    signals: dict = field(default_factory=dict)  # {signal_name: contribution}
+# BoundaryCandidate, TopicBoundary → format_common에서 import됨
 
-
-@dataclass
-class TopicBoundary:
-    """최종 토픽 경계"""
-    num: int
-    title: str
-    page_start: int
-    page_end: int
-    session: int             # 교시 번호
-    confidence: float        # 0.0~1.0
-    session_q: int = 0       # 교시 내 번호 (문제지는 0)
-    fmt: str = "multi_signal"
-
-
-# ─── 반복 헤더 탐지 ───────────────────────────────────────────────
-
-def _detect_repeated_headers(elements: list, total_pages: int) -> set:
-    """문서 전체에서 반복 등장하는 헤더/푸터를 탐지.
-    kordoc --no-header-footer로 위치 기반 헤더는 제거되지만,
-    본문 내 반복 헤딩(예: 학원명, 회차 표시)은 여전히 남으므로 이 함수 유지.
-    짧은(≤15자) paragraph/table cell 중 다수 반복되는 텍스트도 포함
-    (KPC "출제빈도", "난이도" 등 메타 레이블)."""
-    heading_counts = Counter(
-        _norm(e["content"]) for e in elements if e["type"] == "heading"
-    )
-    # 짧은 paragraph도 반복이면 포함 (테이블 메타 레이블 등)
-    short_para_counts = Counter(
-        _norm(e["content"]) for e in elements
-        if e.get("type") == "paragraph"
-        and len(_norm(e["content"])) <= 15
-    )
-    threshold = max(3, total_pages * 0.15)
-    result = {c for c, n in heading_counts.items() if n >= threshold}
-    result |= {c for c, n in short_para_counts.items() if n >= threshold}
-    return result
+_detect_repeated_headers = detect_repeated_headers
 
 
 # ─── Phase 1: 교시 분리 ──────────────────────────────────────────
@@ -2010,20 +1926,7 @@ def _merge_short_topics(boundaries: list[TopicBoundary],
     return merged
 
 
-def _renumber_boundaries(boundaries: list):
-    """토픽 번호 + 교시 내 번호 재부여. 문제지(question_pages)는 Q번호에서 제외."""
-    topic_num = 0
-    session_counters: dict[int, int] = {}
-    for b in boundaries:
-        if b.fmt == "question_pages":
-            b.num = 0  # 문제지는 Q번호 없음
-            b.session_q = 0
-        else:
-            topic_num += 1
-            b.num = topic_num
-            sess = b.session
-            session_counters[sess] = session_counters.get(sess, 0) + 1
-            b.session_q = session_counters[sess]
+_renumber_boundaries = renumber_boundaries
 
 
 _KR_SUB_PAT = re.compile(r'^(가|나|다|라|마|바|사|아)\.\s+(.{5,})')

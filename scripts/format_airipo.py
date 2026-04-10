@@ -17,18 +17,13 @@
 """
 
 import re
-from detect_boundaries_v2 import (
+from format_common import (
     TopicBoundary, SessionBlock,
-    _norm, _IGNORE_PAT, _STD_NUM_PAT,
-    _renumber_boundaries,
+    END_PAT, IGNORE_PAT, STD_NUM_PAT,
+    norm, find_session, collect_marked_pages, renumber_boundaries,
 )
 
 # ─── 아이리포 전용 패턴 ──────────────────────────────────────────
-
-# "끝" 마커
-_END_PAT = re.compile(
-    r'^[\u201c\u201d"\'\u2018\u2019]*끝[\u201c\u201d"\'\u2018\u2019.]*\s*$'
-)
 
 # "관리-N교시" 세션 헤더 (하이픈/대시 변형 허용)
 _SESSION_HEADER_PAT = re.compile(r'관리\s*[-‒–—]?\s*(\d)\s*교시')
@@ -61,7 +56,7 @@ def detect_airipo_boundaries(elements: list, sessions: list[SessionBlock],
     airipo_sessions = _detect_airipo_sessions(elements, total_pages)
 
     # 2. "끝" 마커 페이지 수집
-    end_pages = _collect_end_pages(elements)
+    end_pages = collect_marked_pages(elements, END_PAT)
 
     # 3. "계속" 페이지 수집
     cont_pages = _collect_cont_pages(elements)
@@ -76,7 +71,7 @@ def detect_airipo_boundaries(elements: list, sessions: list[SessionBlock],
     )
 
     # 6. 번호 부여
-    _renumber_boundaries(boundaries)
+    renumber_boundaries(boundaries)
 
     return boundaries
 
@@ -125,20 +120,6 @@ def _detect_airipo_sessions(elements: list,
     return result
 
 
-def _collect_end_pages(elements: list) -> list[int]:
-    """모든 "끝" 마커 페이지를 수집."""
-    pages = []
-    seen = set()
-    for e in elements:
-        c = e.get("content", "").strip()
-        if _END_PAT.match(c):
-            pg = e["page"]
-            if pg not in seen:
-                pages.append(pg)
-                seen.add(pg)
-    return sorted(pages)
-
-
 def _collect_cont_pages(elements: list) -> set[int]:
     """'계속' 마커 페이지를 수집 (뒷페이지에계속 또는 앞페이지에서계속)."""
     pages = set()
@@ -168,16 +149,6 @@ def _detect_cover_start(elements: list,
     return total_pages + 1  # 커버 없음
 
 
-def _find_session(page: int, sessions: list[SessionBlock]) -> int:
-    """페이지가 속한 세션 번호 반환."""
-    for s in sessions:
-        if s.page_start <= page <= s.page_end:
-            return s.session_num
-    if sessions:
-        return sessions[-1].session_num
-    return 0
-
-
 def _extract_airipo_title(elements: list, start_page: int, end_page: int,
                           repeated_headers: set) -> str:
     """아이리포 토픽 구간에서 제목을 추출."""
@@ -185,7 +156,7 @@ def _extract_airipo_title(elements: list, start_page: int, end_page: int,
                   if start_page <= e["page"] <= min(start_page + 1, end_page)]
 
     for e in page_elems:
-        c = _norm(e["content"])
+        c = norm(e["content"])
         if len(c) < 5:
             continue
         cc = re.sub(r'\s+', '', c)
@@ -194,9 +165,9 @@ def _extract_airipo_title(elements: list, start_page: int, end_page: int,
             continue
         if _SESSION_HEADER_PAT.search(cc):
             continue
-        if c in repeated_headers or _IGNORE_PAT.search(c):
+        if c in repeated_headers or IGNORE_PAT.search(c):
             continue
-        if _END_PAT.match(c):
+        if END_PAT.match(c):
             continue
         if _CONT_FWD_PAT.search(cc) or _CONT_BACK_PAT.search(cc):
             continue
@@ -207,7 +178,7 @@ def _extract_airipo_title(elements: list, start_page: int, end_page: int,
             continue
 
         # "N. title" 패턴
-        m = _STD_NUM_PAT.match(c)
+        m = STD_NUM_PAT.match(c)
         if m:
             return m.group(2).strip().split("\n")[0][:70]
 
@@ -267,7 +238,7 @@ def _build_boundaries(end_pages: list[int],
             continue
 
         # 세션 할당
-        sess_num = _find_session(topic_start, sessions)
+        sess_num = find_session(topic_start, sessions)
 
         # 제목 추출
         title = _extract_airipo_title(
@@ -291,7 +262,7 @@ def _build_boundaries(end_pages: list[int],
             if any(ep < cover_start for ep in end_pages) else 0
         if last_end > 0 and last_end + 1 < cover_start:
             remaining_start = last_end + 1
-            sess_num = _find_session(remaining_start, sessions)
+            sess_num = find_session(remaining_start, sessions)
             title = _extract_airipo_title(
                 elements, remaining_start, cover_start - 1, repeated_headers)
             if title != f"토픽_p{remaining_start}":

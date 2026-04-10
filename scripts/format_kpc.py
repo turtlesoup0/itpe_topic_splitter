@@ -16,10 +16,10 @@ KPC 포맷 특성:
 """
 
 import re
-from detect_boundaries_v2 import (
+from format_common import (
     TopicBoundary, SessionBlock,
-    _norm, _IGNORE_PAT, _SESSION_PAT,
-    _renumber_boundaries,
+    IGNORE_PAT,
+    norm, find_session, collect_marked_pages, renumber_boundaries,
 )
 
 # ─── KPC 전용 패턴 ──────────────────────────────────────────────
@@ -67,10 +67,11 @@ def detect_kpc_boundaries(elements: list, sessions: list[SessionBlock],
         TopicBoundary 리스트
     """
     # 1. "기출풀이 의견" 페이지 수집 (토픽 종료)
-    end_pages = _collect_end_pages(elements)
+    end_pages = collect_marked_pages(elements, _KPC_END_PAT,
+                                     use_match=False, collapse_ws=True)
 
     # 2. ★ 마커 페이지 수집 (토픽 시작 보조)
-    star_pages = _collect_star_pages(elements)
+    star_pages = collect_marked_pages(elements, _STAR_EXACT_PAT)
 
     # 3. 커버/문제지 페이지 탐지
     cover_pages = _detect_cover_pages(elements, total_pages)
@@ -85,40 +86,12 @@ def detect_kpc_boundaries(elements: list, sessions: list[SessionBlock],
     )
 
     # 6. 번호 부여
-    _renumber_boundaries(boundaries)
+    renumber_boundaries(boundaries)
 
     return boundaries
 
 
 # ─── 내부 함수 ───────────────────────────────────────────────────
-
-def _collect_end_pages(elements: list) -> list[int]:
-    """모든 "기출풀이 의견" 페이지를 수집 (정렬된 리스트)"""
-    pages = []
-    seen = set()
-    for e in elements:
-        c = re.sub(r'\s+', '', e.get("content", "").strip())
-        if _KPC_END_PAT.search(c):
-            pg = e["page"]
-            if pg not in seen:
-                pages.append(pg)
-                seen.add(pg)
-    return sorted(pages)
-
-
-def _collect_star_pages(elements: list) -> list[int]:
-    """★ 난이도 마커 페이지를 수집 (정렬된 리스트)"""
-    pages = []
-    seen = set()
-    for e in elements:
-        c = e.get("content", "").strip()
-        if _STAR_EXACT_PAT.match(c):
-            pg = e["page"]
-            if pg not in seen:
-                pages.append(pg)
-                seen.add(pg)
-    return sorted(pages)
-
 
 def _detect_cover_pages(elements: list, total_pages: int) -> set[int]:
     """시험문제 표지/문제지 페이지 탐지"""
@@ -141,16 +114,6 @@ def _detect_noise_pages(elements: list, total_pages: int) -> set[int]:
     return noise
 
 
-def _find_session(page: int, sessions: list[SessionBlock]) -> int:
-    """페이지가 속한 세션 번호 반환"""
-    for s in sessions:
-        if s.page_start <= page <= s.page_end:
-            return s.session_num
-    if sessions:
-        return sessions[-1].session_num
-    return 1
-
-
 def _extract_kpc_title(elements: list, start_page: int, end_page: int,
                        repeated_headers: set) -> str:
     """
@@ -165,14 +128,14 @@ def _extract_kpc_title(elements: list, start_page: int, end_page: int,
                   if start_page <= e["page"] <= min(start_page + 1, end_page)]
 
     for e in page_elems:
-        c = _norm(e["content"])
+        c = norm(e["content"])
         if len(c) < 5:
             continue
         c_collapsed = re.sub(r'\s+', '', c)
         # 반복 헤더/노이즈 건너뛰기
         if _KPC_HEADER_PAT.search(c_collapsed):
             continue
-        if c in repeated_headers or _IGNORE_PAT.search(c):
+        if c in repeated_headers or IGNORE_PAT.search(c):
             continue
 
         # "제 N. title"
@@ -182,13 +145,13 @@ def _extract_kpc_title(elements: list, start_page: int, end_page: int,
 
     # "제 N." 없으면 "N. title" 찾기
     for e in page_elems:
-        c = _norm(e["content"])
+        c = norm(e["content"])
         if len(c) < 5:
             continue
         c_collapsed = re.sub(r'\s+', '', c)
         if _KPC_HEADER_PAT.search(c_collapsed):
             continue
-        if c in repeated_headers or _IGNORE_PAT.search(c):
+        if c in repeated_headers or IGNORE_PAT.search(c):
             continue
 
         m = _STD_NUM_PAT.match(c)
@@ -199,13 +162,13 @@ def _extract_kpc_title(elements: list, start_page: int, end_page: int,
 
     # 폴백: 충분히 긴 첫 번째 비-헤더 paragraph
     for e in page_elems:
-        c = _norm(e["content"])
+        c = norm(e["content"])
         if len(c) < 10:
             continue
         c_collapsed = re.sub(r'\s+', '', c)
         if _KPC_HEADER_PAT.search(c_collapsed):
             continue
-        if c in repeated_headers or _IGNORE_PAT.search(c):
+        if c in repeated_headers or IGNORE_PAT.search(c):
             continue
         if _STAR_EXACT_PAT.match(c):
             continue
@@ -270,7 +233,7 @@ def _build_boundaries(end_pages: list[int],
             continue
 
         # 세션 할당
-        sess_num = _find_session(topic_start, sessions)
+        sess_num = find_session(topic_start, sessions)
 
         # 제목 추출
         title = _extract_kpc_title(
@@ -296,7 +259,7 @@ def _build_boundaries(end_pages: list[int],
                     if p not in skip_pages]
         if len(non_skip) >= 2:  # 최소 2페이지 이상이면 토픽 가능
             topic_start = non_skip[0]
-            sess_num = _find_session(topic_start, sessions)
+            sess_num = find_session(topic_start, sessions)
             title = _extract_kpc_title(
                 elements, topic_start, total_pages, repeated_headers)
             boundaries.append(TopicBoundary(
