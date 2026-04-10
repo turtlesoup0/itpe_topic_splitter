@@ -1616,6 +1616,11 @@ def analyze_quality(boundaries: list[TopicBoundary],
     q_bs = [b for b in boundaries if b.fmt == "question_pages"]
     total_topics = len(topic_bs)
 
+    # 포맷 모듈 표시
+    fmt_set = set(b.fmt for b in topic_bs if b.fmt != "multi_signal")
+    if fmt_set:
+        lines.append(f"포맷: {', '.join(sorted(fmt_set))}")
+
     sess_label = "교시" if sessions and sessions[0].session_num <= 4 else "일차"
     if len(sessions) == 1 and sessions[0].session_num == 0:
         lines.append(f"총 {total_pages}p → {total_topics}개 토픽 분할")
@@ -1743,6 +1748,26 @@ def detect_boundaries_v2(elements: list, total_pages: int,
     # 1. 교시 분리
     sessions = detect_sessions(elements, total_pages)
 
+    # ── 포맷 판별 + 포맷별 탐지 시도 ──────────────────────────────
+    from format_registry import detect_format, dispatch_boundaries, FormatType
+
+    fmt_type = detect_format(elements, total_pages)
+    fmt_result = None
+    if fmt_type != FormatType.FALLBACK:
+        fmt_result = dispatch_boundaries(
+            fmt_type, elements, sessions, repeated, total_pages)
+
+    if fmt_result is not None:
+        # 품질 검증: 포맷 모듈 결과가 fallback보다 나쁘면 fallback 사용
+        topic_count = sum(1 for b in fmt_result if b.fmt != "question_pages")
+        min_expected = max(5, total_pages // 10)  # 최소 기대 토픽 수
+        if topic_count >= min_expected:
+            warnings = validate_results(fmt_result, sessions)
+            warnings.insert(0, f"[포맷: {fmt_type.label()}]")
+            return fmt_result, warnings
+        # 토픽 수 부족 → fallback으로 전환
+
+    # ── Fallback: 기존 가중치 기반 로직 ──────────────────────────
     # 2. 가중치 자기 교정
     weights = calibrate_weights(elements, total_pages)
 
