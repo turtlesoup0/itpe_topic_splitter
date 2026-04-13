@@ -40,4 +40,4 @@ ENV KORDOC_CLI=/app/kordoc/dist/cli.js
 # 포트
 EXPOSE 8080
 
-CMD ["uvicorn", "web.app:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "web.app:app", "--host", "0.0.0.0", "--port", "8080", "--timeout-keep-alive", "300"]
