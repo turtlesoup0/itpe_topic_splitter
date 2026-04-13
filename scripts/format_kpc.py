@@ -27,8 +27,8 @@ from format_common import (
 # 토픽 종료: "기출풀이 의견" (공백 변형 허용)
 _KPC_END_PAT = re.compile(r'기출\s*풀이\s*의견')
 
-# ★ 난이도 마커: 정확히 ★★☆☆☆ 등 (토픽 시작 보조)
-_STAR_EXACT_PAT = re.compile(r'^★[★☆]{1,4}$')
+# ★ 난이도 마커: ★★☆☆☆ 등 (뒤에 "(별5 개 기준)" 등 OCR 부가 텍스트 허용)
+_STAR_EXACT_PAT = re.compile(r'^★[★☆]{1,4}')
 
 # 제목 패턴: "제 N. title" (1교시 해설)
 _JE_NUM_PAT = re.compile(r'^제\s*(\d{1,2})\.\s*(.{3,})')
@@ -80,10 +80,18 @@ def detect_kpc_boundaries(elements: list, sessions: list[SessionBlock],
     noise_pages = _detect_noise_pages(elements, total_pages)
 
     # 5. 토픽 경계 생성
-    boundaries = _build_boundaries(
-        end_pages, star_pages, cover_pages, noise_pages,
-        elements, sessions, repeated_headers, total_pages,
-    )
+    if end_pages:
+        # 본시험 모드: "기출풀이 의견" 기반
+        boundaries = _build_boundaries(
+            end_pages, star_pages, cover_pages, noise_pages,
+            elements, sessions, repeated_headers, total_pages,
+        )
+    else:
+        # 모의고사 모드: ★ 마커만으로 경계 생성
+        boundaries = _build_star_only_boundaries(
+            star_pages, cover_pages, noise_pages,
+            elements, sessions, repeated_headers, total_pages,
+        )
 
     # 6. 번호 부여
     renumber_boundaries(boundaries)
@@ -105,13 +113,22 @@ def _detect_cover_pages(elements: list, total_pages: int) -> set[int]:
 
 
 def _detect_noise_pages(elements: list, total_pages: int) -> set[int]:
-    """출제빈도 통계 등 비토픽 페이지 탐지"""
-    noise = set()
+    """출제빈도 통계 등 비토픽 페이지 탐지.
+
+    단, ★ 마커나 제목 패턴이 같은 페이지에 있으면 noise가 아님
+    (모의고사는 토픽 안에 "출제빈도: 미출제" 같은 메타 포함).
+    """
+    noise_candidates = set()
+    topic_signal_pages = set()
     for e in elements:
-        c = re.sub(r'\s+', '', e.get("content", "").strip())
-        if _NOISE_PAT.search(c):
-            noise.add(e["page"])
-    return noise
+        c = e.get("content", "").strip()
+        c_collapsed = re.sub(r'\s+', '', c)
+        pg = e["page"]
+        if _NOISE_PAT.search(c_collapsed):
+            noise_candidates.add(pg)
+        if _STAR_EXACT_PAT.match(c) or _JE_NUM_PAT.match(c):
+            topic_signal_pages.add(pg)
+    return noise_candidates - topic_signal_pages
 
 
 def _extract_kpc_title(elements: list, start_page: int, end_page: int,
@@ -179,6 +196,61 @@ def _extract_kpc_title(elements: list, start_page: int, end_page: int,
         return c.split("\n")[0].strip()[:70]
 
     return f"토픽_p{start_page}"
+
+
+def _build_star_only_boundaries(
+        star_pages: list[int],
+        cover_pages: set[int],
+        noise_pages: set[int],
+        elements: list,
+        sessions: list[SessionBlock],
+        repeated_headers: set,
+        total_pages: int) -> list[TopicBoundary]:
+    """
+    모의고사 모드: ★ 마커만으로 토픽 경계 생성.
+
+    "기출풀이 의견"이 없는 KPC 모의고사에서 사용.
+    ★ 페이지 = 토픽 시작, 다음 ★ 전 페이지 = 토픽 끝.
+    """
+    boundaries: list[TopicBoundary] = []
+    skip_pages = cover_pages | noise_pages
+
+    if not star_pages:
+        return boundaries
+
+    for i, sp in enumerate(star_pages):
+        if sp in skip_pages:
+            continue
+
+        # 토픽 끝 = 다음 ★ - 1 또는 문서 끝
+        if i + 1 < len(star_pages):
+            end_pg = star_pages[i + 1] - 1
+        else:
+            end_pg = total_pages
+
+        # 끝 페이지에서 skip 페이지 제거
+        while end_pg > sp and end_pg in skip_pages:
+            end_pg -= 1
+
+        if end_pg < sp:
+            continue
+
+        sess_num = find_session(sp, sessions)
+        title = _extract_kpc_title(elements, sp, end_pg, repeated_headers)
+
+        boundaries.append(TopicBoundary(
+            num=0,
+            title=title,
+            page_start=sp,
+            page_end=end_pg,
+            session=sess_num,
+            confidence=0.80,  # ★ 기반은 약간 낮은 신뢰도
+            fmt="kpc",
+        ))
+
+    boundaries.sort(
+        key=lambda b: (b.page_start, 0 if b.fmt == "question_pages" else 1))
+    return boundaries
 
 
 def _build_boundaries(end_pages: list[int],

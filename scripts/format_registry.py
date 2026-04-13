@@ -50,6 +50,9 @@ _INFOLEVER_PAT = re.compile(r'관리\s*\d\s*교시')
 _AIRIPO_MOCK_PAT = re.compile(r'실전\s*모의고사\s*문제')
 _AIRIPO_CONT_PAT = re.compile(r'뒷\s*페이지\s*에?\s*계속')
 _BRACKET_PAT = re.compile(r'^\[\d+-\d+\]')
+# KPC 모의고사: 반복 헤더에 "KPC 기술사" 포함 + ★ 마커
+_KPC_HEADER_PAT = re.compile(r'KPC\s*기술사')
+_STAR_PAT = re.compile(r'★[★☆]{1,4}')
 
 
 # ─── 포맷 판별 ───────────────────────────────────────────────────
@@ -68,6 +71,8 @@ def detect_format(elements: list, total_pages: int) -> FormatType:
     # 카운터 초기화
     kpc_munje = 0
     kpc_opinion = 0       # "기출풀이 의견" (KPC 핵심 신호, OCR에서도 안정적)
+    kpc_header = 0        # "KPC 기술사" 반복 헤더 (모의고사 감지)
+    star_count = 0        # ★ 난이도 마커 (모의고사 감지)
     itpe_end = 0
     itpe_meta = 0
     dongki_session_topic = 0
@@ -89,6 +94,12 @@ def detect_format(elements: list, total_pages: int) -> FormatType:
         # KPC: "기출풀이 의견" (OCR paragraph에서도 매칭)
         if _KPC_END_PAT.search(c_collapsed):
             kpc_opinion += 1
+
+        # KPC: "KPC 기술사" 반복 헤더 + ★ 마커 (모의고사)
+        if _KPC_HEADER_PAT.search(c_collapsed):
+            kpc_header += 1
+        if _STAR_PAT.search(c):
+            star_count += 1
 
         # ITPE: "끝" 마커
         if _ITPE_END_PAT.match(c):
@@ -127,6 +138,10 @@ def detect_format(elements: list, total_pages: int) -> FormatType:
     if kpc_munje >= 5:
         return FormatType.KPC
     if kpc_opinion >= 5 and kpc_opinion >= itpe_end:
+        return FormatType.KPC
+    # 1b. KPC 모의고사: "KPC 기술사" 헤더 매 페이지 + ★ 마커 5개 이상
+    #     모의고사는 "기출풀이 의견" 없이 ★ 마커만으로 토픽 구분
+    if kpc_header >= total_pages * 0.5 and star_count >= 5:
         return FormatType.KPC
 
     # 2. 동기회/라이지움: "교시:번" 패턴 5개 이상 (동기회/라이지움 고유)
