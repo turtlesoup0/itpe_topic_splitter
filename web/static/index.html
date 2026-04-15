@@ -177,55 +177,67 @@ function clearFile() {
   progress.classList.remove('show');
 }
 
-// --- Split ---
+// --- Split (비동기 Job 폴링) ---
 splitBtn.addEventListener('click', async () => {
   if (!selectedFile) return;
 
   splitBtn.disabled = true;
   progress.classList.add('show');
   result.classList.remove('show');
-  progressBar.style.width = '10%';
-  progressText.textContent = 'kordoc 파싱 중...';
+  progressBar.style.width = '5%';
+  progressText.textContent = '업로드 중...';
 
   const form = new FormData();
   form.append('file', selectedFile);
 
-  // 진행률 시뮬레이션 (실제 서버는 단일 응답)
-  const stages = [
-    [20, 'kordoc 파싱 중...', 800],
-    [40, '경계 탐지 중...', 1200],
-    [60, 'PDF 분할 중...', 1000],
-    [80, 'ZIP 생성 중...', 600],
-  ];
-  let stageIdx = 0;
-  const timer = setInterval(() => {
-    if (stageIdx < stages.length) {
-      const [pct, text] = stages[stageIdx];
-      progressBar.style.width = pct + '%';
-      progressText.textContent = text;
-      stageIdx++;
-    }
-  }, stages[stageIdx]?.[2] || 1000);
-
   try {
-    const resp = await fetch('/api/split', { method: 'POST', body: form });
-
-    clearInterval(timer);
-
-    if (!resp.ok) {
-      const err = await resp.json().catch(() => ({ detail: resp.statusText }));
-      throw new Error(err.detail || '알 수 없는 오류');
+    // 1) 업로드 → job_id 수신
+    const uploadResp = await fetch('/api/split', { method: 'POST', body: form });
+    if (!uploadResp.ok) {
+      const err = await uploadResp.json().catch(() => ({ detail: uploadResp.statusText }));
+      throw new Error(err.detail || '업로드 실패');
     }
+    const { job_id } = await uploadResp.json();
+    progressBar.style.width = '15%';
+    progressText.textContent = '처리 시작...';
 
-    // 성공 → ZIP 다운로드
-    progressBar.style.width = '100%';
-    progressText.textContent = '완료!';
+    // 2) 상태 폴링 (2초 간격)
+    const statusData = await new Promise((resolve, reject) => {
+      const poll = setInterval(async () => {
+        try {
+          const sr = await fetch(`/api/status/${job_id}`);
+          if (!sr.ok) { clearInterval(poll); reject(new Error('상태 조회 실패')); return; }
+          const data = await sr.json();
 
-    const topicCount = resp.headers.get('X-Topic-Count') || '?';
-    const totalPages = resp.headers.get('X-Total-Pages') || '?';
-    const warnings = decodeURIComponent(resp.headers.get('X-Warnings') || '');
+          // 진행 상태 UI 업데이트
+          progressText.textContent = data.progress || '처리 중...';
+          if (data.progress?.includes('파싱')) progressBar.style.width = '30%';
+          else if (data.progress?.includes('경계') || data.progress?.includes('탐지')) progressBar.style.width = '50%';
+          else if (data.progress?.includes('분할')) progressBar.style.width = '70%';
+          else if (data.progress?.includes('완료')) progressBar.style.width = '90%';
 
-    const blob = await resp.blob();
+          if (data.status === 'done') {
+            clearInterval(poll);
+            resolve(data);
+          } else if (data.status === 'error') {
+            clearInterval(poll);
+            reject(new Error(data.error || '알 수 없는 오류'));
+          }
+        } catch (e) {
+          clearInterval(poll);
+          reject(e);
+        }
+      }, 2000);
+    });
+
+    // 3) 완료 → ZIP 다운로드
+    progressBar.style.width = '95%';
+    progressText.textContent = '다운로드 중...';
+
+    const dlResp = await fetch(`/api/download/${job_id}`);
+    if (!dlResp.ok) throw new Error('다운로드 실패');
+
+    const blob = await dlResp.blob();
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -233,13 +245,15 @@ splitBtn.addEventListener('click', async () => {
     a.click();
     URL.revokeObjectURL(url);
 
+    progressBar.style.width = '100%';
+    progressText.textContent = '완료!';
+
     result.className = 'result show success';
     resultTitle.textContent = '분할 완료';
-    resultDetail.textContent = `${topicCount}개 토픽 탐지 (총 ${totalPages}페이지)`;
-    resultWarnings.textContent = warnings ? `참고: ${warnings}` : '';
+    resultDetail.textContent = `${statusData.topic_count}개 토픽 탐지 (총 ${statusData.total_pages}페이지)`;
+    resultWarnings.textContent = statusData.warnings ? `참고: ${statusData.warnings}` : '';
 
   } catch (e) {
-    clearInterval(timer);
     progressBar.style.width = '100%';
     progressBar.style.background = 'var(--error)';
     progressText.textContent = '실패';

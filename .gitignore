@@ -1,3 +1,4 @@
+.env
 split_pdfs/
 split_pdfs_odl/
 *.pdf

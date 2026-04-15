@@ -289,6 +289,14 @@ def split_pdf(source_path: str, boundaries: list, output_dir: str,
                 fname = f"Q{b['num']:02d}_{topic_name}.pdf"
         out_path = os.path.join(output_dir, fname)
 
+        # PDF 메타데이터에 제목 + 키워드 기록
+        keywords = b.get("keywords", [])
+        meta = {
+            "title": b["title"],
+            "subject": ", ".join(keywords) if keywords else b["title"],
+            "keywords": ", ".join(keywords) if keywords else "",
+        }
+        new_doc.set_metadata(meta)
         new_doc.save(out_path)
         new_doc.close()
 
@@ -302,6 +310,7 @@ def split_pdf(source_path: str, boundaries: list, output_dir: str,
             "path": out_path,
             "gen": gen, "week": week, "subject": subject, "session": session,
             "q_num": b["num"], "q_title": b["title"],
+            "keywords": b.get("keywords", []),
             "pages": ep - sp + 1,
             "image_pages": img_pages,
             "fmt": b.get("fmt", "?"),
