@@ -8,7 +8,7 @@ PDF 업로드 → kordoc 파싱 → 다중 신호 경계 탐지 → 토픽별 �
 (Cloudflare Tunnel 100초 타임아웃 대응)
 
 사용법:
-  uvicorn web.app:app --host 0.0.0.0 --port 8080
+  uvicorn web.app:app --host 127.0.0.1 --port 8080
 """
 
 import os
@@ -303,4 +303,4 @@ async def api_download(job_id: str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="127.0.0.1", port=8080)

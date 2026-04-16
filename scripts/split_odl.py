@@ -23,11 +23,81 @@ import os
 import re
 import sys
 import json
+import hashlib
 import subprocess
 import unicodedata
 import tempfile
 from pathlib import Path
 from typing import List, Optional
+
+# ─── OCR 결과 디스크 캐시 ──────────────────────────────────────
+# 동일 PDF 재처리 시 kordoc+OCR(20-60s)를 생략하여 즉시 응답.
+# 키: PDF 바이트 SHA256, 값: (elements, total_pages) JSON
+# 스키마 변경 시 CACHE_SCHEMA 버전을 올리면 기존 캐시 자동 무효화.
+
+CACHE_SCHEMA = "v1"
+
+
+def _cache_dir() -> Path:
+    """XDG_CACHE_HOME 존중 ($HOME/.cache가 기본)."""
+    base = os.environ.get("XDG_CACHE_HOME") or str(Path.home() / ".cache")
+    return Path(base) / "itpe-splitter" / "ocr"
+
+
+def _pdf_content_hash(pdf_path: str) -> Optional[str]:
+    """PDF 파일 바이트의 SHA256. 실패 시 None (캐시 skip)."""
+    try:
+        h = hashlib.sha256()
+        with open(pdf_path, "rb") as f:
+            for chunk in iter(lambda: f.read(1 << 20), b""):
+                h.update(chunk)
+        return h.hexdigest()
+    except OSError:
+        return None
+
+
+def _cache_path(pdf_hash: str) -> Path:
+    return _cache_dir() / f"{pdf_hash}_{CACHE_SCHEMA}.json"
+
+
+def _cache_load(pdf_path: str) -> Optional[tuple]:
+    """캐시 히트 시 (elements, total_pages) 반환. 실패/미스 시 None."""
+    pdf_hash = _pdf_content_hash(pdf_path)
+    if not pdf_hash:
+        return None
+    try:
+        path = _cache_path(pdf_hash)
+        if not path.exists():
+            return None
+        data = json.loads(path.read_text(encoding="utf-8"))
+        elements = data.get("elements")
+        total_pages = data.get("total_pages")
+        if isinstance(elements, list) and isinstance(total_pages, int):
+            print(f"  [cache-hit] OCR 캐시 로드 → {total_pages}p, "
+                  f"{len(elements)} elements ({path.name[:16]}…)")
+            return elements, total_pages
+    except (OSError, json.JSONDecodeError, ValueError):
+        pass
+    return None
+
+
+def _cache_save(pdf_path: str, elements: list, total_pages: int) -> None:
+    """캐시 저장. 실패는 무음 (원본 결과는 이미 유효)."""
+    pdf_hash = _pdf_content_hash(pdf_path)
+    if not pdf_hash:
+        return
+    try:
+        cache_dir = _cache_dir()
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        path = _cache_path(pdf_hash)
+        path.write_text(
+            json.dumps({"elements": elements, "total_pages": total_pages},
+                       ensure_ascii=False),
+            encoding="utf-8",
+        )
+        print(f"  [cache-save] OCR 결과 캐시 저장 ({path.name[:16]}…)")
+    except OSError:
+        pass
 from datetime import datetime
 
 import fitz  # PyMuPDF (PDF 분할용)
@@ -96,6 +166,11 @@ def parse_kordoc(pdf_path: str) -> tuple[list, int]:
 
     Returns: (elements, total_pages)
     """
+    # 디스크 캐시 조회 — 동일 PDF는 kordoc+OCR 완전 생략
+    cached = _cache_load(pdf_path)
+    if cached is not None:
+        return cached
+
     result = subprocess.run(
         ["node", KORDOC_CLI, pdf_path, "--format", "json",
          "--no-header-footer", "--silent"],
@@ -121,7 +196,9 @@ def parse_kordoc(pdf_path: str) -> tuple[list, int]:
             except Exception:
                 total_pages = 0
             if total_pages > 0:
-                return _ocr_image_pdf(pdf_path, [], total_pages), total_pages
+                elements = _ocr_image_pdf(pdf_path, [], total_pages)
+                _cache_save(pdf_path, elements, total_pages)
+                return elements, total_pages
             raise RuntimeError(f"이미지 PDF 페이지 수 확인 실패")
         raise RuntimeError(f"kordoc 실패: {stderr_hint}")
 
@@ -211,6 +288,7 @@ def parse_kordoc(pdf_path: str) -> tuple[list, int]:
     if is_image_based and total_pages > 0:
         elements = _ocr_image_pdf(pdf_path, elements, total_pages)
 
+    _cache_save(pdf_path, elements, total_pages)
     return elements, total_pages
 
 
