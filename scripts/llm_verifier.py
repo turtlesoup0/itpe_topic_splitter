@@ -25,26 +25,112 @@ logger = logging.getLogger(__name__)
 
 # ─── 설정 ────────────────────────────────────────────────────────
 
-MODEL = "claude-haiku-4-5-20251001"
+# Provider 선택: "anthropic" (기본, Haiku API) | "mlx" (로컬 MLX-LM 서버)
+#   환경변수 LLM_PROVIDER로 전환
+DEFAULT_MODEL_ANTHROPIC = "claude-haiku-4-5-20251001"
+DEFAULT_MLX_URL = "http://127.0.0.1:8090"
+DEFAULT_MLX_MODEL = "Jiunsong/supergemma4-26b-uncensored-mlx-4bit-v2"
+
 MAX_CONCURRENT = 10  # 동시 API 호출 수 제한
-_SYNC_TIMEOUT = 120  # enhance_boundaries_sync 타임아웃(초)
+_SYNC_TIMEOUT = 300  # enhance_boundaries_sync 타임아웃(초, MLX 고려해 확장)
 
 # 싱글턴 클라이언트 캐시
 _client_cache: Any = None
 
+# MODEL 상수는 하위 호환을 위해 유지하지만 provider에 따라 동적으로 결정됨
+MODEL = DEFAULT_MODEL_ANTHROPIC
+
+
+def _provider() -> str:
+    """현재 LLM provider (소문자 정규화)."""
+    return os.environ.get("LLM_PROVIDER", "anthropic").strip().lower()
+
 
 def is_available() -> bool:
     """LLM 검증 사용 가능 여부 (호출 시점에 환경변수 확인)."""
+    p = _provider()
+    if p == "mlx":
+        # MLX는 로컬 서버 가동 여부로 판단 (URL 존재만 체크, 실제 연결은 런타임 검증)
+        return bool(os.environ.get("MLX_URL", DEFAULT_MLX_URL))
+    # 기본: Anthropic API 키
     return bool(os.environ.get("ANTHROPIC_API_KEY", ""))
 
 
+class _MLXClient:
+    """MLX-LM OpenAI 호환 서버를 Anthropic SDK 인터페이스로 래핑.
+
+    client.messages.create(model=, max_tokens=, system=, messages=[]) 시그니처 호환.
+    Response는 .content[0].text 로 접근 가능.
+    """
+
+    def __init__(self, base_url: str, model: str):
+        self.base_url = base_url.rstrip("/")
+        self.model = model
+        self._session = None
+        # 하위 코드가 client.messages.create(...)로 호출 → self가 messages 역할
+        self.messages = self
+
+    async def _session_get(self):
+        # httpx 사용 (anthropic SDK가 이미 의존하므로 추가 의존성 0)
+        import httpx
+        if self._session is None or self._session.is_closed:
+            self._session = httpx.AsyncClient(
+                timeout=httpx.Timeout(180.0, connect=10.0),
+                limits=httpx.Limits(max_connections=MAX_CONCURRENT * 2,
+                                    max_keepalive_connections=MAX_CONCURRENT),
+            )
+        return self._session
+
+    async def create(self, *, model=None, max_tokens: int,
+                     system: str, messages: list, **_):
+        session = await self._session_get()
+        body = {
+            "model": self.model,
+            "max_tokens": max_tokens,
+            "temperature": 0.1,
+            "messages": [{"role": "system", "content": system}] + list(messages),
+            # SuperGemma4 thinking 억제 (chat_template.jinja 에 enable_thinking 조건 존재)
+            "chat_template_kwargs": {"enable_thinking": False},
+        }
+        resp = await session.post(f"{self.base_url}/v1/chat/completions",
+                                   json=body)
+        data = resp.json()
+        text = (data.get("choices", [{}])[0]
+                    .get("message", {}).get("content") or "")
+
+        # Anthropic SDK의 resp.content[0].text 형태로 반환
+        class _Block:
+            __slots__ = ("text",)
+
+            def __init__(self, t): self.text = t
+
+        class _Resp:
+            __slots__ = ("content",)
+
+            def __init__(self, t): self.content = [_Block(t)]
+
+        return _Resp(text)
+
+
 def _get_client():
-    """Lazy import + 싱글턴 클라이언트 반환."""
-    global _client_cache
-    if _client_cache is None:
+    """Provider별 Lazy import + 싱글턴 클라이언트 반환."""
+    global _client_cache, MODEL
+    if _client_cache is not None:
+        return _client_cache
+
+    p = _provider()
+    if p == "mlx":
+        base = os.environ.get("MLX_URL", DEFAULT_MLX_URL)
+        mlx_model = os.environ.get("MLX_MODEL", DEFAULT_MLX_MODEL)
+        MODEL = mlx_model  # 참고용 (실제 호출은 _MLXClient가 자체 보유)
+        _client_cache = _MLXClient(base, mlx_model)
+        logger.info(f"LLM provider = MLX ({base}, {mlx_model})")
+    else:
         import anthropic
+        MODEL = os.environ.get("ANTHROPIC_MODEL", DEFAULT_MODEL_ANTHROPIC)
         _client_cache = anthropic.AsyncAnthropic(
             api_key=os.environ["ANTHROPIC_API_KEY"])
+        logger.info(f"LLM provider = Anthropic ({MODEL})")
     return _client_cache
 
 
