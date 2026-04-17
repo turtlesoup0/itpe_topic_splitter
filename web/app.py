@@ -13,8 +13,10 @@ PDF 업로드 → kordoc 파싱 → 다중 신호 경계 탐지 → 토픽별 �
 
 import os
 import sys
+import json
 import time
 import uuid
+import sqlite3
 import zipfile
 import tempfile
 import shutil
@@ -54,7 +56,13 @@ from detect_boundaries_v2 import (  # noqa: E402
 )
 from llm_verifier import enhance_boundaries_sync, is_available as llm_available  # noqa: E402
 
-app = FastAPI(title="ITPE Topic Splitter", version="1.1")
+app = FastAPI(title="ITPE Topic Splitter", version="1.2")
+
+
+@app.on_event("startup")
+async def _on_startup():
+    """서버 기동 시 SQLite 초기화 + 완료 Job 복원."""
+    _db_init()
 
 # 정적 파일 서빙 (index.html)
 STATIC_DIR = Path(__file__).resolve().parent / "static"
@@ -70,9 +78,131 @@ _jobs: dict[str, dict] = {}
 _jobs_lock = threading.Lock()
 _JOB_TTL_SEC = 30 * 60  # 완료/실패 후 30분 경과 시 자동 정리
 
+# ─── SQLite 영속화 레이어 ────────────────────────────────────────
+# uvicorn 재시작 후에도 완료된 Job을 복원 가능.
+# _jobs 딕셔너리는 여전히 truth source이고 DB는 백업.
+_DB_PATH = (Path(os.environ.get("XDG_CACHE_HOME")
+                 or str(Path.home() / ".cache"))
+            / "itpe-splitter" / "jobs.db")
+_db_conn: sqlite3.Connection | None = None
+
+
+def _db_init() -> None:
+    """DB 파일/스키마 초기화 + 기동 시점 복원."""
+    global _db_conn
+    try:
+        _DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+        _db_conn = sqlite3.connect(
+            str(_DB_PATH), check_same_thread=False,
+            isolation_level=None)  # autocommit
+        _db_conn.execute("""
+            CREATE TABLE IF NOT EXISTS jobs (
+              job_id TEXT PRIMARY KEY,
+              status TEXT NOT NULL,
+              progress TEXT,
+              work_dir TEXT,
+              result_path TEXT,
+              zip_name TEXT,
+              topic_count INTEGER,
+              total_pages INTEGER,
+              warnings_json TEXT,
+              quality_report TEXT,
+              error TEXT,
+              created_at REAL,
+              finished_at REAL
+            )
+        """)
+        _db_conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_finished ON jobs(finished_at)")
+    except Exception as e:
+        print(f"[DB] 초기화 실패 — 영속화 비활성: {e}")
+        _db_conn = None
+        return
+
+    # 기동 시 진행 중인 Job은 서버 재시작으로 중단 → error 전환
+    # 완료된 Job(done)은 메모리에 복원하여 /api/download 재접근 가능
+    try:
+        now = time.time()
+        _db_conn.execute(
+            "UPDATE jobs SET status='error', "
+            "error='서버 재시작으로 중단됨', finished_at=? "
+            "WHERE status='processing'", (now,))
+        cursor = _db_conn.execute(
+            "SELECT job_id, status, progress, work_dir, result_path, "
+            "zip_name, topic_count, total_pages, warnings_json, "
+            "quality_report, error, created_at, finished_at "
+            "FROM jobs WHERE status='done' AND finished_at > ?",
+            (now - _JOB_TTL_SEC,))
+        restored = 0
+        for row in cursor.fetchall():
+            (jid, status, progress, work_dir, result_path, zip_name,
+             topic_count, total_pages, warnings_json, quality_report,
+             error, created_at, finished_at) = row
+            # result.zip 이 실제로 남아있어야만 복원 가치 있음
+            if not result_path or not os.path.exists(result_path):
+                continue
+            _jobs[jid] = {
+                "status": status, "progress": progress,
+                "work_dir": work_dir, "result_path": result_path,
+                "zip_name": zip_name, "topic_count": topic_count,
+                "total_pages": total_pages,
+                "warnings": json.loads(warnings_json or "[]"),
+                "quality_report": quality_report or "",
+                "error": error, "created_at": created_at,
+                "finished_at": finished_at,
+            }
+            restored += 1
+        if restored:
+            print(f"[DB] 재시작 후 {restored}개 완료 Job 복원")
+    except Exception as e:
+        print(f"[DB] 복원 실패: {e}")
+
+
+def _db_upsert_locked(job_id: str) -> None:
+    """_jobs_lock 보유 상태에서 호출. 메모리 상태를 DB에 기록."""
+    if _db_conn is None:
+        return
+    job = _jobs.get(job_id)
+    if job is None:
+        return
+    try:
+        _db_conn.execute(
+            "INSERT INTO jobs "
+            "(job_id, status, progress, work_dir, result_path, zip_name, "
+            " topic_count, total_pages, warnings_json, quality_report, "
+            " error, created_at, finished_at) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) "
+            "ON CONFLICT(job_id) DO UPDATE SET "
+            "  status=excluded.status, progress=excluded.progress, "
+            "  work_dir=excluded.work_dir, result_path=excluded.result_path, "
+            "  zip_name=excluded.zip_name, topic_count=excluded.topic_count, "
+            "  total_pages=excluded.total_pages, "
+            "  warnings_json=excluded.warnings_json, "
+            "  quality_report=excluded.quality_report, "
+            "  error=excluded.error, finished_at=excluded.finished_at",
+            (job_id, job.get("status"), job.get("progress"),
+             job.get("work_dir"), job.get("result_path"),
+             job.get("zip_name"), job.get("topic_count"),
+             job.get("total_pages"),
+             json.dumps(job.get("warnings", []), ensure_ascii=False),
+             job.get("quality_report"), job.get("error"),
+             job.get("created_at"), job.get("finished_at")))
+    except Exception as e:
+        # DB 오류는 조용히 무시 (메모리 상태는 이미 갱신됨)
+        print(f"[DB] upsert 실패 {job_id}: {e}")
+
+
+def _db_delete(job_id: str) -> None:
+    if _db_conn is None:
+        return
+    try:
+        _db_conn.execute("DELETE FROM jobs WHERE job_id=?", (job_id,))
+    except Exception:
+        pass
+
 
 def _cleanup_stale_jobs():
-    """TTL 초과 Job의 임시 디렉토리 정리 및 메모리 해제."""
+    """TTL 초과 Job의 임시 디렉토리 정리 및 메모리/DB 해제."""
     now = time.time()
     stale_ids = []
     with _jobs_lock:
@@ -85,6 +215,7 @@ def _cleanup_stale_jobs():
             work_dir = job.get("work_dir")
             if work_dir:
                 shutil.rmtree(work_dir, ignore_errors=True)
+            _db_delete(jid)
 
 
 def _process_job(job_id: str, pdf_content: bytes, filename: str):
@@ -94,6 +225,7 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
         with _jobs_lock:
             _jobs[job_id]["work_dir"] = work_dir
             _jobs[job_id]["progress"] = "PDF 파싱 중..."
+            _db_upsert_locked(job_id)
 
         pdf_path = os.path.join(work_dir, "input.pdf")
         with open(pdf_path, "wb") as f:
@@ -106,6 +238,7 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
 
         with _jobs_lock:
             _jobs[job_id]["progress"] = "토픽 경계 탐지 중..."
+            _db_upsert_locked(job_id)
 
         # 2. 경계 탐지
         boundaries_v2, warnings = detect_boundaries_v2(
@@ -134,6 +267,7 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
         if llm_available():
             with _jobs_lock:
                 _jobs[job_id]["progress"] = "LLM 검증 중..."
+                _db_upsert_locked(job_id)
             try:
                 result = enhance_boundaries_sync(
                     boundaries, elements, total_pages)
@@ -148,6 +282,7 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
 
         with _jobs_lock:
             _jobs[job_id]["progress"] = "PDF 분할 중..."
+            _db_upsert_locked(job_id)
 
         # 3. PDF 분할
         split_dir = os.path.join(work_dir, "split")
@@ -183,6 +318,7 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
                 "zip_name": zip_name,
                 "finished_at": time.time(),
             })
+            _db_upsert_locked(job_id)
 
     except Exception as e:
         traceback.print_exc()
@@ -193,6 +329,7 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
                 "error": str(e)[:300],
                 "finished_at": time.time(),
             })
+            _db_upsert_locked(job_id)
         # 에러 시 임시 디렉토리 정리
         shutil.rmtree(work_dir, ignore_errors=True)
 
@@ -228,7 +365,9 @@ async def api_split(file: UploadFile = File(...)):
             "status": "processing",
             "progress": "업로드 완료, 처리 시작...",
             "work_dir": None,
+            "created_at": time.time(),
         }
+        _db_upsert_locked(job_id)
 
     thread = threading.Thread(
         target=_process_job, args=(job_id, content, file.filename),
@@ -288,6 +427,7 @@ async def api_download(job_id: str):
             shutil.rmtree(work_dir, ignore_errors=True)
         with _jobs_lock:
             _jobs.pop(job_id, None)
+        _db_delete(job_id)
 
     return StreamingResponse(
         iter_file(),
