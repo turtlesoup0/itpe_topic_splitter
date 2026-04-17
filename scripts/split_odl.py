@@ -292,34 +292,96 @@ def parse_kordoc(pdf_path: str) -> tuple[list, int]:
     return elements, total_pages
 
 
-def _ocr_image_pdf(pdf_path: str, elements: list, total_pages: int) -> list:
-    """이미지 기반 PDF에 PyMuPDF Tesseract OCR 적용 (kordoc이 isImageBased 감지)"""
+def _ocr_one_page(pdf_path: str, page_idx: int) -> tuple:
+    """OCR 워커 — 단일 페이지 처리.
+
+    각 워커가 독립된 fitz.Document를 열어 PyMuPDF 스레드 안전 가이드 준수.
+    (같은 Document 공유는 스레드 간 금지, 별도 open은 안전)
+
+    Returns:
+        (page_num_1based, lines_list)
+    """
+    lines: list[str] = []
     try:
         doc = fitz.open(pdf_path)
+        try:
+            page = doc[page_idx]
+            tp = page.get_textpage_ocr(
+                language="kor+eng", dpi=200, full=False)
+            text = page.get_text(textpage=tp)
+            for ln in text.splitlines():
+                ln = ln.strip()
+                if ln and len(ln) > 2:
+                    lines.append(ln)
+        finally:
+            doc.close()
     except Exception:
+        pass
+    return page_idx + 1, lines
+
+
+def _ocr_image_pdf(pdf_path: str, elements: list, total_pages: int) -> list:
+    """이미지 기반 PDF에 PyMuPDF Tesseract OCR 적용 (kordoc이 isImageBased 감지).
+
+    페이지 수가 4 이상이면 ThreadPoolExecutor로 병렬 처리.
+    Tesseract/PyMuPDF가 대부분의 작업에서 GIL을 해제하므로 스레드 병렬 효과 있음.
+    각 워커는 독립된 fitz.open()으로 Document 공유를 피함.
+
+    M4 Pro 8코어 기준 ~3~4배 단축 기대 (순차 19.5s → 병렬 ~5~7s).
+    """
+    if total_pages <= 0:
         return elements
 
-    ocr_extras = []
-    for pi in range(doc.page_count):
-        try:
-            page = doc[pi]
-            tp = page.get_textpage_ocr(language="kor+eng", dpi=200, full=False)
-            text = page.get_text(textpage=tp)
-        except Exception:
-            continue
+    ocr_extras: list = []
+    workers = 1
 
-        for line in text.splitlines():
-            line = line.strip()
-            if line and len(line) > 2:
+    # 소형 PDF: 프로세스 기동 오버헤드 회피하여 순차 처리
+    if total_pages < 4:
+        for pi in range(total_pages):
+            _, lines = _ocr_one_page(pdf_path, pi)
+            for ln in lines:
                 ocr_extras.append({
                     "type": "paragraph", "page": pi + 1,
-                    "content": line, "source": "ocr",
+                    "content": ln, "source": "ocr",
                 })
-
-    doc.close()
+    else:
+        # ProcessPool + fork mode:
+        # - Tesseract/PyMuPDF는 스레드 안전 보장 없음 → ProcessPool 필수
+        # - fork는 부모 메모리 공유해 기동 빠름, 자식은 split_odl 재-import 안 함
+        # - macOS/Linux 둘 다 fork 지원 (Windows 미지원은 이 프로젝트 범위 밖)
+        import multiprocessing as mp
+        from concurrent.futures import ProcessPoolExecutor
+        cpu = os.cpu_count() or 4
+        workers = min(total_pages, max(1, cpu - 2), 8)
+        ctx = mp.get_context("fork")
+        try:
+            with ProcessPoolExecutor(max_workers=workers,
+                                     mp_context=ctx) as pool:
+                futures = [pool.submit(_ocr_one_page, pdf_path, i)
+                           for i in range(total_pages)]
+                for f in futures:
+                    page_num, lines = f.result()
+                    for ln in lines:
+                        ocr_extras.append({
+                            "type": "paragraph", "page": page_num,
+                            "content": ln, "source": "ocr",
+                        })
+        except Exception as e:
+            # 병렬 실패 시 순차 폴백 (graceful degradation)
+            print(f"  [OCR] 병렬 실패 → 순차 폴백: {e}")
+            ocr_extras.clear()
+            for pi in range(total_pages):
+                _, lines = _ocr_one_page(pdf_path, pi)
+                for ln in lines:
+                    ocr_extras.append({
+                        "type": "paragraph", "page": pi + 1,
+                        "content": ln, "source": "ocr",
+                    })
 
     if ocr_extras:
-        print(f"  [OCR] {total_pages}개 이미지 페이지 → {len(ocr_extras)}개 element 추가")
+        suffix = f" (병렬 {workers})" if total_pages >= 4 else ""
+        print(f"  [OCR] {total_pages}개 이미지 페이지{suffix} "
+              f"→ {len(ocr_extras)}개 element 추가")
 
     return elements + ocr_extras
 
