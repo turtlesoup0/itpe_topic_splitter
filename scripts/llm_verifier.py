@@ -18,6 +18,7 @@ import json
 import logging
 import os
 import re
+import time
 from dataclasses import dataclass
 from typing import Any, Optional
 
@@ -186,6 +187,277 @@ async def _call_llm(client, sem: asyncio.Semaphore,
             messages=[{"role": "user", "content": user_text}],
         )
         return _parse_json(resp.content[0].text.strip())
+
+
+# ─── 0. LLM 우선 경계 탐지 ───────────────────────────────────────
+
+_BOUNDARY_SYSTEM = """정보처리기술사 해설 PDF의 토픽 경계를 JSONL 한 줄씩 출력하세요.
+
+형식 (한 줄 = 한 토픽):
+{"num": 1, "title": "제목(40자 이내)", "page_start": N, "page_end": M, "session": S}
+
+규칙:
+1. 각 토픽은 문제 번호("N.", "N번", "I.", "II.")로 시작.
+2. 표지/목차/저작권 페이지는 제외 (실제 해설 토픽만).
+3. 본시험: 1교시=단답형 13개(2~3p), 2~4교시=논술 6개(4~6p).
+   표지 페이지에 "제 N 교시"가 있으면 세션 전환 신호.
+4. 출제의도/참조 문구("131회 2교시" 등) 내 교시 언급은 구조 신호 아님.
+5. 주간 모의고사/리뷰는 단일 교시이고 토픽 수 불규칙할 수 있음.
+6. num은 문서 전체에서 1부터 증가 (세션마다 리셋하지 않음).
+7. **페이지 범위는 절대 중첩되지 않아야 함**: 토픽 A의 page_end는 다음 토픽 B의 page_start보다 작음.
+   특히 세션 전체 범위를 하나의 토픽으로 출력하지 마세요.
+   (잘못된 예: p29-42 가 세션2 전체인데 그 안에 다른 토픽들이 들어있음 → 금지)
+8. 배열/설명 없이 JSONL만 (한 줄 = 한 완전한 JSON 객체)."""
+
+
+def _page_summary(elements: list, total_pages: int,
+                  max_lines_per_page: int = 5,
+                  max_chars_per_line: int = 80) -> str:
+    """페이지별 상위 N줄을 간결 요약한 텍스트 (LLM 경계 탐지 입력용)."""
+    page_heads: dict[int, list[str]] = {}
+    for e in elements:
+        pg = e.get("page", 0)
+        c = (e.get("content") or "").strip()
+        if not c or len(c) < 3:
+            continue
+        if "Copyright" in c or "All rights reserved" in c:
+            continue
+        page_heads.setdefault(pg, []).append(c)
+
+    lines = []
+    for pg in sorted(page_heads.keys()):
+        heads = [l[:max_chars_per_line] for l in page_heads[pg][:max_lines_per_page]]
+        lines.append(f"[p{pg:02d}] " + " | ".join(heads))
+    return "\n".join(lines)
+
+
+def _parse_jsonl(raw: str) -> list[dict]:
+    """JSONL 형식에서 완전한 JSON 객체들을 추출. 깨진 줄은 복구 시도."""
+    out: list[dict] = []
+    for line in raw.splitlines():
+        line = line.strip().rstrip(",").rstrip()
+        if not line.startswith("{"):
+            continue
+        try:
+            obj = json.loads(line)
+        except Exception:
+            # key 오타 보정 시도 (세션 -> s 같은 shortform 복구)
+            fixed = re.sub(r'"s"\s*:', '"session":', line)
+            fixed = re.sub(r'"p_s"\s*:', '"page_start":', fixed)
+            fixed = re.sub(r'"p_e"\s*:', '"page_end":', fixed)
+            try:
+                obj = json.loads(fixed)
+            except Exception:
+                continue
+        if isinstance(obj, dict) and "num" in obj and "page_start" in obj:
+            out.append(obj)
+    return out
+
+
+def _remove_containing_boundaries(bdy: list[dict]) -> list[dict]:
+    """다른 토픽을 완전히 포함하는 부모 토픽 제거 (LLM 세션-전체 hallucination 방어).
+
+    예: {p29-42} 안에 {p30-32}, {p33-36}이 있으면 p29-42를 제거.
+    """
+    result = []
+    for i, b in enumerate(bdy):
+        ps_i = int(b.get("page_start", 0))
+        pe_i = int(b.get("page_end", ps_i))
+        sn_i = int(b.get("session", 1))
+        if ps_i >= pe_i:
+            result.append(b)
+            continue
+        contains_others = 0
+        for j, c in enumerate(bdy):
+            if i == j:
+                continue
+            if int(c.get("session", 1)) != sn_i:
+                continue
+            ps_j = int(c.get("page_start", 0))
+            pe_j = int(c.get("page_end", ps_j))
+            # c가 b 내부에 완전히 포함되고 b가 c보다 엄격히 넓으면 contain 카운트
+            if ps_i <= ps_j and pe_j <= pe_i and (pe_i - ps_i) > (pe_j - ps_j):
+                contains_others += 1
+        if contains_others >= 2:
+            # 2개 이상의 자식 토픽을 포함 → 세션-전체 hallucination으로 간주해 제거
+            continue
+        result.append(b)
+    return result
+
+
+def _validate_llm_boundaries(bdy: list[dict], total_pages: int) -> tuple[bool, str]:
+    """LLM 경계 결과 검증. (ok, reason).
+
+    역행 체크는 세션 내부에서만 수행 (세션 전환 시 num 리셋 허용).
+    """
+    if not bdy:
+        return False, "경계 0개"
+    pages_covered: set[int] = set()
+
+    # 세션별 그룹화 → 각 세션 내에서 page_start 오름차순 확인
+    by_session: dict[int, list[dict]] = {}
+    for b in bdy:
+        ps, pe = b.get("page_start"), b.get("page_end", b.get("page_start"))
+        if not isinstance(ps, int) or not isinstance(pe, int):
+            return False, f"페이지 번호 타입 오류 {b}"
+        if ps < 1 or pe > total_pages or ps > pe:
+            return False, f"페이지 범위 오류 {ps}-{pe} (문서 {total_pages}p)"
+        for p in range(ps, pe + 1):
+            pages_covered.add(p)
+        by_session.setdefault(int(b.get("session", 1)), []).append(b)
+
+    # 세션 내 역행 체크 (세션마다 num/page는 단조 증가해야 함)
+    for sn, group in by_session.items():
+        group_sorted = sorted(group, key=lambda x: x.get("num", 0))
+        last_end = 0
+        for b in group_sorted:
+            ps = int(b["page_start"])
+            if ps < last_end - 2:
+                return False, f"세션{sn} 페이지 역행 {last_end} → {ps}"
+            last_end = max(last_end, int(b.get("page_end", ps)))
+
+    # 세션 간 연속성: session N 끝 페이지 < session N+1 시작 페이지
+    session_ranges = []
+    for sn in sorted(by_session):
+        pages = [p for b in by_session[sn]
+                 for p in range(int(b["page_start"]),
+                                int(b.get("page_end", b["page_start"])) + 1)]
+        session_ranges.append((sn, min(pages), max(pages)))
+    for i in range(len(session_ranges) - 1):
+        _, _, end_i = session_ranges[i]
+        sn_j, start_j, _ = session_ranges[i + 1]
+        if start_j < end_i - 2:
+            return False, f"세션{sn_j} 시작 p{start_j} < 이전 세션 끝 p{end_i}"
+
+    coverage = len(pages_covered) / max(1, total_pages)
+    if coverage < 0.2:
+        return False, f"커버리지 {coverage:.0%} 과소"
+    return True, f"OK (커버 {coverage:.0%}, {len(bdy)}개)"
+
+
+def _llm_boundaries_request_sync(doc_text: str, total_pages: int,
+                                  timeout: float = 300.0) -> Optional[str]:
+    """LLM에 경계 탐지 요청 (동기 래퍼). provider 독립."""
+    user = (f"문서 {total_pages}p 요약:\n\n{doc_text}\n\n"
+            f"JSONL 출력 (한 줄 한 토픽):")
+
+    p = _provider()
+    try:
+        if p == "mlx":
+            import httpx
+            url = (os.environ.get("MLX_URL", DEFAULT_MLX_URL).rstrip("/")
+                   + "/v1/chat/completions")
+            model = os.environ.get("MLX_MODEL", DEFAULT_MLX_MODEL)
+            body = {
+                "model": model,
+                "messages": [
+                    {"role": "system", "content": _BOUNDARY_SYSTEM},
+                    {"role": "user", "content": user},
+                ],
+                "max_tokens": 8000, "temperature": 0.05,
+                "chat_template_kwargs": {"enable_thinking": False},
+            }
+            with httpx.Client(timeout=timeout) as c:
+                r = c.post(url, json=body)
+                data = r.json()
+            return (data.get("choices", [{}])[0]
+                        .get("message", {}).get("content") or "")
+        else:
+            # Anthropic
+            import anthropic
+            client = anthropic.Anthropic(
+                api_key=os.environ["ANTHROPIC_API_KEY"])
+            model = os.environ.get("ANTHROPIC_MODEL", DEFAULT_MODEL_ANTHROPIC)
+            resp = client.messages.create(
+                model=model, max_tokens=8000,
+                system=_BOUNDARY_SYSTEM,
+                messages=[{"role": "user", "content": user}],
+            )
+            return resp.content[0].text if resp.content else ""
+    except Exception as e:
+        logger.warning("LLM boundary request failed: %s", e)
+        return None
+
+
+def detect_boundaries_llm(
+    elements: list, total_pages: int,
+) -> Optional[tuple[list[dict], list[str]]]:
+    """LLM 우선 경계 탐지. 실패 시 None 반환 (호출측이 규칙 기반 fallback).
+
+    Returns:
+        (boundaries, warnings) 또는 None
+        boundaries는 detect_boundaries_v2 결과와 호환되는 dict 리스트:
+          {num, title, page_start, page_end, session, fmt, confidence, ...}
+    """
+    if not is_available():
+        return None
+    if total_pages <= 0 or not elements:
+        return None
+
+    doc_text = _page_summary(elements, total_pages)
+    if not doc_text:
+        return None
+
+    t0 = time.time()
+    raw = _llm_boundaries_request_sync(doc_text, total_pages)
+    if raw is None:
+        return None
+
+    bdy = _parse_jsonl(raw)
+    # 1. 명백한 단일 오류 자동 수정 (범위 밖, start>end)
+    cleaned: list[dict] = []
+    fixed = 0
+    for b in bdy:
+        ps = b.get("page_start")
+        pe = b.get("page_end", ps)
+        if not isinstance(ps, int) or not isinstance(pe, int):
+            fixed += 1
+            continue  # 타입 오류 → 제거
+        if ps < 1 or ps > total_pages:
+            fixed += 1
+            continue  # 범위 밖 → 제거
+        if pe < ps or pe > total_pages:
+            # start는 유효하나 end가 이상 → start로 보정 (단일 페이지 토픽)
+            b["page_end"] = ps
+            fixed += 1
+        cleaned.append(b)
+    if fixed:
+        logger.info("LLM 경계 %d개 단일 오류 자동 수정", fixed)
+    bdy = cleaned
+
+    # 2. 세션-전체 hallucination 자동 제거
+    before = len(bdy)
+    bdy = _remove_containing_boundaries(bdy)
+    removed = before - len(bdy)
+    if removed:
+        logger.info("LLM 중첩 경계 %d개 자동 제거 (세션-전체 hallucination)", removed)
+
+    ok, reason = _validate_llm_boundaries(bdy, total_pages)
+    if not ok:
+        logger.info("LLM 경계 탐지 검증 실패 — 규칙 기반 fallback: %s", reason)
+        return None
+
+    # 정규화: detect_boundaries_v2 호환 포맷으로 매핑
+    # 세션 오름차순 + 세션 내 page_start 오름차순으로 전역 순번 재부여
+    bdy.sort(key=lambda x: (int(x.get("session", 1)),
+                            int(x.get("page_start", 0))))
+    warnings: list[str] = [f"LLM-first 경계 탐지 사용 ({len(bdy)}개, {time.time()-t0:.1f}s)"]
+
+    boundaries = []
+    for i, b in enumerate(bdy):
+        ps = int(b["page_start"])
+        pe = int(b.get("page_end", ps))
+        session_q = int(b.get("num", 0)) or (i + 1)
+        boundaries.append({
+            "num": i + 1,  # 전역 연속 번호
+            "title": str(b.get("title", "")).strip()[:80] or f"토픽_p{ps}",
+            "page": ps, "page_start": ps, "page_end": pe,
+            "session": int(b.get("session", 1)),
+            "session_q": session_q,
+            "fmt": "llm",
+            "confidence": 0.95,  # LLM 결과는 높은 신뢰
+        })
+    return boundaries, warnings
 
 
 # ─── A. 제목 + 키워드 추출 ──────────────────────────────────────

@@ -54,7 +54,11 @@ from split_odl import parse_kordoc, split_pdf, safe_filename  # noqa: E402
 from detect_boundaries_v2 import (  # noqa: E402
     detect_boundaries_v2, detect_sessions, analyze_quality,
 )
-from llm_verifier import enhance_boundaries_sync, is_available as llm_available  # noqa: E402
+from llm_verifier import (  # noqa: E402
+    enhance_boundaries_sync,
+    is_available as llm_available,
+    detect_boundaries_llm,
+)
 
 app = FastAPI(title="ITPE Topic Splitter", version="1.2")
 
@@ -240,23 +244,47 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
             _jobs[job_id]["progress"] = "토픽 경계 탐지 중..."
             _db_upsert_locked(job_id)
 
-        # 2. 경계 탐지
-        boundaries_v2, warnings = detect_boundaries_v2(
-            elements, total_pages, "")
-        sessions = detect_sessions(elements, total_pages)
-        quality_report = analyze_quality(
-            boundaries_v2, sessions, elements, total_pages, warnings)
+        # 2. LLM-first 경계 탐지 시도 → 실패 시 규칙 기반 fallback
+        boundaries = None
+        warnings: list[str] = []
+        quality_report = ""
+        if llm_available():
+            try:
+                with _jobs_lock:
+                    _jobs[job_id]["progress"] = "LLM 경계 탐지 중..."
+                    _db_upsert_locked(job_id)
+                llm_result = detect_boundaries_llm(elements, total_pages)
+                if llm_result is not None:
+                    boundaries, llm_warnings = llm_result
+                    warnings.extend(llm_warnings)
+                    quality_report = (
+                        f"탐지 방식: LLM 우선\n"
+                        f"총 {total_pages}p → {len(boundaries)}개 토픽\n"
+                        f"세션 분포: " + ", ".join(
+                            f"{s}교시={sum(1 for b in boundaries if b['session']==s)}개"
+                            for s in sorted({b['session'] for b in boundaries}))
+                    )
+            except Exception as e:
+                warnings.append(f"LLM-first 스킵: {str(e)[:100]}")
 
-        boundaries = [
-            {
-                "num": b.num, "title": b.title,
-                "page": b.page_start, "page_start": b.page_start,
-                "page_end": b.page_end, "fmt": b.fmt,
-                "session": b.session, "session_q": b.session_q,
-                "confidence": b.confidence,
-            }
-            for b in boundaries_v2
-        ]
+        # 규칙 기반 fallback (LLM 실패 또는 미사용)
+        if not boundaries:
+            boundaries_v2, rule_warnings = detect_boundaries_v2(
+                elements, total_pages, "")
+            warnings.extend(rule_warnings)
+            sessions = detect_sessions(elements, total_pages)
+            quality_report = analyze_quality(
+                boundaries_v2, sessions, elements, total_pages, warnings)
+            boundaries = [
+                {
+                    "num": b.num, "title": b.title,
+                    "page": b.page_start, "page_start": b.page_start,
+                    "page_end": b.page_end, "fmt": b.fmt,
+                    "session": b.session, "session_q": b.session_q,
+                    "confidence": b.confidence,
+                }
+                for b in boundaries_v2
+            ]
 
         if not boundaries:
             raise Exception(
