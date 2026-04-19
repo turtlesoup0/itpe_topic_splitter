@@ -262,9 +262,29 @@ def _parse_jsonl(raw: str) -> list[dict]:
     return out
 
 
+def _strip_title_prefix(t: str) -> str:
+    """제목 앞 번호 접두사 제거.
+
+    예: "1. 할당간선" → "할당간선"
+        "II. 정의" → "정의"
+        "3) QoS" → "QoS"
+    LLM이 원문 첫 줄을 그대로 복사한 경우를 정리.
+    """
+    if not t:
+        return t
+    t = t.strip()
+    # 아라비아/로마 숫자 + 구분자(. 또는 )) + 공백
+    t = re.sub(r'^\s*\d{1,2}\s*[.)]\s+', '', t)
+    t = re.sub(r'^\s*[IVXivx]{1,4}\s*[.)]\s+', '', t)
+    # "문제 1." 같은 형태
+    t = re.sub(r'^\s*문제\s*\d{1,2}\s*[.)]?\s*', '', t)
+    return t.strip()
+
+
 def _normalize_title(t: str) -> str:
-    """제목 정규화 (중복 감지용): 괄호/공백 제거, 소문자."""
-    t = re.sub(r'\([^)]*\)', '', t or '')       # 괄호 제거
+    """제목 정규화 (중복 감지용): 번호접두사·괄호·공백 제거, 소문자."""
+    t = _strip_title_prefix(t or '')
+    t = re.sub(r'\([^)]*\)', '', t)             # 괄호 제거
     t = re.sub(r'[\s\-_·,.]+', '', t)           # 공백·구분자 제거
     return t.lower()
 
@@ -382,9 +402,10 @@ def _validate_llm_boundaries(bdy: list[dict], total_pages: int) -> tuple[bool, s
             pages_covered.add(p)
         by_session.setdefault(int(b.get("session", 1)), []).append(b)
 
-    # 세션 내 역행 체크 (세션마다 num/page는 단조 증가해야 함)
+    # 세션 내 역행 체크: page_start 기준 정렬 시 연속이어야 함.
+    # num은 블록별로 독립 부여될 수 있어 신뢰하지 않음.
     for sn, group in by_session.items():
-        group_sorted = sorted(group, key=lambda x: x.get("num", 0))
+        group_sorted = sorted(group, key=lambda x: int(x.get("page_start", 0)))
         last_end = 0
         for b in group_sorted:
             ps = int(b["page_start"])
@@ -509,46 +530,36 @@ def detect_boundaries_llm(
     sessions = _detect_session_ranges(elements, total_pages)
     logger.info("LLM 경계 탐지: %d개 세션 블록", len(sessions))
 
+    # 세션 번호 라벨 신뢰도 판단:
+    # - 정확히 4블록 = 정규 4교시 시험 → 블록 번호(1,2,3,4) 그대로 사용
+    # - 2~3블록 또는 1블록 = 주간 모의고사/리뷰/부분 시험 → 세션 라벨 모두 1로 통일
+    #   (detect_sessions가 FB22 같은 단일 교시 문서에서 잘못 분할한 경우 방어)
+    # 블록별 호출 자체는 항상 수행 → attention 집중으로 누락/hallucination 감소
+    treat_as_multi_session = (len(sessions) == 4)
+
     t0 = time.time()
     all_bdy: list[dict] = []
-    # 세션별 개별 호출 (세션이 2개 이상일 때만. 단일 세션이면 전체 한 번)
-    if len(sessions) == 1:
-        sn, ps, pe = sessions[0]
+    for sn, ps, pe in sessions:
         doc_text = _page_summary_range(elements, ps, pe)
         if not doc_text:
-            return None
+            continue
         raw = _llm_boundaries_request_sync(doc_text, total_pages)
         if raw is None:
+            logger.info("세션%d LLM 호출 실패 — 전체 fallback", sn)
             return None
         section_bdy = _parse_jsonl(raw)
-        # 세션 번호 강제 고정
+        # 세션 범위 밖 경계는 제거 (hallucination 방어)
+        section_bdy = [
+            b for b in section_bdy
+            if isinstance(b.get("page_start"), int)
+            and ps <= b["page_start"] <= pe
+        ]
+        # 세션 라벨: 정규 4교시면 블록 번호, 아니면 모두 1
+        assigned_sn = sn if treat_as_multi_session else 1
         for b in section_bdy:
-            b["session"] = sn
-        all_bdy = section_bdy
-    else:
-        for sn, ps, pe in sessions:
-            doc_text = _page_summary_range(elements, ps, pe)
-            if not doc_text:
-                continue
-            raw = _llm_boundaries_request_sync(doc_text, total_pages)
-            if raw is None:
-                logger.info("세션%d LLM 호출 실패 — 전체 fallback", sn)
-                return None
-            section_bdy = _parse_jsonl(raw)
-            for b in section_bdy:
-                b["session"] = sn
-                # 세션 범위 밖 경계는 제거 (hallucination 방어)
-                bps = b.get("page_start", 0)
-                if not isinstance(bps, int) or bps < ps or bps > pe:
-                    continue
-            # 범위 밖 필터
-            section_bdy = [
-                b for b in section_bdy
-                if isinstance(b.get("page_start"), int)
-                and ps <= b["page_start"] <= pe
-            ]
-            all_bdy.extend(section_bdy)
-            logger.info("세션%d: %d개 경계", sn, len(section_bdy))
+            b["session"] = assigned_sn
+        all_bdy.extend(section_bdy)
+        logger.info("세션%d(블록): %d개 경계", sn, len(section_bdy))
 
     bdy = all_bdy
     # 1. 명백한 단일 오류 자동 수정 (범위 밖, start>end)
@@ -597,16 +608,26 @@ def detect_boundaries_llm(
                             int(x.get("page_start", 0))))
     warnings: list[str] = [f"LLM-first 경계 탐지 사용 ({len(bdy)}개, {time.time()-t0:.1f}s)"]
 
+    # 세션 라벨 통합: 모든 경계가 동일한 1개 세션에 속해 있고 detect_sessions도
+    # 단일/약한 감지였다면(세션수 == 1) session=1로 통일.
+    # 아니면 LLM이 출력한 session 값을 존중하되, 비정상 값(1~4 밖)은 1로 보정.
+    session_values = sorted({int(b.get("session", 1)) for b in bdy})
+    collapse_single = (len(session_values) == 1)
+
     boundaries = []
     for i, b in enumerate(bdy):
         ps = int(b["page_start"])
         pe = int(b.get("page_end", ps))
         session_q = int(b.get("num", 0)) or (i + 1)
+        raw_sess = int(b.get("session", 1))
+        sess = 1 if collapse_single else (raw_sess if 1 <= raw_sess <= 4 else 1)
+        # 제목 정제: 번호 접두사 제거, 40자 이내
+        title = _strip_title_prefix(str(b.get("title", "")))
         boundaries.append({
             "num": i + 1,  # 전역 연속 번호
-            "title": str(b.get("title", "")).strip()[:80] or f"토픽_p{ps}",
+            "title": title[:80] or f"토픽_p{ps}",
             "page": ps, "page_start": ps, "page_end": pe,
-            "session": int(b.get("session", 1)),
+            "session": sess,
             "session_q": session_q,
             "fmt": "llm",
             "confidence": 0.95,  # LLM 결과는 높은 신뢰
