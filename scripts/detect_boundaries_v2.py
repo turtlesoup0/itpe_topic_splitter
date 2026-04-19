@@ -1,21 +1,49 @@
 """
-다중 신호 점수 기반 토픽 경계 탐지 (v2)
+다중 신호 점수 기반 토픽 경계 탐지 (v2) — 규칙 기반 fallback 엔진.
+
+주 경로는 llm_verifier.detect_boundaries_llm 이며, 이 모듈은
+LLM 불가/실패 시 fallback으로 사용됨. LLM 실패율이 낮아 현재
+호출 빈도는 낮지만, 오프라인·저지연 요구 시 여전히 핵심.
 
 기존 detect_boundaries()의 한계:
   - 단일 마커("끝", "I.", "문 제 N.") 의존 → 특정 학원에서 실패
   - 포맷 감지 후 단일 규칙 적용 → 신호가 없으면 전체 실패
 
-v2 접근:
-  1. 교시 분리: 교시 표지/텍스트 기반으로 문서를 4개 교시 블록으로 나눔
-  2. 다중 신호 점수: 끝/I./문제N./소제목리셋/밀도변화 등 복수 신호의 가중합
-  3. 자기 교정: 문서 내 신호 분포를 보고 가중치를 자동 조정
-  4. 시험 구조 검증: 13+6+6+6=31 기대와 대조하여 이상 탐지
+v2 접근 (파일 내 섹션 마커로 Phase 1~4 구분):
+  Phase 1: 교시 분리 (detect_sessions)
+  Phase 2: 자기 교정 — 문서 내 신호 분포 기반 가중치 자동 조정 (calibrate_weights)
+  Phase 3: 다중 신호 경계 탐지 (score_boundaries + _apply_*_signal)
+  Phase 4: 후보 선택, 검증, 품질 보고 (select/validate/analyze_quality)
+  메인: detect_boundaries_v2 — 위 4단계 파이프라인 실행 + 서브 분할
+
+공개 API (외부 호출 대상):
+  - detect_boundaries_v2(elements, total_pages, text) -> (boundaries, warnings)
+  - detect_sessions(elements, total_pages) -> [SessionBlock, ...]
+  - analyze_quality(boundaries, sessions, elements, total_pages, warnings) -> str
+  - SessionBlock, BoundaryCandidate, TopicBoundary, SignalWeights (데이터 클래스)
+
+내부 헬퍼(`_` 접두)는 향후 이동 가능한 단위로 그룹화되어 있음.
+회귀 테스트 인프라 구축 후 Phase별 파일 분할 예정 (signals.py, scoring.py, selector.py).
 """
 
 import re
 from collections import Counter
 from dataclasses import dataclass, field
 from typing import Optional
+
+__all__ = [
+    # 메인 진입점
+    "detect_boundaries_v2",
+    # Phase 1: 교시 분리
+    "detect_sessions",
+    # Phase 4: 품질 리포팅
+    "analyze_quality",
+    # 데이터 클래스
+    "SignalWeights",
+    "SessionBlock",
+    "BoundaryCandidate",
+    "TopicBoundary",
+]
 
 from format_common import (
     # 데이터 클래스 (format_common이 정의의 원본)
