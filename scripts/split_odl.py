@@ -60,8 +60,38 @@ def _cache_path(pdf_hash: str) -> Path:
     return _cache_dir() / f"{pdf_hash}_{CACHE_SCHEMA}.json"
 
 
+def _cache_sanity_check(elements: list, total_pages: int) -> Optional[str]:
+    """캐시된 elements 유효성 검증. 문제 있으면 이유 문자열, 없으면 None.
+
+    방어 대상:
+    - 이전 버그 있는 ThreadPool 구현으로 만든 손상된 캐시 (element 개수 이상)
+    - Page 번호가 범위 밖인 element
+    - content 필드 누락 또는 모두 빈 값
+    """
+    if not elements or not isinstance(elements, list):
+        return "empty elements"
+    if total_pages <= 0:
+        return f"invalid total_pages={total_pages}"
+    # 최소 element 개수: 페이지당 평균 5개 이상 기대
+    min_expected = max(5, total_pages // 3)
+    if len(elements) < min_expected:
+        return (f"element 수 부족 ({len(elements)} < {min_expected} "
+                f"= max(5, {total_pages}//3))")
+    # page 번호 범위 체크 (sampling)
+    for e in elements[:50] + elements[-50:] if len(elements) > 100 else elements:
+        pg = e.get("page")
+        if not isinstance(pg, int) or pg < 1 or pg > total_pages:
+            return f"page 범위 이탈 (page={pg}, total={total_pages})"
+    # content 존재 체크
+    non_empty = sum(1 for e in elements if (e.get("content") or "").strip())
+    if non_empty < len(elements) * 0.5:
+        return (f"content 비어있는 element 과다 "
+                f"({len(elements) - non_empty}/{len(elements)})")
+    return None
+
+
 def _cache_load(pdf_path: str) -> Optional[tuple]:
-    """캐시 히트 시 (elements, total_pages) 반환. 실패/미스 시 None."""
+    """캐시 히트 시 (elements, total_pages) 반환. 실패/미스/손상 시 None."""
     pdf_hash = _pdf_content_hash(pdf_path)
     if not pdf_hash:
         return None
@@ -72,10 +102,20 @@ def _cache_load(pdf_path: str) -> Optional[tuple]:
         data = json.loads(path.read_text(encoding="utf-8"))
         elements = data.get("elements")
         total_pages = data.get("total_pages")
-        if isinstance(elements, list) and isinstance(total_pages, int):
-            print(f"  [cache-hit] OCR 캐시 로드 → {total_pages}p, "
-                  f"{len(elements)} elements ({path.name[:16]}…)")
-            return elements, total_pages
+        if not (isinstance(elements, list) and isinstance(total_pages, int)):
+            return None
+        # Sanity check: 손상된 캐시는 무효화
+        problem = _cache_sanity_check(elements, total_pages)
+        if problem:
+            print(f"  [cache-invalid] 손상된 캐시 삭제 → 재생성: {problem}")
+            try:
+                path.unlink()
+            except OSError:
+                pass
+            return None
+        print(f"  [cache-hit] OCR 캐시 로드 → {total_pages}p, "
+              f"{len(elements)} elements ({path.name[:16]}…)")
+        return elements, total_pages
     except (OSError, json.JSONDecodeError, ValueError):
         pass
     return None
