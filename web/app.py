@@ -253,7 +253,14 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
                 with _jobs_lock:
                     _jobs[job_id]["progress"] = "LLM 경계 탐지 중..."
                     _db_upsert_locked(job_id)
-                llm_result = detect_boundaries_llm(elements, total_pages)
+                # 파일명에서 단일 세션 힌트 추출:
+                #   "<이름>_N교시_..." or "<이름>_N교시.pdf" → 단일 세션
+                import re as _re
+                single_hint = bool(_re.search(
+                    r'[_\-\s]\d\s*교시(?:[_\-\s]|\.pdf$)', filename))
+                llm_result = detect_boundaries_llm(
+                    elements, total_pages,
+                    single_session_hint=single_hint)
                 if llm_result is not None:
                     boundaries, llm_warnings = llm_result
                     warnings.extend(llm_warnings)

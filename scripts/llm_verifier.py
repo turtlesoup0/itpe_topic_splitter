@@ -605,19 +605,25 @@ def _page_summary_range(elements: list, page_start: int, page_end: int,
 
 def detect_boundaries_llm(
     elements: list, total_pages: int,
+    single_session_hint: bool = False,
 ) -> Optional[tuple[list[dict], list[str]]]:
     """LLM 우선 경계 탐지. 세션별 개별 호출 → 병합.
 
-    세션 블록이 감지되면 각 세션을 별도 LLM 호출로 처리하여
-    hallucination/누락 위험을 줄이고 병렬 처리 가능.
+    Args:
+        single_session_hint: 파일명 등에서 단일 교시임을 확신할 때 True.
+            detect_sessions 결과를 무시하고 문서 전체를 단일 세션으로 처리.
     """
     if not is_available():
         return None
     if total_pages <= 0 or not elements:
         return None
 
-    sessions = _detect_session_ranges(elements, total_pages)
-    logger.info("LLM 경계 탐지: %d개 세션 블록", len(sessions))
+    if single_session_hint:
+        logger.info("LLM 경계 탐지: 단일 세션 힌트 적용 (전체 1회 호출)")
+        sessions = [(1, 1, total_pages)]
+    else:
+        sessions = _detect_session_ranges(elements, total_pages)
+        logger.info("LLM 경계 탐지: %d개 세션 블록", len(sessions))
 
     # 세션 보강: detect_sessions가 앞/뒤 페이지를 놓친 경우 처리.
     # 규칙:
