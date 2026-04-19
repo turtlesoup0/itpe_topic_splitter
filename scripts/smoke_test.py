@@ -52,8 +52,8 @@ FIXTURES = [
     {
         "name": "KPC 135관 (4교시 97p)",
         "path": f"{ICLOUD}/공부/1_기출 해설/135/KPC 135관-합.pdf",
-        "topic_min": 28,          # 31 정답, 28+ 허용 (LLM 변동성)
-        "topic_max": 33,
+        "topic_min": 30,          # 31 정답, 30+ 허용 (±1 LLM 변동)
+        "topic_max": 32,
         "sessions_expected": {1, 2, 3, 4},
     },
 ]
