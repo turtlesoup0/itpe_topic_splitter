@@ -63,6 +63,22 @@ FIXTURES = [
         "topic_max": 32,
         "sessions_expected": {1, 2, 3, 4},
     },
+    {
+        "name": "아이리포 135관 (4교시 84p, 세션 커버 불명확)",
+        "path": f"{ICLOUD}/공부/1_기출 해설/135/아이리포 135관.pdf",
+        "topic_min": 29,
+        "topic_max": 33,
+        # detect_sessions 가 세션 커버 감지 못해 단일 블록 호출로 fallback.
+        # 토픽은 정확히 탐지되나 세션 라벨은 {1} 로 통일됨 — 실용적 허용.
+        "sessions_expected": {1},
+    },
+    {
+        "name": "동기회 135관 (4교시 105p)",
+        "path": f"{ICLOUD}/공부/1_기출 해설/135/동기회 135관.pdf",
+        "topic_min": 29,
+        "topic_max": 33,
+        "sessions_expected": {1, 2, 3, 4},
+    },
 ]
 
 

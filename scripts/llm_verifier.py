@@ -619,23 +619,39 @@ def detect_boundaries_llm(
     sessions = _detect_session_ranges(elements, total_pages)
     logger.info("LLM 경계 탐지: %d개 세션 블록", len(sessions))
 
-    # 세션 보강: detect_sessions가 앞/뒤 페이지를 놓친 경우 추가 블록으로 채움.
-    # KPC 132관 예: detect_sessions가 1교시(p1-27)를 못 찾아 3블록 반환
-    #   → 보강 후 4블록 (1: p1-27, 2: p28-48, 3: p49-70, 4: p71-91)
+    # 세션 보강: detect_sessions가 앞/뒤 페이지를 놓친 경우 처리.
+    # 규칙:
+    # - 블록 크기가 비정상(<5p)이면 detect_sessions 결과 전체 무시 → 전체 1회 호출
+    # - 앞/뒤 누락 5p 이상 → 독립 블록으로 추가 (KPC 132관: p1-27 → 1교시 추가)
+    # - 앞/뒤 누락 1~4p → 인접 블록에 흡수 (동기회 135관: p1-4 → 1교시 확장)
     if sessions:
-        _pages_only: list[tuple[int, int]] = [(ps, pe) for _, ps, pe in sessions]
-        # 앞쪽 누락 추가
-        if _pages_only[0][0] > 1:
-            _pages_only.insert(0, (1, _pages_only[0][0] - 1))
-        # 뒤쪽 누락 추가
-        if _pages_only[-1][1] < total_pages:
-            _pages_only.append((_pages_only[-1][1] + 1, total_pages))
-        # 세션 번호 1부터 순서대로 재부여
-        sessions_before = len(sessions)
-        sessions = [(i + 1, ps, pe) for i, (ps, pe) in enumerate(_pages_only)]
-        if len(sessions) != sessions_before:
-            logger.info("세션 블록 보강: %d개 → %d개 (번호 1..%d 재부여)",
-                         sessions_before, len(sessions), len(sessions))
+        # 블록 크기 sanity: 비정상적으로 작은 블록(<5p)이 있으면 session 신호 신뢰 불가
+        sizes = [pe - ps + 1 for _, ps, pe in sessions]
+        if any(sz < 5 for sz in sizes):
+            logger.info("세션 블록 크기 비정상 (%s) → 세션 정보 무시",
+                         sizes)
+            sessions = []
+        else:
+            _pages_only: list[list[int]] = [[ps, pe] for _, ps, pe in sessions]
+            # 앞쪽 누락
+            gap_front = _pages_only[0][0] - 1
+            if gap_front >= 5:
+                _pages_only.insert(0, [1, _pages_only[0][0] - 1])
+            elif gap_front >= 1:
+                _pages_only[0][0] = 1
+            # 뒤쪽 누락
+            gap_back = total_pages - _pages_only[-1][1]
+            if gap_back >= 5:
+                _pages_only.append([_pages_only[-1][1] + 1, total_pages])
+            elif gap_back >= 1:
+                _pages_only[-1][1] = total_pages
+            # 중간 gap은 건드리지 않음 (연속 블록을 합치지 않도록)
+
+            sessions_before = len(sessions)
+            sessions = [(i + 1, ps, pe) for i, (ps, pe) in enumerate(_pages_only)]
+            if len(sessions) != sessions_before:
+                logger.info("세션 블록 보강: %d개 → %d개",
+                             sessions_before, len(sessions))
 
     # 세션 블록 신뢰도 판단:
     # - 4블록 + 문서 전체 커버(p1~total_pages) → 정규 4교시 시험, 블록별 호출
