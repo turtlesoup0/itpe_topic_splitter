@@ -196,18 +196,26 @@ _BOUNDARY_SYSTEM = """정보처리기술사 해설 PDF의 토픽 경계를 JSONL
 형식 (한 줄 = 한 토픽):
 {"num": 1, "title": "제목(40자 이내)", "page_start": N, "page_end": M, "session": S}
 
-규칙:
+핵심 규칙 (반드시 지키기):
+A. **중복 금지**: 같은 토픽을 두 번 출력하지 마세요.
+   (잘못된 예: "양자 암호 기술 p49-49"와 "양자 암호 기술 상세 p61-63" 두 번 출력 → 금지. 실제 해당 토픽 범위 한 번만)
+B. **중첩 금지**: 페이지 범위는 절대 겹치지 않아야 함.
+   이전 토픽의 page_end < 다음 토픽의 page_start.
+   특히 세션 전체 범위를 하나의 토픽으로 묶지 마세요.
+   (잘못된 예: 세션2 전체 p29-42 를 한 토픽으로 → 금지. 세션2 안에 6개 토픽이 있으면 각각 분리)
+C. **페이지 범위 유효**: page_end >= page_start, 둘 다 1~전체 페이지 수 사이.
+
+일반 규칙:
 1. 각 토픽은 문제 번호("N.", "N번", "I.", "II.")로 시작.
 2. 표지/목차/저작권 페이지는 제외 (실제 해설 토픽만).
 3. 본시험: 1교시=단답형 13개(2~3p), 2~4교시=논술 6개(4~6p).
-   표지 페이지에 "제 N 교시"가 있으면 세션 전환 신호.
+   표지에 "제 N 교시"가 있으면 세션 전환 신호.
 4. 출제의도/참조 문구("131회 2교시" 등) 내 교시 언급은 구조 신호 아님.
 5. 주간 모의고사/리뷰는 단일 교시이고 토픽 수 불규칙할 수 있음.
 6. num은 문서 전체에서 1부터 증가 (세션마다 리셋하지 않음).
-7. **페이지 범위는 절대 중첩되지 않아야 함**: 토픽 A의 page_end는 다음 토픽 B의 page_start보다 작음.
-   특히 세션 전체 범위를 하나의 토픽으로 출력하지 마세요.
-   (잘못된 예: p29-42 가 세션2 전체인데 그 안에 다른 토픽들이 들어있음 → 금지)
-8. 배열/설명 없이 JSONL만 (한 줄 = 한 완전한 JSON 객체)."""
+7. 배열/설명 없이 JSONL만 (한 줄 = 한 완전한 JSON 객체).
+
+출력 전 자체 검증: 내가 출력한 토픽들의 page_start 를 정렬했을 때 단조 증가하는가? 중복 제목은 없는가?"""
 
 
 def _page_summary(elements: list, total_pages: int,
@@ -252,6 +260,74 @@ def _parse_jsonl(raw: str) -> list[dict]:
         if isinstance(obj, dict) and "num" in obj and "page_start" in obj:
             out.append(obj)
     return out
+
+
+def _normalize_title(t: str) -> str:
+    """제목 정규화 (중복 감지용): 괄호/공백 제거, 소문자."""
+    t = re.sub(r'\([^)]*\)', '', t or '')       # 괄호 제거
+    t = re.sub(r'[\s\-_·,.]+', '', t)           # 공백·구분자 제거
+    return t.lower()
+
+
+def _merge_duplicate_titles(bdy: list[dict]) -> list[dict]:
+    """같은 세션 내 제목이 유사한 토픽 병합.
+
+    병합 조건 (OR):
+    (a) 정규화 제목 완전 일치 ("양자 암호 기술 QKD" vs "양자 암호 기술 상세")
+    (b) 앞 prefix 일치 ("6G 이동통신기술" vs "6G 이동통신기술 성능 요구사항")
+    (c) 한쪽 제목이 다른 쪽에 완전히 포함 (부분 문자열)
+    """
+    if len(bdy) <= 1:
+        return bdy
+
+    def _prefix_key(t: str, n: int = 4) -> str:
+        """정규화 후 앞 n자 (인접 조건과 결합해 false positive 제한)."""
+        return _normalize_title(t)[:n]
+
+    # 세션별로 순차 처리 (인접 경계 병합에 유리)
+    by_sess: dict[int, list[dict]] = {}
+    for b in bdy:
+        by_sess.setdefault(int(b.get("session", 1)), []).append(b)
+
+    result: list[dict] = []
+    for sn in sorted(by_sess):
+        items = sorted(by_sess[sn], key=lambda x: int(x.get("page_start", 0)))
+        merged_session: list[dict] = []
+        for b in items:
+            title = b.get("title", "")
+            norm = _normalize_title(title)
+            pref = _prefix_key(title)
+            ps = int(b.get("page_start", 0))
+            pe = int(b.get("page_end", ps))
+            merged_into_prev = False
+            # 세션 내 이미 추가된 경계와 비교
+            for prev in merged_session:
+                p_title = prev.get("title", "")
+                p_norm = _normalize_title(p_title)
+                p_pref = _prefix_key(p_title)
+                p_ps = int(prev.get("page_start", 0))
+                p_pe = int(prev.get("page_end", p_ps))
+                # 제목 유사도: 완전일치 OR prefix 일치(>=5자) OR 포함관계
+                similar = (
+                    (p_norm and p_norm == norm) or
+                    (len(p_pref) >= 4 and p_pref == pref) or
+                    (p_norm and norm and
+                     (p_norm in norm or norm in p_norm))
+                )
+                if not similar:
+                    continue
+                # 인접(<=2p)한 경우만 범위 병합, 멀리 떨어진 경우 뒤쪽 삭제
+                if ps - p_pe <= 2:
+                    prev["page_end"] = max(p_pe, pe)
+                    prev["page_start"] = min(p_ps, ps)
+                    if len(p_title) > len(title) and title.strip():
+                        prev["title"] = title
+                merged_into_prev = True
+                break
+            if not merged_into_prev:
+                merged_session.append(b)
+        result.extend(merged_session)
+    return result
 
 
 def _remove_containing_boundaries(bdy: list[dict]) -> list[dict]:
@@ -354,7 +430,7 @@ def _llm_boundaries_request_sync(doc_text: str, total_pages: int,
                     {"role": "system", "content": _BOUNDARY_SYSTEM},
                     {"role": "user", "content": user},
                 ],
-                "max_tokens": 8000, "temperature": 0.05,
+                "max_tokens": 8000, "temperature": 0.0,
                 "chat_template_kwargs": {"enable_thinking": False},
             }
             with httpx.Client(timeout=timeout) as c:
@@ -379,31 +455,102 @@ def _llm_boundaries_request_sync(doc_text: str, total_pages: int,
         return None
 
 
+def _detect_session_ranges(elements: list, total_pages: int) -> list[tuple[int, int, int]]:
+    """세션 블록 추출 (세션번호, 페이지_시작, 페이지_끝). 규칙 기반 detect_sessions 활용."""
+    try:
+        # 지연 import (circular 방지)
+        from detect_boundaries_v2 import detect_sessions
+        sessions = detect_sessions(elements, total_pages)
+        if not sessions:
+            return [(1, 1, total_pages)]
+        return [(int(s.session_num or 1), int(s.page_start), int(s.page_end))
+                for s in sessions]
+    except Exception as e:
+        logger.info("detect_sessions 실패 → 단일 세션: %s", e)
+        return [(1, 1, total_pages)]
+
+
+def _page_summary_range(elements: list, page_start: int, page_end: int,
+                         max_lines_per_page: int = 5,
+                         max_chars_per_line: int = 80) -> str:
+    """특정 페이지 범위의 요약."""
+    page_heads: dict[int, list[str]] = {}
+    for e in elements:
+        pg = e.get("page", 0)
+        if pg < page_start or pg > page_end:
+            continue
+        c = (e.get("content") or "").strip()
+        if not c or len(c) < 3:
+            continue
+        if "Copyright" in c or "All rights reserved" in c:
+            continue
+        page_heads.setdefault(pg, []).append(c)
+    lines = []
+    for pg in sorted(page_heads.keys()):
+        heads = [l[:max_chars_per_line]
+                 for l in page_heads[pg][:max_lines_per_page]]
+        lines.append(f"[p{pg:02d}] " + " | ".join(heads))
+    return "\n".join(lines)
+
+
 def detect_boundaries_llm(
     elements: list, total_pages: int,
 ) -> Optional[tuple[list[dict], list[str]]]:
-    """LLM 우선 경계 탐지. 실패 시 None 반환 (호출측이 규칙 기반 fallback).
+    """LLM 우선 경계 탐지. 세션별 개별 호출 → 병합.
 
-    Returns:
-        (boundaries, warnings) 또는 None
-        boundaries는 detect_boundaries_v2 결과와 호환되는 dict 리스트:
-          {num, title, page_start, page_end, session, fmt, confidence, ...}
+    세션 블록이 감지되면 각 세션을 별도 LLM 호출로 처리하여
+    hallucination/누락 위험을 줄이고 병렬 처리 가능.
     """
     if not is_available():
         return None
     if total_pages <= 0 or not elements:
         return None
 
-    doc_text = _page_summary(elements, total_pages)
-    if not doc_text:
-        return None
+    sessions = _detect_session_ranges(elements, total_pages)
+    logger.info("LLM 경계 탐지: %d개 세션 블록", len(sessions))
 
     t0 = time.time()
-    raw = _llm_boundaries_request_sync(doc_text, total_pages)
-    if raw is None:
-        return None
+    all_bdy: list[dict] = []
+    # 세션별 개별 호출 (세션이 2개 이상일 때만. 단일 세션이면 전체 한 번)
+    if len(sessions) == 1:
+        sn, ps, pe = sessions[0]
+        doc_text = _page_summary_range(elements, ps, pe)
+        if not doc_text:
+            return None
+        raw = _llm_boundaries_request_sync(doc_text, total_pages)
+        if raw is None:
+            return None
+        section_bdy = _parse_jsonl(raw)
+        # 세션 번호 강제 고정
+        for b in section_bdy:
+            b["session"] = sn
+        all_bdy = section_bdy
+    else:
+        for sn, ps, pe in sessions:
+            doc_text = _page_summary_range(elements, ps, pe)
+            if not doc_text:
+                continue
+            raw = _llm_boundaries_request_sync(doc_text, total_pages)
+            if raw is None:
+                logger.info("세션%d LLM 호출 실패 — 전체 fallback", sn)
+                return None
+            section_bdy = _parse_jsonl(raw)
+            for b in section_bdy:
+                b["session"] = sn
+                # 세션 범위 밖 경계는 제거 (hallucination 방어)
+                bps = b.get("page_start", 0)
+                if not isinstance(bps, int) or bps < ps or bps > pe:
+                    continue
+            # 범위 밖 필터
+            section_bdy = [
+                b for b in section_bdy
+                if isinstance(b.get("page_start"), int)
+                and ps <= b["page_start"] <= pe
+            ]
+            all_bdy.extend(section_bdy)
+            logger.info("세션%d: %d개 경계", sn, len(section_bdy))
 
-    bdy = _parse_jsonl(raw)
+    bdy = all_bdy
     # 1. 명백한 단일 오류 자동 수정 (범위 밖, start>end)
     cleaned: list[dict] = []
     fixed = 0
@@ -431,6 +578,13 @@ def detect_boundaries_llm(
     removed = before - len(bdy)
     if removed:
         logger.info("LLM 중첩 경계 %d개 자동 제거 (세션-전체 hallucination)", removed)
+
+    # 3. 중복 제목 병합 (같은 세션 내)
+    before = len(bdy)
+    bdy = _merge_duplicate_titles(bdy)
+    merged = before - len(bdy)
+    if merged:
+        logger.info("LLM 중복 제목 %d개 병합", merged)
 
     ok, reason = _validate_llm_boundaries(bdy, total_pages)
     if not ok:
