@@ -575,24 +575,49 @@ def detect_boundaries_llm(
     treat_as_multi_session = (len(sessions) == 4)
 
     t0 = time.time()
-    all_bdy: list[dict] = []
-    for sn, ps, pe in sessions:
+
+    # 세션별 호출을 ThreadPoolExecutor로 병렬 실행.
+    # MLX-LM 서버는 요청 큐잉이지만, Anthropic은 병렬 배칭.
+    # 동시 호출이어도 MLX는 순차 처리되지만 클라이언트 대기시간은 같음.
+    def _call_for_session(args):
+        sn, ps, pe = args
         doc_text = _page_summary_range(elements, ps, pe)
         if not doc_text:
-            continue
+            return sn, None
         raw = _llm_boundaries_request_sync(
             doc_text, total_pages, page_count_hint=(pe - ps + 1))
+        return sn, raw
+
+    max_workers = min(len(sessions), 4)
+    with concurrent.futures.ThreadPoolExecutor(
+            max_workers=max_workers) as pool:
+        futures = {
+            pool.submit(_call_for_session, (sn, ps, pe)): (sn, ps, pe)
+            for sn, ps, pe in sessions
+        }
+        session_results: dict[int, tuple[int, int, Optional[str]]] = {}
+        for fut in concurrent.futures.as_completed(futures):
+            sn_ps_pe = futures[fut]
+            try:
+                _, raw = fut.result()
+            except Exception as e:
+                logger.info("세션%d LLM 호출 예외 — 전체 fallback: %s",
+                             sn_ps_pe[0], e)
+                return None
+            session_results[sn_ps_pe[0]] = (*sn_ps_pe[1:], raw)
+
+    all_bdy: list[dict] = []
+    for sn, ps, pe in sessions:
+        ps_, pe_, raw = session_results[sn][0], session_results[sn][1], session_results[sn][2]
         if raw is None:
             logger.info("세션%d LLM 호출 실패 — 전체 fallback", sn)
             return None
         section_bdy = _parse_jsonl(raw)
-        # 세션 범위 밖 경계는 제거 (hallucination 방어)
         section_bdy = [
             b for b in section_bdy
             if isinstance(b.get("page_start"), int)
             and ps <= b["page_start"] <= pe
         ]
-        # 세션 라벨: 정규 4교시면 블록 번호, 아니면 모두 1
         assigned_sn = sn if treat_as_multi_session else 1
         for b in section_bdy:
             b["session"] = assigned_sn
