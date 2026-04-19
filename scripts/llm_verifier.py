@@ -509,18 +509,30 @@ def _detect_session_ranges(elements: list, total_pages: int) -> list[tuple[int, 
 _STRUCTURE_MARKERS = frozenset({"끝", "END", "Q.E.D.", "이상"})
 
 
+def _norm_for_repeat(s: str) -> str:
+    """반복 감지용 정규화: 공백/특수문자 제거, 소문자.
+
+    "누구나 ICT 전문가..."와 "누구나ICT 전문가..." 를 동일 그룹으로 취급.
+    """
+    return re.sub(r'[\s#!\-_.:;,(){}\[\]·"\'"'']+', '', (s or '')).lower()
+
+
 def _detect_repeated_lines(elements: list, page_start: int, page_end: int,
                              min_pages: int = 3) -> set[str]:
     """페이지 범위에서 반복되는 텍스트 라인 = 헤더/푸터로 간주 (2-tier).
 
-    Tier 1 (90% 이상 반복): 길이 무관 필터
+    Tier 1 (80% 이상 반복): 길이 무관 필터
       - 짧은 단어라도 거의 모든 페이지에 반복되면 헤더 (e.g. "135 회", "ICT의")
-    Tier 2 (50% 이상 반복 + 10자+): 긴 반복만 필터
+    Tier 2 (40% 이상 반복 + 10자+): 긴 반복만 필터
       - 애매한 반복(토픽 제목 등)을 과도 필터하지 않도록 길이 제한
+
+    공백/특수문자 변형 다른 버전도 **정규화 후 동일 그룹**으로 묶어 필터
+    (e.g. "누구나 ICT"와 "누구나ICT" 병합).
 
     예외: _STRUCTURE_MARKERS에 등록된 단어는 절대 필터 안 함 ("끝" 등).
     """
-    line_pages: dict[str, set[int]] = {}
+    # 정규화된 키 → (원본 라인 집합, 페이지 집합)
+    norm_groups: dict[str, tuple[set[str], set[int]]] = {}
     for e in elements:
         pg = e.get("page", 0)
         if pg < page_start or pg > page_end:
@@ -528,24 +540,30 @@ def _detect_repeated_lines(elements: list, page_start: int, page_end: int,
         c = (e.get("content") or "").strip()
         if not c or len(c) < 2:
             continue
-        line_pages.setdefault(c, set()).add(pg)
+        key = _norm_for_repeat(c)
+        if not key:
+            continue
+        if key not in norm_groups:
+            norm_groups[key] = (set(), set())
+        norm_groups[key][0].add(c)
+        norm_groups[key][1].add(pg)
+
     total = max(1, page_end - page_start + 1)
-    t1 = max(min_pages, int(total * 0.9))   # tier 1: 90%+ → 확실한 헤더
-    t2 = max(min_pages, int(total * 0.5))   # tier 2: 50%+ (긴 것만)
+    t1 = max(min_pages, int(total * 0.8))   # tier 1: 80%+
+    t2 = max(min_pages, int(total * 0.4))   # tier 2: 40%+ (긴 것만)
 
     result: set[str] = set()
-    for line, pages in line_pages.items():
-        if line in _STRUCTURE_MARKERS:
-            continue
-        # 토픽 종료 마커(따옴표로 감싼 "끝" 등)도 white-list
-        stripped = line.strip('"\'"''').strip()
-        if stripped in _STRUCTURE_MARKERS:
+    for key, (lines, pages) in norm_groups.items():
+        # white-list 스킵: 구조 마커는 정규화 후 비교
+        if any(_norm_for_repeat(m) == key for m in _STRUCTURE_MARKERS):
             continue
         count = len(pages)
+        # 길이 기준: 그룹 내 평균 길이
+        avg_len = sum(len(l) for l in lines) / max(1, len(lines))
         if count >= t1:
-            result.add(line)
-        elif count >= t2 and len(line) >= 10:
-            result.add(line)
+            result |= lines
+        elif count >= t2 and avg_len >= 10:
+            result |= lines
     return result
 
 
@@ -601,12 +619,36 @@ def detect_boundaries_llm(
     sessions = _detect_session_ranges(elements, total_pages)
     logger.info("LLM 경계 탐지: %d개 세션 블록", len(sessions))
 
-    # 세션 번호 라벨 신뢰도 판단:
-    # - 정확히 4블록 = 정규 4교시 시험 → 블록 번호(1,2,3,4) 그대로 사용
-    # - 2~3블록 또는 1블록 = 주간 모의고사/리뷰/부분 시험 → 세션 라벨 모두 1로 통일
-    #   (detect_sessions가 FB22 같은 단일 교시 문서에서 잘못 분할한 경우 방어)
-    # 블록별 호출 자체는 항상 수행 → attention 집중으로 누락/hallucination 감소
-    treat_as_multi_session = (len(sessions) == 4)
+    # 세션 보강: detect_sessions가 앞/뒤 페이지를 놓친 경우 추가 블록으로 채움.
+    # KPC 132관 예: detect_sessions가 1교시(p1-27)를 못 찾아 3블록 반환
+    #   → 보강 후 4블록 (1: p1-27, 2: p28-48, 3: p49-70, 4: p71-91)
+    if sessions:
+        _pages_only: list[tuple[int, int]] = [(ps, pe) for _, ps, pe in sessions]
+        # 앞쪽 누락 추가
+        if _pages_only[0][0] > 1:
+            _pages_only.insert(0, (1, _pages_only[0][0] - 1))
+        # 뒤쪽 누락 추가
+        if _pages_only[-1][1] < total_pages:
+            _pages_only.append((_pages_only[-1][1] + 1, total_pages))
+        # 세션 번호 1부터 순서대로 재부여
+        sessions_before = len(sessions)
+        sessions = [(i + 1, ps, pe) for i, (ps, pe) in enumerate(_pages_only)]
+        if len(sessions) != sessions_before:
+            logger.info("세션 블록 보강: %d개 → %d개 (번호 1..%d 재부여)",
+                         sessions_before, len(sessions), len(sessions))
+
+    # 세션 블록 신뢰도 판단:
+    # - 4블록 + 문서 전체 커버(p1~total_pages) → 정규 4교시 시험, 블록별 호출
+    # - 아닌 경우(불완전 또는 FB22처럼 2블록) → 전체 문서 단일 호출 fallback
+    covers_all = (bool(sessions)
+                  and sessions[0][1] <= 1
+                  and sessions[-1][2] >= total_pages)
+    is_clean_4session = (len(sessions) == 4) and covers_all
+    treat_as_multi_session = is_clean_4session
+    if not is_clean_4session:
+        logger.info("세션 블록 %d개(커버%s) → 전체 문서 단일 호출 fallback",
+                     len(sessions), "✓" if covers_all else "✗")
+        sessions = [(1, 1, total_pages)]
 
     t0 = time.time()
 

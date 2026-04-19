@@ -56,6 +56,13 @@ FIXTURES = [
         "topic_max": 32,
         "sessions_expected": {1, 2, 3, 4},
     },
+    {
+        "name": "KPC 132관 (4교시 91p, 세션 보강 케이스)",
+        "path": f"{ICLOUD}/공부/1_기출 해설/132/KPC132관-합.pdf",
+        "topic_min": 28,  # 31 정답, detect_sessions가 1교시 누락 → 세션 보강 필요
+        "topic_max": 32,
+        "sessions_expected": {1, 2, 3, 4},
+    },
 ]
 
 
