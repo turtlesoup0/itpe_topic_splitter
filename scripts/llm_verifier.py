@@ -433,10 +433,19 @@ def _validate_llm_boundaries(bdy: list[dict], total_pages: int) -> tuple[bool, s
 
 
 def _llm_boundaries_request_sync(doc_text: str, total_pages: int,
-                                  timeout: float = 300.0) -> Optional[str]:
-    """LLM에 경계 탐지 요청 (동기 래퍼). provider 독립."""
+                                  timeout: float = 300.0,
+                                  page_count_hint: int = 0) -> Optional[str]:
+    """LLM에 경계 탐지 요청 (동기 래퍼). provider 독립.
+
+    max_tokens는 입력 페이지 수에 비례해서 동적 산정:
+      페이지당 평균 100 토큰(JSONL 한 줄 ~80자 + 여유) × 페이지 수 + 500 안전마진
+    """
     user = (f"문서 {total_pages}p 요약:\n\n{doc_text}\n\n"
             f"JSONL 출력 (한 줄 한 토픽):")
+
+    # 동적 max_tokens: 입력 페이지 수에 비례
+    pg = page_count_hint or total_pages
+    max_tokens = min(4000, max(500, pg * 100 + 500))
 
     p = _provider()
     try:
@@ -451,7 +460,7 @@ def _llm_boundaries_request_sync(doc_text: str, total_pages: int,
                     {"role": "system", "content": _BOUNDARY_SYSTEM},
                     {"role": "user", "content": user},
                 ],
-                "max_tokens": 8000, "temperature": 0.0,
+                "max_tokens": max_tokens, "temperature": 0.0,
                 "chat_template_kwargs": {"enable_thinking": False},
             }
             with httpx.Client(timeout=timeout) as c:
@@ -466,7 +475,7 @@ def _llm_boundaries_request_sync(doc_text: str, total_pages: int,
                 api_key=os.environ["ANTHROPIC_API_KEY"])
             model = os.environ.get("ANTHROPIC_MODEL", DEFAULT_MODEL_ANTHROPIC)
             resp = client.messages.create(
-                model=model, max_tokens=8000,
+                model=model, max_tokens=max_tokens,
                 system=_BOUNDARY_SYSTEM,
                 messages=[{"role": "user", "content": user}],
             )
@@ -491,10 +500,36 @@ def _detect_session_ranges(elements: list, total_pages: int) -> list[tuple[int, 
         return [(1, 1, total_pages)]
 
 
+def _detect_repeated_lines(elements: list, page_start: int, page_end: int,
+                             min_pages: int = 3,
+                             min_length: int = 10) -> set[str]:
+    """페이지 범위에서 반복되는 긴 텍스트 라인 = 헤더/푸터로 간주.
+
+    주의: 짧은 구조 마커("끝", "END" 등, 10자 미만)는 제외.
+    이들은 토픽 종료 신호이므로 필터되면 경계 탐지에 손실.
+    """
+    line_pages: dict[str, set[int]] = {}
+    for e in elements:
+        pg = e.get("page", 0)
+        if pg < page_start or pg > page_end:
+            continue
+        c = (e.get("content") or "").strip()
+        if not c or len(c) < min_length:
+            continue
+        line_pages.setdefault(c, set()).add(pg)
+    total = page_end - page_start + 1
+    # 50% 이상 페이지에서 반복 = 확실한 헤더/푸터
+    # 20%는 과민 (토픽 제목이나 유의미한 반복 텍스트까지 필터)
+    threshold = max(min_pages, int(total * 0.5))
+    return {line for line, pages in line_pages.items()
+            if len(pages) >= threshold}
+
+
 def _page_summary_range(elements: list, page_start: int, page_end: int,
                          max_lines_per_page: int = 5,
                          max_chars_per_line: int = 80) -> str:
-    """특정 페이지 범위의 요약."""
+    """특정 페이지 범위의 요약. 반복 헤더/푸터 자동 필터."""
+    repeated = _detect_repeated_lines(elements, page_start, page_end)
     page_heads: dict[int, list[str]] = {}
     for e in elements:
         pg = e.get("page", 0)
@@ -505,6 +540,8 @@ def _page_summary_range(elements: list, page_start: int, page_end: int,
             continue
         if "Copyright" in c or "All rights reserved" in c:
             continue
+        if c in repeated:
+            continue  # 반복 헤더/푸터 제외
         page_heads.setdefault(pg, []).append(c)
     lines = []
     for pg in sorted(page_heads.keys()):
@@ -543,7 +580,8 @@ def detect_boundaries_llm(
         doc_text = _page_summary_range(elements, ps, pe)
         if not doc_text:
             continue
-        raw = _llm_boundaries_request_sync(doc_text, total_pages)
+        raw = _llm_boundaries_request_sync(
+            doc_text, total_pages, page_count_hint=(pe - ps + 1))
         if raw is None:
             logger.info("세션%d LLM 호출 실패 — 전체 fallback", sn)
             return None
@@ -657,9 +695,12 @@ async def _extract_title_and_keywords(
     try:
         data = await _call_llm(client, sem, _TITLE_SYSTEM, text)
         if data:
-            title = data.get("title", "").strip()
+            title = _strip_title_prefix(data.get("title", ""))
             kw = data.get("keywords", [])
             keywords = [str(k).strip() for k in kw if k] if isinstance(kw, list) else []
+            # 키워드 내 번호 접두사도 정리 (가끔 "1. 토픽명"이 키워드로 섞여 들어옴)
+            keywords = [_strip_title_prefix(k) for k in keywords]
+            keywords = [k for k in keywords if k]
             return boundary_idx, title, keywords
     except Exception as e:
         logger.warning("title/keyword extraction failed [%d]: %s",
