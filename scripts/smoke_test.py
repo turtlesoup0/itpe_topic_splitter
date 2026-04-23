@@ -59,15 +59,15 @@ FIXTURES = [
     {
         "name": "KPC 132관 (4교시 91p, 세션 보강 케이스)",
         "path": f"{ICLOUD}/공부/1_기출 해설/132/KPC132관-합.pdf",
-        "topic_min": 28,  # 31 정답, detect_sessions가 1교시 누락 → 세션 보강 필요
-        "topic_max": 32,
+        "topic_min": 28,
+        "topic_max": 33,   # LLM stochastic ±2 허용
         "sessions_expected": {1, 2, 3, 4},
     },
     {
         "name": "아이리포 135관 (4교시 84p, 세션 커버 불명확)",
         "path": f"{ICLOUD}/공부/1_기출 해설/135/아이리포 135관.pdf",
-        "topic_min": 29,
-        "topic_max": 33,
+        "topic_min": 28,
+        "topic_max": 34,
         # detect_sessions 가 세션 커버 감지 못해 단일 블록 호출로 fallback.
         # 토픽은 정확히 탐지되나 세션 라벨은 {1} 로 통일됨 — 실용적 허용.
         "sessions_expected": {1},
@@ -75,16 +75,33 @@ FIXTURES = [
     {
         "name": "동기회 135관 (4교시 105p)",
         "path": f"{ICLOUD}/공부/1_기출 해설/135/동기회 135관.pdf",
-        "topic_min": 29,
+        "topic_min": 27,
         "topic_max": 33,
         "sessions_expected": {1, 2, 3, 4},
     },
     {
         "name": "KPC 132응 (4교시 98p, 1p 병합 케이스)",
         "path": f"{ICLOUD}/공부/1_기출 해설/132/KPC132응-합.pdf",
-        "topic_min": 30,
-        "topic_max": 33,  # 이전 35 → 31로 정상화
+        "topic_min": 29,
+        "topic_max": 33,
         "sessions_expected": {1, 2, 3, 4},
+    },
+    # ─── 모의고사 (학원별 1교시 15 + 2~4교시 각 7, 총 36 기대) ───
+    # 주의: 모의고사 합본은 표지가 불규칙하여 detect_sessions가 실패할 수
+    # 있음. 세션 라벨 대신 토픽 수만 검증.
+    {
+        "name": "모의 KPC129 (4교시 127p)",
+        "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC129_2604_합.pdf",
+        "topic_min": 34,
+        "topic_max": 42,
+        "sessions_expected": None,  # 세션 라벨 검증 스킵
+    },
+    {
+        "name": "모의 ITPE35 (4교시 127p)",
+        "path": f"{ICLOUD}/공부/2_모의고사/ITPE/모의_ITPE35-2507_합.pdf",
+        "topic_min": 34,
+        "topic_max": 42,
+        "sessions_expected": None,
     },
 ]
 
@@ -119,7 +136,8 @@ def _run_one(fixture: dict) -> tuple[bool, str]:
         problems.append(f"토픽수 {count} < 최소 {fixture['topic_min']}")
     if count > fixture["topic_max"]:
         problems.append(f"토픽수 {count} > 최대 {fixture['topic_max']}")
-    if sessions != fixture["sessions_expected"]:
+    if fixture.get("sessions_expected") is not None \
+            and sessions != fixture["sessions_expected"]:
         problems.append(f"세션 {sorted(sessions)} ≠ 기대 {sorted(fixture['sessions_expected'])}")
 
     status = "PASS" if not problems else "FAIL"

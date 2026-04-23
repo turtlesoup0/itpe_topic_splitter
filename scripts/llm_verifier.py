@@ -733,7 +733,14 @@ def detect_boundaries_llm(
             doc_text, total_pages, page_count_hint=(pe - ps + 1))
         return sn, raw
 
-    max_workers = min(len(sessions), 4)
+    # MLX 서버는 동시 호출이 메모리 압박을 유발하여 OOM 크래시 위험.
+    # Anthropic API는 병렬 배칭 지원 → 4 worker.
+    # MLX primary + Anthropic fallback 케이스: 보수적으로 2 worker.
+    _p = _provider()
+    if _p == "mlx":
+        max_workers = 2 if os.environ.get("ANTHROPIC_API_KEY") else 1
+    else:
+        max_workers = min(len(sessions), 4)
     with concurrent.futures.ThreadPoolExecutor(
             max_workers=max_workers) as pool:
         futures = {

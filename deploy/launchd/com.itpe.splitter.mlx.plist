@@ -17,6 +17,11 @@
         <string>127.0.0.1</string>
         <string>--port</string>
         <string>8090</string>
+        <!-- Metal OOM 방어: KV 캐시 개수·크기 제한 -->
+        <string>--prompt-cache-size</string>
+        <string>3</string>
+        <string>--prompt-cache-bytes</string>
+        <string>1000000000</string>
     </array>
 
     <key>WorkingDirectory</key>
