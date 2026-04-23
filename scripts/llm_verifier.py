@@ -437,57 +437,83 @@ def _validate_llm_boundaries(bdy: list[dict], total_pages: int) -> tuple[bool, s
     return True, f"OK (커버 {coverage:.0%}, {len(bdy)}개)"
 
 
+def _llm_boundaries_request_mlx(user: str, max_tokens: int,
+                                  timeout: float) -> Optional[str]:
+    import httpx
+    url = (os.environ.get("MLX_URL", DEFAULT_MLX_URL).rstrip("/")
+           + "/v1/chat/completions")
+    model = os.environ.get("MLX_MODEL", DEFAULT_MLX_MODEL)
+    body = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": _BOUNDARY_SYSTEM},
+            {"role": "user", "content": user},
+        ],
+        "max_tokens": max_tokens, "temperature": 0.0,
+        "chat_template_kwargs": {"enable_thinking": False},
+    }
+    with httpx.Client(timeout=timeout) as c:
+        r = c.post(url, json=body)
+        data = r.json()
+    return (data.get("choices", [{}])[0]
+                .get("message", {}).get("content") or "")
+
+
+def _llm_boundaries_request_anthropic(user: str, max_tokens: int) -> Optional[str]:
+    import anthropic
+    client = anthropic.Anthropic(
+        api_key=os.environ["ANTHROPIC_API_KEY"])
+    model = os.environ.get("ANTHROPIC_MODEL", DEFAULT_MODEL_ANTHROPIC)
+    resp = client.messages.create(
+        model=model, max_tokens=max_tokens,
+        system=_BOUNDARY_SYSTEM,
+        messages=[{"role": "user", "content": user}],
+    )
+    return resp.content[0].text if resp.content else ""
+
+
 def _llm_boundaries_request_sync(doc_text: str, total_pages: int,
                                   timeout: float = 300.0,
                                   page_count_hint: int = 0) -> Optional[str]:
-    """LLM에 경계 탐지 요청 (동기 래퍼). provider 독립.
+    """LLM에 경계 탐지 요청 (동기). provider 독립 + 자동 fallback.
 
-    max_tokens는 입력 페이지 수에 비례해서 동적 산정:
-      페이지당 평균 100 토큰(JSONL 한 줄 ~80자 + 여유) × 페이지 수 + 500 안전마진
+    primary provider 실패(MLX OOM/timeout 등) 시, 다른 provider로 자동 전환.
+    LLM_PROVIDER=mlx + ANTHROPIC_API_KEY 존재 → MLX 실패 시 Haiku 폴백.
+    max_tokens는 페이지 수에 비례 (pg×100+500, 최대 4000).
     """
     user = (f"문서 {total_pages}p 요약:\n\n{doc_text}\n\n"
             f"JSONL 출력 (한 줄 한 토픽):")
-
-    # 동적 max_tokens: 입력 페이지 수에 비례
     pg = page_count_hint or total_pages
     max_tokens = min(4000, max(500, pg * 100 + 500))
 
-    p = _provider()
-    try:
-        if p == "mlx":
-            import httpx
-            url = (os.environ.get("MLX_URL", DEFAULT_MLX_URL).rstrip("/")
-                   + "/v1/chat/completions")
-            model = os.environ.get("MLX_MODEL", DEFAULT_MLX_MODEL)
-            body = {
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": _BOUNDARY_SYSTEM},
-                    {"role": "user", "content": user},
-                ],
-                "max_tokens": max_tokens, "temperature": 0.0,
-                "chat_template_kwargs": {"enable_thinking": False},
-            }
-            with httpx.Client(timeout=timeout) as c:
-                r = c.post(url, json=body)
-                data = r.json()
-            return (data.get("choices", [{}])[0]
-                        .get("message", {}).get("content") or "")
-        else:
-            # Anthropic
-            import anthropic
-            client = anthropic.Anthropic(
-                api_key=os.environ["ANTHROPIC_API_KEY"])
-            model = os.environ.get("ANTHROPIC_MODEL", DEFAULT_MODEL_ANTHROPIC)
-            resp = client.messages.create(
-                model=model, max_tokens=max_tokens,
-                system=_BOUNDARY_SYSTEM,
-                messages=[{"role": "user", "content": user}],
-            )
-            return resp.content[0].text if resp.content else ""
-    except Exception as e:
-        logger.warning("LLM boundary request failed: %s", e)
-        return None
+    # 시도 순서: primary → fallback (키 있을 때만)
+    primary = _provider()
+    providers: list[str] = [primary]
+    if primary == "mlx" and os.environ.get("ANTHROPIC_API_KEY"):
+        providers.append("anthropic")
+    elif primary == "anthropic" and os.environ.get("MLX_URL"):
+        providers.append("mlx")  # Anthropic 실패 시 MLX (드문 경우)
+
+    last_error: Optional[Exception] = None
+    for p in providers:
+        try:
+            if p == "mlx":
+                result = _llm_boundaries_request_mlx(user, max_tokens, timeout)
+            else:
+                result = _llm_boundaries_request_anthropic(user, max_tokens)
+            if result:
+                if p != primary:
+                    logger.info("LLM fallback 성공: %s → %s", primary, p)
+                return result
+            # 빈 응답은 실패로 처리
+            raise ValueError(f"{p} returned empty response")
+        except Exception as e:
+            last_error = e
+            logger.warning("LLM %s 요청 실패: %s", p, e)
+            continue
+
+    logger.warning("모든 provider 실패: %s", last_error)
+    return None
 
 
 def _detect_session_ranges(elements: list, total_pages: int) -> list[tuple[int, int, int]]:
@@ -623,6 +649,16 @@ def detect_boundaries_llm(
         sessions = [(1, 1, total_pages)]
     else:
         sessions = _detect_session_ranges(elements, total_pages)
+        # 세션 커버가 문서 뒷부분에만 몰려있으면 통계/부록 섹션으로 간주하여 무시.
+        # 아이리포 135관 예: 본문 p1-76, 뒷부분 p77-84에 "1교시 난이도/의견" 통계
+        #   → detect_sessions가 이를 세션 경계로 오탐 → 본문 전체 놓침
+        if sessions:
+            first_ps = min(ps for _, ps, _ in sessions)
+            if first_ps > int(total_pages * 0.5):
+                logger.info(
+                    "세션 커버가 뒷부분 p%d부터(총 %dp) — 통계/부록 섹션 의심, 무시",
+                    first_ps, total_pages)
+                sessions = []
         logger.info("LLM 경계 탐지: %d개 세션 블록", len(sessions))
 
     # 세션 보강: detect_sessions가 앞/뒤 페이지를 놓친 경우 처리.
@@ -764,10 +800,40 @@ def detect_boundaries_llm(
         logger.info("LLM 경계 탐지 검증 실패 — 규칙 기반 fallback: %s", reason)
         return None
 
-    # 정규화: detect_boundaries_v2 호환 포맷으로 매핑
-    # 세션 오름차순 + 세션 내 page_start 오름차순으로 전역 순번 재부여
+    # 후처리 1: 논술 세션(2~4교시)의 1페이지 토픽을 이전 토픽에 병합.
+    # KPC132응 사례: "SVM 개념 p93-94" + "SVM 활용사례 p95-95" → 병합
+    # 1교시(단답형)는 1p가 정상이므로 제외.
     bdy.sort(key=lambda x: (int(x.get("session", 1)),
                             int(x.get("page_start", 0))))
+    if treat_as_multi_session:
+        merged_bdy: list[dict] = []
+        for b in bdy:
+            ps = int(b.get("page_start", 0))
+            pe = int(b.get("page_end", ps))
+            sess = int(b.get("session", 1))
+            is_single_page = (pe - ps == 0)
+            is_short_topic_session = sess in (2, 3, 4)
+            if (is_single_page and is_short_topic_session
+                    and merged_bdy
+                    and int(merged_bdy[-1].get("session", 1)) == sess):
+                # 이전 토픽이 **페이지 연속**(gap 0p)할 때만 병합.
+                # ITPE 세션2 p43 같이 gap 있는 독립 1p 토픽은 보존.
+                prev = merged_bdy[-1]
+                prev_pe = int(prev.get("page_end", prev.get("page_start", 0)))
+                if ps == prev_pe + 1:
+                    prev["page_end"] = pe
+                    logger.info(
+                        "1p 토픽 병합: p%d '%s' ← 이전 '%s'",
+                        ps, str(b.get("title", ""))[:30],
+                        str(prev.get("title", ""))[:30])
+                    continue
+            merged_bdy.append(b)
+        if len(merged_bdy) < len(bdy):
+            logger.info("논술 세션 1p 토픽 병합: %d → %d",
+                         len(bdy), len(merged_bdy))
+        bdy = merged_bdy
+
+    # 정규화: detect_boundaries_v2 호환 포맷으로 매핑
     warnings: list[str] = [f"LLM-first 경계 탐지 사용 ({len(bdy)}개, {time.time()-t0:.1f}s)"]
 
     # 세션 라벨 통합: 모든 경계가 동일한 1개 세션에 속해 있고 detect_sessions도

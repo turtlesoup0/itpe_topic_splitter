@@ -79,6 +79,13 @@ FIXTURES = [
         "topic_max": 33,
         "sessions_expected": {1, 2, 3, 4},
     },
+    {
+        "name": "KPC 132응 (4교시 98p, 1p 병합 케이스)",
+        "path": f"{ICLOUD}/공부/1_기출 해설/132/KPC132응-합.pdf",
+        "topic_min": 30,
+        "topic_max": 33,  # 이전 35 → 31로 정상화
+        "sessions_expected": {1, 2, 3, 4},
+    },
 ]
 
 
