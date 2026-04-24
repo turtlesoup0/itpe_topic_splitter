@@ -1,0 +1,11 @@
+# 런타임 의존성 (Dockerfile과 일치 유지)
+fastapi==0.115.*
+uvicorn[standard]==0.34.*
+python-multipart==0.0.*
+PyMuPDF==1.25.*
+anthropic==0.52.*
+slowapi==0.1.*
+
+# 선택 의존성 (LLM_PROVIDER=mlx 사용 시)
+# mlx-lm
+# aiohttp  # (현재는 httpx 사용 중)

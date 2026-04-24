@@ -1,0 +1,30 @@
+# Dependabot: 주간 의존성 보안 업데이트
+# pip (Python), npm (kordoc), github-actions 자동 추적
+version: 2
+updates:
+  # Python 의존성 (Dockerfile에 pip 설치 목록)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "security"
+    # PyMuPDF 1.25.x 내 patch는 자동, minor는 수동 리뷰
+    allow:
+      - dependency-type: "all"
+    groups:
+      security-patches:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+
+  # GitHub Actions 워크플로
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3

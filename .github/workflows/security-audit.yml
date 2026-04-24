@@ -1,0 +1,27 @@
+# 주간 보안 감사: pip-audit + bandit (정적 분석)
+name: Security Audit
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'  # 매주 월요일 02:00 UTC
+  workflow_dispatch:       # 수동 실행 가능
+  pull_request:
+    paths:
+      - 'requirements.txt'
+      - 'Dockerfile'
+
+jobs:
+  pip-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install tools
+        run: pip install pip-audit bandit
+      - name: pip-audit (CVE 검색)
+        run: pip-audit -r requirements.txt --strict || true
+      - name: bandit (정적 코드 분석)
+        run: bandit -r scripts/ web/ -ll -ii --skip B101,B601 || true

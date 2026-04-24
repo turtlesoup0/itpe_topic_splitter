@@ -1,0 +1,60 @@
+;; macOS sandbox-exec 프로파일 — uvicorn 프로세스 격리
+;;
+;; 사용:
+;;   sandbox-exec -f deploy/sandbox/uvicorn.sb python3 -m uvicorn web.app:app ...
+;;
+;; 목적:
+;;   PDF 파서(PyMuPDF/Tesseract/kordoc) 취약점으로 임의 코드 실행이
+;;   일어나도, 이 프로세스가 할 수 있는 일을 최소화.
+;;
+;; 허용:
+;;   - 127.0.0.1:8080 (uvicorn listen), 127.0.0.1:8090 (MLX 호출)
+;;   - api.anthropic.com 443 (Haiku fallback)
+;;   - 프로젝트 디렉토리 읽기/쓰기
+;;   - ~/.cache/itpe-splitter/ 읽기/쓰기 (OCR 캐시, Job DB)
+;;   - /tmp 읽기/쓰기 (tempfile.mkdtemp)
+;;   - 사용자 iCloud PDF 읽기 (업로드는 메모리 경유라 필요시에만)
+;;
+;; 거부:
+;;   - ~/.ssh, ~/Library/Keychains 등 민감 디렉토리 접근
+;;   - 기타 네트워크 (포트 스캔, 외부 C2)
+;;   - exec() 수 최소화
+
+(version 1)
+(deny default)
+
+;; 기본 시스템 (프로세스 관리, signal 등)
+(allow process*)
+(allow signal)
+(allow sysctl-read)
+(allow mach-lookup)
+(allow ipc-posix-shm)
+(allow iokit-open)
+(allow system-socket)
+
+;; 읽기 — 시스템 라이브러리 + 프로젝트 전체
+(allow file-read*)
+
+;; 쓰기 — 프로젝트 + 캐시 + tmp + 로그만
+(allow file-write*
+  (subpath "/Users/turtlesoup0-macmini/Projects/itpe-topic-splitter")
+  (subpath "/Users/turtlesoup0-macmini/.cache/itpe-splitter")
+  (subpath "/Users/turtlesoup0-macmini/Library/Logs/itpe-splitter")
+  (subpath "/tmp")
+  (subpath "/var/folders")  ;; macOS tempfile
+  (subpath "/private/var/folders"))
+
+;; 네트워크 — 로컬 서비스 + Anthropic만
+(allow network-bind (local ip "127.0.0.1:8080"))
+(allow network-outbound
+  (remote ip "127.0.0.1:8090")   ;; MLX
+  (remote tcp "*:443")            ;; HTTPS (Anthropic + HuggingFace 메타데이터)
+  (remote tcp "*:80"))            ;; HTTP (kordoc 내부 일부)
+
+;; DNS
+(allow network-outbound (remote udp "*:53"))
+
+;; kordoc(node) subprocess 실행 허용
+(allow process-exec
+  (literal "/opt/homebrew/bin/node")
+  (literal "/usr/bin/env"))
