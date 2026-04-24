@@ -29,7 +29,8 @@ RUN pip install --no-cache-dir \
     uvicorn[standard]==0.34.* \
     python-multipart==0.0.* \
     PyMuPDF==1.25.* \
-    anthropic==0.52.*
+    anthropic==0.52.* \
+    slowapi==0.1.*
 
 # 앱 코드 복사
 COPY scripts/ /app/scripts/

@@ -24,9 +24,12 @@ import traceback
 import threading
 from pathlib import Path
 
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import StreamingResponse, FileResponse, JSONResponse
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 # 프로젝트 루트의 scripts를 import 경로에 추가
 PROJECT_DIR = Path(__file__).resolve().parent.parent
@@ -60,7 +63,23 @@ from llm_verifier import (  # noqa: E402
     detect_boundaries_llm,
 )
 
-app = FastAPI(title="ITPE Topic Splitter", version="1.2")
+# 업로드 크기 제한 (50MB)
+MAX_UPLOAD_SIZE = 50 * 1024 * 1024
+# 페이지 수 상한 (정상 답안지 최대 ~200p, 여유분 포함)
+MAX_PDF_PAGES = 500
+# PDF 매직 바이트 (파일 타입 검증)
+_PDF_MAGIC = b"%PDF-"
+
+# ─── Rate limiting ────────────────────────────────────────────────
+# 단일 IP DoS 방어. 업로드는 엄격, 상태 조회는 폴링 고려해 관대.
+#   /api/split:           5회/분
+#   /api/status/{id}:    60회/분 (2초 폴링 × 30분)
+#   /api/download/{id}:  20회/시간
+limiter = Limiter(key_func=get_remote_address)
+
+app = FastAPI(title="ITPE Topic Splitter", version="1.3")
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
 @app.on_event("startup")
@@ -71,9 +90,6 @@ async def _on_startup():
 # 정적 파일 서빙 (index.html)
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
-
-# 업로드 크기 제한 (50MB)
-MAX_UPLOAD_SIZE = 50 * 1024 * 1024
 
 # ─── 비동기 Job 관리 ─────────────────────────────────────────────
 # job_id → { status, progress, result_path, topic_count, total_pages,
@@ -382,15 +398,38 @@ async def health():
 
 
 @app.post("/api/split")
-async def api_split(file: UploadFile = File(...)):
+@limiter.limit("5/minute")
+async def api_split(request: Request, file: UploadFile = File(...)):
     """PDF 업로드 → job_id 즉시 반환 (비동기 처리)."""
+    # 1. 확장자 검증
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(400, "PDF 파일만 업로드 가능합니다.")
 
+    # 2. 크기 제한 (50MB)
     content = await file.read()
     if len(content) > MAX_UPLOAD_SIZE:
         raise HTTPException(
             413, f"파일이 너무 큽니다 (최대 {MAX_UPLOAD_SIZE // 1024 // 1024}MB)")
+
+    # 3. Magic bytes 검증 (확장자만 신뢰 금지)
+    if not content.startswith(_PDF_MAGIC):
+        raise HTTPException(
+            400, "유효한 PDF 파일이 아닙니다 (PDF 시그니처 불일치).")
+
+    # 4. 페이지 수 상한 검증 (DoS 방어)
+    try:
+        import fitz as _fitz
+        with _fitz.open(stream=content, filetype="pdf") as _doc:
+            _pages = _doc.page_count
+        if _pages > MAX_PDF_PAGES:
+            raise HTTPException(
+                413, f"페이지 수 초과: {_pages}p (최대 {MAX_PDF_PAGES}p)")
+        if _pages < 1:
+            raise HTTPException(400, "빈 PDF입니다.")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(400, f"PDF 파싱 실패: {str(e)[:100]}")
 
     _cleanup_stale_jobs()
 
@@ -413,7 +452,8 @@ async def api_split(file: UploadFile = File(...)):
 
 
 @app.get("/api/status/{job_id}")
-async def api_status(job_id: str):
+@limiter.limit("60/minute")
+async def api_status(request: Request, job_id: str):
     """Job 상태 폴링."""
     with _jobs_lock:
         job = _jobs.get(job_id)
@@ -436,7 +476,8 @@ async def api_status(job_id: str):
 
 
 @app.get("/api/download/{job_id}")
-async def api_download(job_id: str):
+@limiter.limit("20/hour")
+async def api_download(request: Request, job_id: str):
     """완료된 Job의 ZIP 다운로드."""
     with _jobs_lock:
         job = _jobs.get(job_id)
