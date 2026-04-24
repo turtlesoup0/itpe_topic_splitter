@@ -8,7 +8,7 @@
 |---|---|---|
 | `com.itpe.splitter.mlx.plist` | MLX-LM 서버 (SuperGemma4) | 8090 |
 | `com.itpe.splitter.uvicorn.plist` | FastAPI 웹 서비스 | 8080 |
-| `com.itpe.splitter.cloudflared.plist` | Cloudflare 임시 터널 | — |
+| `com.itpe.splitter.cloudflared.plist` | Cloudflare Named Tunnel (topic-splitter.tech-insight.org) | — |
 
 Crash 시 자동 재기동(`KeepAlive.SuccessfulExit=false`), 기동 시 10초 throttle.
 
@@ -47,9 +47,29 @@ tail -f ~/Library/Logs/itpe-splitter/uvicorn.log
 tail -f ~/Library/Logs/itpe-splitter/mlx.log
 tail -f ~/Library/Logs/itpe-splitter/cloudflared.err.log
 
-# 현재 cloudflared 터널 URL (기동마다 변경됨)
-grep -oE "https://[a-z0-9-]+\.trycloudflare\.com" \
-  ~/Library/Logs/itpe-splitter/cloudflared.err.log | tail -1
+# 공개 URL (고정)
+curl -s https://topic-splitter.tech-insight.org/health
+```
+
+## Cloudflare Named Tunnel 최초 설정 (설치 1회성)
+
+```bash
+# 1. 로그인 (브라우저 자동 열림 → 도메인 선택)
+cloudflared tunnel login
+
+# 2. 터널 생성
+cloudflared tunnel create itpe-topic-splitter
+
+# 3. DNS 라우트
+cloudflared tunnel route dns itpe-topic-splitter topic-splitter.tech-insight.org
+
+# 4. config.yml 작성 (~/.cloudflared/config.yml)
+#    tunnel: <UUID>
+#    credentials-file: /Users/.../.cloudflared/<UUID>.json
+#    ingress:
+#      - hostname: topic-splitter.tech-insight.org
+#        service: http://127.0.0.1:8080
+#      - service: http_status:404
 ```
 
 ## 해제

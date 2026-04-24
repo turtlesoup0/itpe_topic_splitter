@@ -5,12 +5,15 @@
     <key>Label</key>
     <string>com.itpe.splitter.cloudflared</string>
 
+    <!-- Named Tunnel: topic-splitter.tech-insight.org -->
+    <!-- 설정: ~/.cloudflared/config.yml -->
+    <!-- 기동마다 URL 변경되는 trycloudflare 임시 터널에서 고정 도메인 전환 -->
     <key>ProgramArguments</key>
     <array>
         <string>/opt/homebrew/bin/cloudflared</string>
         <string>tunnel</string>
-        <string>--url</string>
-        <string>http://127.0.0.1:8080</string>
+        <string>run</string>
+        <string>itpe-topic-splitter</string>
     </array>
 
     <key>RunAtLoad</key>
