@@ -24,7 +24,9 @@ import traceback
 import threading
 from pathlib import Path
 
-from fastapi import FastAPI, UploadFile, File, HTTPException, Request
+import hmac
+from typing import Optional
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request, Header
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import StreamingResponse, FileResponse, JSONResponse
 from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -76,6 +78,24 @@ _PDF_MAGIC = b"%PDF-"
 #   /api/status/{id}:    60회/분 (2초 폴링 × 30분)
 #   /api/download/{id}:  20회/시간
 limiter = Limiter(key_func=get_remote_address)
+
+
+# ─── API 토큰 인증 ───────────────────────────────────────────────
+# ITPE_API_TOKEN 환경변수 설정 시 활성화.
+# 미설정 시 공개 모드 (기존 동작 유지).
+# 설정 시 /api/split 호출에 `Authorization: Bearer <token>` 필수.
+_API_TOKEN = os.environ.get("ITPE_API_TOKEN", "").strip()
+
+
+def _require_token(authorization: Optional[str] = None) -> None:
+    """토큰 설정됐으면 검증. 안됐으면 공개 모드로 허용."""
+    if not _API_TOKEN:
+        return  # 토큰 미설정 → 공개 모드
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(401, "Authorization: Bearer <token> 헤더 필요")
+    provided = authorization[len("Bearer "):].strip()
+    if not hmac.compare_digest(provided, _API_TOKEN):
+        raise HTTPException(403, "잘못된 API 토큰")
 
 app = FastAPI(title="ITPE Topic Splitter", version="1.3")
 app.state.limiter = limiter
@@ -399,8 +419,15 @@ async def health():
 
 @app.post("/api/split")
 @limiter.limit("5/minute")
-async def api_split(request: Request, file: UploadFile = File(...)):
-    """PDF 업로드 → job_id 즉시 반환 (비동기 처리)."""
+async def api_split(request: Request, file: UploadFile = File(...),
+                    authorization: Optional[str] = Header(default=None)):
+    """PDF 업로드 → job_id 즉시 반환 (비동기 처리).
+
+    ITPE_API_TOKEN 환경변수 설정 시 Bearer 토큰 필수.
+    """
+    # 0. 토큰 검증 (활성화된 경우)
+    _require_token(authorization)
+
     # 1. 확장자 검증
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(400, "PDF 파일만 업로드 가능합니다.")
