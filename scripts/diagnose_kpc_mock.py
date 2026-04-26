@@ -211,12 +211,32 @@ def analyze_pages(doc: fitz.Document) -> tuple[list, list]:
     return pages, q_list
 
 
-def sanitize_filename(s: str, max_len: int = 70) -> str:
+_ALLOWED_FILENAME_RE = re.compile(
+    r"[^ -~"          # ASCII printable
+    r"가-힯"            # 한글 완성형 가-힣
+    r"ㄱ-ㆎ"            # 한글 자모
+    r"‐-⁯"            # 일반 punctuation
+    r" -ɏ"            # 라틴 확장 (악센트 등)
+    r"]+"
+)
+
+
+def sanitize_filename(s: str, max_len: int = 70, max_bytes: int = 180) -> str:
+    """파일명 안전 정규화. macOS APFS는 NFD 변환 후 NAME_MAX(255 바이트) 한도 +
+    일부 비-BMP/깨진 유니코드 시퀀스를 거부하므로 화이트리스트 + 길이 둘 다 적용."""
+    import unicodedata
     s = re.sub(r"[\x00-\x1f/\\:*?\"<>|]", " ", s)
+    # PDF 추출 시 발생하는 깨진 유니코드(히브리어 ׿, 키릴 ӿ 등) 제거
+    s = _ALLOWED_FILENAME_RE.sub("", s)
     s = re.sub(r"\s+", " ", s).strip()
     if len(s) > max_len:
         s = s[:max_len].rstrip()
-    return s
+    nfd_bytes = unicodedata.normalize("NFD", s).encode("utf-8")
+    if len(nfd_bytes) > max_bytes:
+        while len(s) > 1 and len(unicodedata.normalize("NFD", s).encode("utf-8")) > max_bytes:
+            s = s[:-1]
+        s = s.rstrip()
+    return s if s else "untitled"
 
 
 def derive_round_id(pdf_path: Path) -> str:

@@ -158,14 +158,25 @@ def classify_page(body: list[str]) -> tuple[str, dict]:
     return "Q_BODY", {}
 
 
-def sanitize_filename(s: str, max_len: int = 80) -> str:
-    """파일명 안전 문자열로 정규화."""
-    # 경로 구분자, 제어문자, 따옴표, 와일드카드 등 제거
+_ALLOWED_FILENAME_RE = re.compile(
+    r"[^ -~가-힯ㄱ-ㆎ‐-⁯ -ɏ]+"
+)
+
+
+def sanitize_filename(s: str, max_len: int = 80, max_bytes: int = 180) -> str:
+    """파일명 안전 정규화 (화이트리스트 + char/byte 한도)."""
+    import unicodedata
     s = re.sub(r"[\x00-\x1f/\\:*?\"<>|]", " ", s)
+    s = _ALLOWED_FILENAME_RE.sub("", s)
     s = re.sub(r"\s+", " ", s).strip()
     if len(s) > max_len:
         s = s[:max_len].rstrip()
-    return s
+    nfd_bytes = unicodedata.normalize("NFD", s).encode("utf-8")
+    if len(nfd_bytes) > max_bytes:
+        while len(s) > 1 and len(unicodedata.normalize("NFD", s).encode("utf-8")) > max_bytes:
+            s = s[:-1]
+        s = s.rstrip()
+    return s if s else "untitled"
 
 
 def derive_round_id(pdf_path: Path) -> str:
