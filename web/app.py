@@ -59,6 +59,9 @@ from split_odl import parse_kordoc, split_pdf, safe_filename  # noqa: E402
 from diagnose_itpe_mock import (  # noqa: E402
     is_itpe_mock_pdf, split_itpe_mock,
 )
+from diagnose_kpc_mock import (  # noqa: E402
+    is_kpc_mock_pdf, split_kpc_mock,
+)
 from detect_boundaries_v2 import (  # noqa: E402
     detect_boundaries_v2, detect_sessions, analyze_quality,
 )
@@ -281,39 +284,52 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
             shutil.copyfile(pdf_path, original_path)
         except Exception:
             original_path = _Path(pdf_path)
+        def _finalize_mock(mock_result: dict, label: str) -> bool:
+            """모의고사 결정적 파서 결과를 ZIP으로 마무리. ok=True 반환 시 즉시 return 해야 함."""
+            if not (mock_result["ok"] and mock_result["files"]):
+                return False
+            zip_path = os.path.join(work_dir, "result.zip")
+            with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
+                for r in mock_result["files"]:
+                    zf.write(r["path"], r["filename"])
+            base_name = _Path(filename).stem
+            zip_name = f"{safe_filename(base_name, 40)}_split.zip"
+            qr_lines = [
+                f"탐지 방식: {label} 결정적 파서",
+                mock_result["summary"],
+            ]
+            if mock_result["warnings"]:
+                qr_lines.append("주의:")
+                qr_lines.extend(f"  - {w}" for w in mock_result["warnings"])
+            with _jobs_lock:
+                _jobs[job_id].update({
+                    "status": "done",
+                    "progress": "완료!",
+                    "result_path": zip_path,
+                    "topic_count": len(mock_result["files"]),
+                    "total_pages": 0,
+                    "warnings": mock_result["warnings"][:5],
+                    "quality_report": "\n".join(qr_lines),
+                    "zip_name": zip_name,
+                    "finished_at": time.time(),
+                })
+                _db_upsert_locked(job_id)
+            return True
+
         if is_itpe_mock_pdf(original_path):
             with _jobs_lock:
                 _jobs[job_id]["progress"] = "ITPE 모의고사 결정적 분할 중..."
                 _db_upsert_locked(job_id)
-            split_root = _Path(work_dir) / "itpe_mock_split"
-            mock_result = split_itpe_mock(original_path, split_root)
-            if mock_result["ok"] and mock_result["files"]:
-                zip_path = os.path.join(work_dir, "result.zip")
-                with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
-                    for r in mock_result["files"]:
-                        zf.write(r["path"], r["filename"])
-                base_name = _Path(filename).stem
-                zip_name = f"{safe_filename(base_name, 40)}_split.zip"
-                qr_lines = [
-                    "탐지 방식: ITPE 모의고사 결정적 파서",
-                    mock_result["summary"],
-                ]
-                if mock_result["warnings"]:
-                    qr_lines.append("주의:")
-                    qr_lines.extend(f"  - {w}" for w in mock_result["warnings"])
-                with _jobs_lock:
-                    _jobs[job_id].update({
-                        "status": "done",
-                        "progress": "완료!",
-                        "result_path": zip_path,
-                        "topic_count": len(mock_result["files"]),
-                        "total_pages": 0,
-                        "warnings": mock_result["warnings"][:5],
-                        "quality_report": "\n".join(qr_lines),
-                        "zip_name": zip_name,
-                        "finished_at": time.time(),
-                    })
-                    _db_upsert_locked(job_id)
+            mock_result = split_itpe_mock(original_path, _Path(work_dir) / "itpe_mock_split")
+            if _finalize_mock(mock_result, "ITPE 모의고사"):
+                return
+
+        if is_kpc_mock_pdf(original_path):
+            with _jobs_lock:
+                _jobs[job_id]["progress"] = "KPC 모의고사 결정적 분할 중..."
+                _db_upsert_locked(job_id)
+            mock_result = split_kpc_mock(original_path, _Path(work_dir) / "kpc_mock_split")
+            if _finalize_mock(mock_result, "KPC 모의고사"):
                 return
 
         # 1. kordoc 파싱
