@@ -162,6 +162,9 @@ KORDOC_HEADER_NOISE_PATTERNS = [
     r"^사람들!!?$",                         # 변형 1
     r"^이끄는\s*사람\.?$",                  # 슬로건 어절분리 변형
     r"^ICT의?\s*가치를?$",                  # "ICT의 가치를 이끄는" 의 첫 조각
+    r"^ICT\s*의?\s*가치.{0,8}$",            # "ICT 의 가치를 이끄는" 변형 (공백/조사 분산)
+    r".*이끄는\s*사람.*",                   # "이끄는 사람" 어디든 포함된 짧은 라인
+    r"^\s*인공지능\s*$",                    # 헤더 표지 잔재
     r"^\s*누구나\s*ICT\s*전문가가\s*될\s*수\s*있는\s*세상.*",
     r"^Copyright\s*ⓒ.*Korea\s*Productivity\s*Center.*",
     r"^Copyright\s*ⓒ.*ITPE.*",
@@ -502,7 +505,8 @@ def extract_topic_from_body_opener(page_blocks: list[Block]) -> str:
         부주제 1번 텍스트 (예: "도메인 특화 모델, DSLM 의 정의") 또는 빈 문자열.
     """
     body = filter_body_blocks(page_blocks)
-    for b in body[:10]:
+    # 검색 범위 15 블록까지 (헤더 잔재 + 별점 + 키워드 paragraphs 통과 후 본문 opener 까지)
+    for b in body[:15]:
         if b.get("type") not in ("list", "paragraph"):
             continue
         fs = b.get("font_size") or 0
@@ -677,7 +681,10 @@ _GENERIC_ANCHOR_TOKENS = {
     "AI", "IT", "ICT", "DX", "AI-",
     "인공지능", "데이터", "기술", "시스템", "정보", "보안", "관리",
     "디지털", "서비스", "프로젝트", "소프트웨어", "네트워크", "플랫폼",
-    "최근 ", "최신 ", "다음에", "이에 ", "관련하여", "대하여",
+    "최근", "최신", "다음에", "이에", "관련하여", "대하여",
+    # 학원 PDF 페이지 헤더/표지 — table 텍스트 검사 시 false-positive 방지
+    "KPC", "ITPE", "IMPACT", "기술사", "모의고사", "실전모의고사",
+    "한국생산성본부", "Copyright", "한국정보통신기술협회",
 }
 
 
@@ -703,13 +710,14 @@ def _topic_anchor_tokens(topic: str) -> list[str]:
             continue
         out.append(token)
 
-    # 2) 도입어 제거 후 첫 한글 명사구 (6자+ 로 강화 — 짧은 generic 토큰 회피)
+    # 2) 도입어 제거 후 첫 한글 명사구 1-2 단어. 조사 trim 으로 짧고 정확한 anchor 생성.
+    # substring 매칭 성공률 ↑ ("프로젝트 위험관리에" → "프로젝트 위험관리").
     cleaned = _TOPIC_LEAD_RE.sub("", s).lstrip()
-    m = re.match(r"^([가-힣]{2,}(?:\s*[A-Za-z0-9가-힣\-]+){1,4})", cleaned)
+    m = re.match(r"^([가-힣]{2,}(?:\s+[A-Za-z0-9가-힣\-]+){0,1})", cleaned)
     if m:
         token = m.group(1).strip()
-        token = re.sub(r"(?:이|가|는|은|을|를|의|에|로|와|과|도)\s*$", "", token).strip()
-        if len(token) >= 6 and token not in _GENERIC_ANCHOR_TOKENS:
+        token = _normalize_korean_token(token)
+        if len(token) >= 4 and token not in _GENERIC_ANCHOR_TOKENS:
             out.append(token)
 
     # 3) 괄호 안 영문 정의
@@ -728,41 +736,133 @@ def _topic_anchor_tokens(topic: str) -> list[str]:
     return uniq
 
 
+# 한국어 단어 끝 조사들 (token 정규화용)
+_KOR_TRAILING_JOSA_RE = re.compile(
+    r"(?:으로|에서|에게|이?다|이?며|에|를|을|이|가|는|은|의|와|과|도|로)$"
+)
+
+
+def _normalize_korean_token(t: str) -> str:
+    """한국어 단어 끝 조사 제거 (위험관리에 → 위험관리)."""
+    if not t:
+        return t
+    # 조사 1회만 제거 (이중 조사는 회차/패턴 분석 시 추가)
+    while True:
+        m = _KOR_TRAILING_JOSA_RE.search(t)
+        if not m:
+            break
+        # 조사 제거 후 길이가 충분해야 (조사가 단어의 80% 이상이면 stop)
+        suffix_len = m.end() - m.start()
+        if len(t) - suffix_len < 2:
+            break
+        t = t[:m.start()]
+        break  # 1회만
+    return t
+
+
+def _master_topic_keywords(text: str) -> set[str]:
+    """master 토픽 또는 페이지 본문에서 검색용 단어 토큰 셋 추출.
+
+    - 한글 명사구: 2자+ 연속 한글, 끝 조사 제거(위험관리에 → 위험관리)
+    - 영문 약어/명사: 대문자로 시작 3자+
+
+    조사 정규화로 "위험관리" / "위험관리에" / "위험관리의" 가 모두 동일 토큰으로 매칭.
+    """
+    if not text:
+        return set()
+    tokens: set[str] = set()
+    for m in re.finditer(r"[가-힣]{2,}", text):
+        t = _normalize_korean_token(m.group())
+        if not t or len(t) < 2:
+            continue
+        if t in _GENERIC_ANCHOR_TOKENS:
+            continue
+        tokens.add(t)
+    for m in re.finditer(r"\b([A-Z][A-Za-z0-9\-]{2,11})\b", text):
+        t = m.group(1)
+        if t in _GENERIC_ANCHOR_TOKENS:
+            continue
+        tokens.add(t)
+    return tokens
+
+
+def has_master_anchor_in_page(page_blocks: list[Block], master_topic: str,
+                                head_block_count: int = 10) -> bool:
+    """master_topic 의 anchor 토큰이 페이지 본문(첫 head_block_count 블록)에 있는가.
+
+    PR 8: q_num override 의 1차 sanity check 로 사용.
+    expected_q 의 master 토픽 anchor 가 본문에 매칭되면 단조 매핑이 정확하다고 보고
+    그 외 q 의 anchor 가 매칭되더라도 무시 (KPC128 같은 정상 회차의 회귀 방지).
+    """
+    if not master_topic:
+        return False
+    anchors = _topic_anchor_tokens(master_topic)
+    if not anchors:
+        return False
+    body = filter_body_blocks(page_blocks)
+    head_text = " ".join(block_text(b) for b in body[:head_block_count])
+    if not head_text:
+        return False
+    for a in anchors:
+        if a in head_text:
+            return True
+    return False
+
+
 def kpc_match_q_by_master(
     page_blocks: list[Block], master: dict[int, str],
-    *, head_block_count: int = 10,
+    *, head_block_count: int = 10, min_overlap: int = 2,
 ) -> tuple[Optional[int], Optional[str]]:
     """페이지 본문이 master 어떤 토픽과 매칭되는지 (q_num, matched_anchor) 반환.
 
-    매칭 정책:
-        - 본문 첫 head_block_count 블록의 텍스트를 모아 검색 영역 구축
-        - master 의 각 (q, topic) 마다 anchor 토큰 추출
-        - 본문 검색 영역에 anchor 가 등장하면 후보 (q, anchor 길이, 등장 위치)
-        - 더 긴 anchor 우선, 같은 길이면 더 앞 위치 우선
+    매칭 단계 (1순위 → 2순위):
+        1) 기존 substring anchor matching (_topic_anchor_tokens 사용)
+           — 정확하지만 한국어 조사로 substring 실패 가능
+        2) 단어 토큰 교집합 매칭 (_master_topic_keywords)
+           — min_overlap 개 이상 공통 토큰이면 매칭
 
     Returns:
         (q_num, anchor) 또는 매칭 실패 시 (None, None)
     """
     if not master:
         return None, None
-    body = filter_body_blocks(page_blocks)
+    # KPC124 같은 회차는 토픽 제목이 table 셀에 박힘 → table 텍스트도 포함
+    body = filter_body_blocks(page_blocks, drop_table_marker=False)
     head_text = " ".join(block_text(b) for b in body[:head_block_count])
     if not head_text:
         return None, None
 
-    candidates: list[tuple[int, int, int, str]] = []  # (q, anchor_len, position, anchor)
+    # 1) substring anchor matching
+    candidates: list[tuple[int, int, int, str]] = []
     for q, topic in master.items():
         for anchor in _topic_anchor_tokens(topic):
             pos = head_text.find(anchor)
             if pos >= 0:
                 candidates.append((q, len(anchor), pos, anchor))
-                break  # 같은 q 에서 첫 매칭 anchor 만
-    if not candidates:
+                break
+    if candidates:
+        candidates.sort(key=lambda x: (-x[1], x[2]))
+        q, _, _, anchor = candidates[0]
+        return q, anchor
+
+    # 2) 토큰 교집합 매칭 (substring 실패 시 fallback)
+    page_tokens = _master_topic_keywords(head_text)
+    if not page_tokens:
         return None, None
-    # 더 긴 anchor 우선, 같은 길이면 더 앞 위치
-    candidates.sort(key=lambda x: (-x[1], x[2]))
-    q, _, _, anchor = candidates[0]
-    return q, anchor
+    overlap_candidates: list[tuple[int, int, str]] = []  # (q, overlap, sample_token)
+    for q, topic in master.items():
+        topic_tokens = _master_topic_keywords(topic)
+        common = page_tokens & topic_tokens
+        if len(common) >= min_overlap:
+            # 샘플 토큰 — 가장 긴 것 (디버그용)
+            sample = max(common, key=len)
+            overlap_candidates.append((q, len(common), sample))
+    if not overlap_candidates:
+        return None, None
+    # 더 큰 overlap 우선
+    overlap_candidates.sort(key=lambda x: -x[1])
+    q, _, sample = overlap_candidates[0]
+    return q, sample
 
 
 # ─── 파일명용 토픽 축약 헬퍼 (PR 5) ─────────────────────────────────

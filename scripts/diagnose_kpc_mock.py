@@ -275,6 +275,7 @@ def analyze_pages_kordoc(pdf_path: Path) -> tuple[list, list, int]:
         kpc_classify_page,
         extract_kpc_session_paper_topics,
         kpc_match_q_by_master,
+        has_master_anchor_in_page,
         filter_body_blocks,
         block_text,
         extract_topic_from_body_opener,
@@ -318,6 +319,100 @@ def analyze_pages_kordoc(pdf_path: Path) -> tuple[list, list, int]:
             if q not in d or len(t) > len(d[q]):  # 더 긴 제목 우선 (continuation 우월)
                 d[q] = t
         masters_by_session.append(d)
+
+    # ── PR 9: ★별점 부재 페이지 Q_BODY → Q_START 승격 ──
+    # 일부 회차(KPC121/119 등)에서 ★별점 라인이 PDF 그래픽으로 박혀 텍스트 추출 안 됨.
+    # 토픽 첫 페이지가 Q_BODY 로 잘못 분류되어 Q_START 누락.
+    #
+    # 보수적 승격 조건 (false-positive 방지):
+    #   (a) 본문에 fs≈11 "1. <text>" 정형 KPC 해설 시작 신호
+    #   (b) 시험지 master 에서 anchor 매칭 (m_q 결정 가능)
+    #   (c) m_q == 단조 시뮬레이션상 last_q + 1 (정확히 다음 q)
+    #   (d) 직전 ★별점 페이지(있다면) 와 페이지 간격 ≥ 3 (일반적인 KPC 토픽 길이)
+    KPC_BODY_OPENER_RE = re.compile(r"^1\.\s+[가-힣A-Za-z]")
+
+    def _has_kpc_body_opener(page_blocks: list) -> bool:
+        # table 텍스트도 검사 — KPC124 처럼 토픽 제목이 table 셀에 박힌 회차 대응
+        body = filter_body_blocks(page_blocks, drop_table_marker=False)
+        for b in body[:8]:
+            text = block_text(b)
+            if not text:
+                continue
+            btype = b.get("type")
+            if btype in ("list", "paragraph"):
+                fs = b.get("font_size") or 0
+                if 10.5 <= fs <= 12.0 and KPC_BODY_OPENER_RE.match(text):
+                    return True
+            elif btype == "table":
+                # table 셀 텍스트 ("KPC ... | 1. <text> | ...") 검사
+                for piece in text.split(" | "):
+                    if KPC_BODY_OPENER_RE.match(piece.strip()):
+                        return True
+        return False
+
+    # 1차 패스 결과를 단조 시뮬레이션해 promote 후보 식별
+    sim_session = 0
+    sim_last_q = 0
+    sim_last_qstart_idx = -10
+    sim_just_saw_paper = False
+    promotions: dict[int, tuple[int, str, str]] = {}  # i → (q_num, topic, anchor)
+    for i, (kind_i, _meta_i) in enumerate(raw_kinds):
+        if kind_i == "SESSION_PAPER":
+            sim_just_saw_paper = True
+            continue
+        if kind_i == "Q_START":
+            if sim_session == 0:
+                sim_session = 1
+            elif sim_just_saw_paper:
+                sim_session = min(sim_session + 1, 4)
+                sim_last_q = 0
+            sim_last_q += 1
+            sim_last_qstart_idx = i
+            sim_just_saw_paper = False
+            continue
+        # Q_BODY 또는 EMPTY_PAGE — promote 후보 (KPC124 처럼 토픽이 table 셀에 있어
+        # filter 후 본문이 거의 비어 EMPTY_PAGE 로 분류되는 케이스 포함)
+        if kind_i not in ("Q_BODY", "EMPTY_PAGE"):
+            continue
+        # promote 후보 검사
+        page_blocks_i = pages_blocks.get(i + 1, [])
+        if not _has_kpc_body_opener(page_blocks_i):
+            continue
+        # 직전 ★별점 페이지와 거리 — 너무 가까우면 같은 토픽 continuation 가능성.
+        # 단, SESSION_PAPER 직후의 첫 Q_BODY 면 거리 무관 (KPC124 p.37 케이스)
+        if not sim_just_saw_paper and i - sim_last_qstart_idx < 3:
+            continue
+        # SESSION_PAPER 직후라면 effective session 을 미리 +1 (다음 교시)
+        effective_sess = sim_session
+        effective_last_q = sim_last_q
+        if sim_just_saw_paper:
+            effective_sess = min(sim_session + 1, 4)
+            effective_last_q = 0
+        sess_master = (masters_by_session[effective_sess - 1]
+                        if 0 < effective_sess <= len(masters_by_session) else {})
+        if not sess_master:
+            continue
+        m_q, anchor = kpc_match_q_by_master(page_blocks_i, sess_master)
+        if m_q is None:
+            continue
+        # 핵심 조건: m_q == effective_last_q + 1 — false-positive 차단
+        if m_q != effective_last_q + 1:
+            continue
+        # 승격 결정
+        promotions[i] = (m_q, sess_master.get(m_q, ""), anchor or "")
+        # 시뮬레이션 상태 갱신
+        if sim_just_saw_paper:
+            sim_session = effective_sess
+        sim_last_q = m_q
+        sim_last_qstart_idx = i
+        sim_just_saw_paper = False
+
+    # raw_kinds 갱신
+    for i, (q_num_p, q_topic_p, anchor_p) in promotions.items():
+        raw_kinds[i] = ("Q_START", {
+            "q_num": q_num_p, "q_topic": q_topic_p,
+            "engine": "kordoc", "signal": "promoted", "anchor": anchor_p,
+        })
 
     # ── 시험지 부재 회차(예: KPC129) fallback: ★ 페이지 간격 패턴으로 교시 추정 ──
     # KPC 일부 회차는 PDF에 시험지 페이지가 없고 해설집만 있음.
@@ -401,14 +496,39 @@ def analyze_pages_kordoc(pdf_path: Path) -> tuple[list, list, int]:
 
             sess_used = used_qnums_per_session.setdefault(current_session, set())
 
+            # promoted (PR 9): Q_BODY → Q_START 승격된 페이지. q_num/q_topic 은 이미 결정됨.
+            # 단조성/중복 sanity 위반 시 승격 취소.
+            if signal == "promoted":
+                if (q_num is None
+                        or (last_q_num is not None and q_num <= last_q_num)
+                        or q_num in sess_used):
+                    info = PageInfo(
+                        page_idx=i, raw_lines=[], body_lines=[],
+                        kind="Q_BODY", session=current_session,
+                    )
+                    pages.append(info)
+                    continue
+                # 정상 승격 — q_num/q_topic 그대로 사용
+                last_q_num = q_num
+                sess_used.add(q_num)
+                just_saw_session_paper = False
+                info = PageInfo(
+                    page_idx=i, raw_lines=[], body_lines=[],
+                    kind="Q_START", session=current_session,
+                )
+                info.q_num = q_num
+                info.q_topic = q_topic
+                info.notes.append(f"kordoc/promoted")
+                pages.append(info)
+                continue
+
             # star_only: q_num 은 단조 매핑(last+1)으로 유지 — 자기검증/연속성 회귀 0.
-            # 토픽 제목은 페이지 본문 anchor 매칭이 있으면 그 토픽으로 보정해
-            # 가독성을 높임 (q_num 과 토픽이 다를 수 있어도 사용자가 본문으로 식별 가능).
+            # q_num override 시도(PR 8)는 false-positive 위험으로 롤백.
+            # 토픽 텍스트만 anchor 매칭으로 보정해 가독성 향상.
             if signal == "star_only":
                 expected_q = (last_q_num or 0) + 1
                 q_num = expected_q
                 q_topic = m_dict.get(expected_q, "")
-                # 토픽 보정: anchor 매칭 결과의 master 토픽이 본문에 더 적합하면 사용
                 m_q_raw, _anchor = kpc_match_q_by_master(
                     pages_blocks.get(i + 1, []), m_dict)
                 if m_q_raw is not None and m_q_raw != expected_q:

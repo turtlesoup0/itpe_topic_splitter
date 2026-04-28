@@ -171,10 +171,19 @@ FIXTURES_MOCK = [
     {"name": "KPC125 kordoc (fitz fail 회복)", "kind": "kpc", "engine": "kordoc",
      "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC125_2507_합.pdf",
      "expect_pass": True},
-    # 알려진 kordoc 실패 — 회귀 lock (현재 fail 인 상태가 더 악화되지 않도록 추적)
-    {"name": "KPC124 kordoc (known fail)", "kind": "kpc", "engine": "kordoc",
+    # PR 10 으로 회복 (table 셀 안 토픽 구조 처리). KPC120 이 유일한 known fail.
+    {"name": "KPC124 kordoc (PR 10 회복)", "kind": "kpc", "engine": "kordoc",
      "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC124_2506_합.pdf",
+     "expect_pass": True},
+    {"name": "KPC120 kordoc (known fail — q_num skip)", "kind": "kpc", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC120_2410_합.pdf",
      "expect_pass": False},
+    {"name": "KPC121 kordoc (PR 9 회복)", "kind": "kpc", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC121_2411_합.pdf",
+     "expect_pass": True},
+    {"name": "KPC119 kordoc (PR 9 회복)", "kind": "kpc", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC119_2407_합.pdf",
+     "expect_pass": True},
     # ITPE ────────────────────────────────────────────
     {"name": "ITPE35 fitz",  "kind": "itpe", "engine": "fitz",
      "path": f"{ICLOUD}/공부/2_모의고사/ITPE/모의_ITPE35-2507_합.pdf",
@@ -188,6 +197,11 @@ FIXTURES_MOCK = [
     {"name": "ITPE22 kordoc (enrich 작동)", "kind": "itpe", "engine": "kordoc",
      "path": f"{ICLOUD}/공부/2_모의고사/ITPE/모의_ITPE22-2310_합.pdf",
      "expect_pass": True},
+    # 원본 PDF 결함 (학원에서 1교시 Q3 페이지 누락 발행) — fitz/kordoc 모두 fix 불가.
+    # 분할 자체는 ok=True 로 진행되며 warnings 에 누락 표시. diagnose 만 fail rc.
+    {"name": "ITPE24 kordoc (PDF 결함 — Q3 누락)", "kind": "itpe", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/ITPE/모의_ITPE24-2312_합.pdf",
+     "expect_pass": False},
 ]
 
 
