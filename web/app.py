@@ -117,6 +117,17 @@ async def _on_startup():
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
+
+@app.middleware("http")
+async def add_no_cache_for_html(request: Request, call_next):
+    """HTML(SPA 진입점)이 사용자 브라우저에 stale로 남지 않도록 매 요청 ETag 재검증.
+    배포 직후 사용자가 강제 새로고침 없이도 최신 화면을 보게 한다."""
+    response = await call_next(request)
+    path = request.url.path
+    if path == "/" or path.endswith(".html"):
+        response.headers["Cache-Control"] = "no-cache, must-revalidate"
+    return response
+
 # ─── 비동기 Job 관리 ─────────────────────────────────────────────
 # job_id → { status, progress, result_path, topic_count, total_pages,
 #             warnings, quality_report, zip_name, error, work_dir }
