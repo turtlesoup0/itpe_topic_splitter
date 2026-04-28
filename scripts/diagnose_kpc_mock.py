@@ -276,18 +276,24 @@ def write_split_pdfs(
 
 
 def is_kpc_mock_pdf(pdf_path: Path) -> bool:
+    """KPC 모의고사 PDF 판정 — 너그럽게 통과시키고 자기검증으로 false positive 걸러냄.
+    파일명에 KPC 또는 첫 5페이지 안에 KPC 모의고사 헤더가 있으면 True.
+    """
     name = pdf_path.name
-    if re.search(r"모의[_-]?KPC", name):
+    if re.search(r"KPC", name, re.IGNORECASE):
         return True
     try:
         doc = fitz.open(pdf_path)
-        if doc.page_count == 0:
-            return False
-        first = doc.load_page(0).get_text()
+        # 1페이지 헤더가 단어 단위 분리된 변형 PDF가 있어 첫 5p 까지 검사
+        for i in range(min(doc.page_count, 5)):
+            text = doc.load_page(i).get_text()
+            if HEADER_BRAND_RE.search(text) and HEADER_PUB_RE.search(text):
+                doc.close()
+                return True
         doc.close()
-        return bool(HEADER_BRAND_RE.search(first) and HEADER_PUB_RE.search(first))
     except Exception:
-        return False
+        pass
+    return False
 
 
 def split_kpc_mock(pdf_path: Path, out_dir: Path) -> dict:

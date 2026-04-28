@@ -254,19 +254,23 @@ def write_split_pdfs(
 
 
 def is_itpe_mock_pdf(pdf_path: Path) -> bool:
-    """파일명 또는 첫 페이지 헤더로 ITPE 모의고사 해설집 여부를 판정."""
+    """ITPE 모의고사 PDF 판정 — 너그럽게 통과 후 자기검증으로 false positive 걸러냄.
+    파일명에 ITPE/itpe 또는 첫 5페이지 안에 모의고사 브랜딩이 있으면 True.
+    """
     name = pdf_path.name
-    if re.search(r"모의[_-]?ITPE", name):
+    if re.search(r"ITPE", name, re.IGNORECASE):
         return True
     try:
         doc = fitz.open(pdf_path)
-        if doc.page_count == 0:
-            return False
-        first = doc.load_page(0).get_text()
+        for i in range(min(doc.page_count, 5)):
+            text = doc.load_page(i).get_text()
+            if HEADER_BRAND_RE.search(text):
+                doc.close()
+                return True
         doc.close()
-        return bool(HEADER_BRAND_RE.search(first))
     except Exception:
-        return False
+        pass
+    return False
 
 
 def split_itpe_mock(pdf_path: Path, out_dir: Path) -> dict:
