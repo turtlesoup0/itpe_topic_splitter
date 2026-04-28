@@ -275,7 +275,8 @@ def _cleanup_stale_jobs():
             _db_delete(jid)
 
 
-def _process_job(job_id: str, pdf_content: bytes, filename: str):
+def _process_job(job_id: str, pdf_content: bytes, filename: str,
+                 mock_engine: str = "fitz"):
     """백그라운드에서 PDF 분할 처리."""
     work_dir = tempfile.mkdtemp(prefix="itpe_split_")
     try:
@@ -330,17 +331,23 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
 
         if is_itpe_mock_pdf(original_path):
             with _jobs_lock:
-                _jobs[job_id]["progress"] = "ITPE 모의고사 결정적 분할 중..."
+                _jobs[job_id]["progress"] = (
+                    f"ITPE 모의고사 결정적 분할 중 (engine={mock_engine})...")
                 _db_upsert_locked(job_id)
-            mock_result = split_itpe_mock(original_path, _Path(work_dir) / "itpe_mock_split")
+            mock_result = split_itpe_mock(
+                original_path, _Path(work_dir) / "itpe_mock_split",
+                engine=mock_engine)
             if _finalize_mock(mock_result, "ITPE 모의고사"):
                 return
 
         if is_kpc_mock_pdf(original_path):
             with _jobs_lock:
-                _jobs[job_id]["progress"] = "KPC 모의고사 결정적 분할 중..."
+                _jobs[job_id]["progress"] = (
+                    f"KPC 모의고사 결정적 분할 중 (engine={mock_engine})...")
                 _db_upsert_locked(job_id)
-            mock_result = split_kpc_mock(original_path, _Path(work_dir) / "kpc_mock_split")
+            mock_result = split_kpc_mock(
+                original_path, _Path(work_dir) / "kpc_mock_split",
+                engine=mock_engine)
             if _finalize_mock(mock_result, "KPC 모의고사"):
                 return
 
@@ -511,9 +518,17 @@ async def api_split(request: Request, file: UploadFile = File(...),
     """PDF 업로드 → job_id 즉시 반환 (비동기 처리).
 
     ITPE_API_TOKEN 환경변수 설정 시 Bearer 토큰 필수.
+
+    옵션 query 파라미터 (모의고사 분할에만 적용):
+      mock_engine = fitz (기본) | kordoc — 토픽 제목 가독성 enrich 옵트인
     """
     # 0. 토큰 검증 (활성화된 경우)
     _require_token(authorization)
+
+    # 0-1. 모의고사 엔진 선택 (옵트인 query 파라미터)
+    mock_engine = (request.query_params.get("mock_engine") or "fitz").lower()
+    if mock_engine not in ("fitz", "kordoc"):
+        mock_engine = "fitz"
 
     # 1. 확장자 검증
     if not file.filename or not file.filename.lower().endswith(".pdf"):
@@ -558,11 +573,12 @@ async def api_split(request: Request, file: UploadFile = File(...),
         _db_upsert_locked(job_id)
 
     thread = threading.Thread(
-        target=_process_job, args=(job_id, content, file.filename),
+        target=_process_job,
+        args=(job_id, content, file.filename, mock_engine),
         daemon=True)
     thread.start()
 
-    return JSONResponse({"job_id": job_id})
+    return JSONResponse({"job_id": job_id, "mock_engine": mock_engine})
 
 
 @app.get("/api/status/{job_id}")

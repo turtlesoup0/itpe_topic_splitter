@@ -302,8 +302,13 @@ def is_itpe_mock_pdf(pdf_path: Path) -> bool:
     return False
 
 
-def split_itpe_mock(pdf_path: Path, out_dir: Path) -> dict:
+def split_itpe_mock(pdf_path: Path, out_dir: Path,
+                    *, engine: str = "fitz") -> dict:
     """ITPE 모의고사 PDF를 결정적 파서로 분할.
+
+    engine:
+      - "fitz" (기본): page.get_text() 슬라이딩 윈도우 정규식
+      - "kordoc"     : fitz 분류 + kordoc 시험지 master 토픽 enrich (가독성 ↑)
 
     Returns:
         {
@@ -311,7 +316,7 @@ def split_itpe_mock(pdf_path: Path, out_dir: Path) -> dict:
             "round_id": str,
             "files": [{"path": str, "filename": str}, ...],
             "warnings": list[str],
-            "summary": str,  # 사용자에게 보일 짧은 요약
+            "summary": str,
         }
     """
     warnings: list[str] = []
@@ -320,6 +325,11 @@ def split_itpe_mock(pdf_path: Path, out_dir: Path) -> dict:
 
     doc = fitz.open(pdf_path)
     pages, q_list = analyze_pages(doc)
+    if engine == "kordoc":
+        try:
+            pages, q_list, _stats = enrich_topics_with_kordoc(pdf_path, pages, q_list)
+        except Exception as e:
+            warnings.append(f"kordoc enrich 실패 → fitz 결과 사용: {str(e)[:120]}")
 
     # 최소 합리성 검사
     if not q_list:

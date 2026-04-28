@@ -132,6 +132,13 @@
     <button class="file-remove" id="fileRemove">&times;</button>
   </div>
 
+  <div class="engine-toggle" id="engineToggle">
+    <label class="engine-label" title="모의고사(KPC/ITPE) 분할 시 토픽 제목 가독성을 높이는 실험 엔진. 분류 결과 자체는 fitz와 동일.">
+      <input type="checkbox" id="kordocEngine">
+      <span>모의고사 토픽 제목 보강 (kordoc, 실험)</span>
+    </label>
+  </div>
+
   <button class="btn" id="splitBtn">분할 시작</button>
 
   <div class="progress" id="progress">
@@ -283,8 +290,10 @@ splitBtn.addEventListener('click', async () => {
   form.append('file', selectedFile);
 
   try {
-    // 1) 업로드 → job_id 수신
-    const uploadResp = await fetch('/api/split', { method: 'POST', body: form });
+    // 1) 업로드 → job_id 수신 (모의고사 엔진 옵트인 query)
+    const useKordoc = document.getElementById('kordocEngine')?.checked;
+    const url = useKordoc ? '/api/split?mock_engine=kordoc' : '/api/split';
+    const uploadResp = await fetch(url, { method: 'POST', body: form });
     if (!uploadResp.ok) {
       const err = await uploadResp.json().catch(() => ({ detail: uploadResp.statusText }));
       throw new Error(err.detail || '업로드 실패');
