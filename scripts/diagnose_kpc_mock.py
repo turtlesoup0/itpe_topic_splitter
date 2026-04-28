@@ -38,6 +38,11 @@ DOMAIN_INLINE_RE = re.compile(r"^출제영역\s*(.*)$")
 # 'N. 토픽' 또는 'N. 토픽 (multi-line)'
 QNUM_TOPIC_RE = re.compile(r"^(\d{1,2})\.\s*(.+)$")
 
+# 비-Q 페이지 분류 — Q_START 청크에 흡수되면 안 됨
+COPYRIGHT_LINE_RE = re.compile(r"Copyright\s*ⓒ.*Korea\s*Productivity\s*Center", re.IGNORECASE)
+SESSION_PAPER_RE = re.compile(r"제\s*[1-4]\s*교시\s*\(\s*시험시간")
+KPC_SELECT_RE = re.compile(r"\[\s*(관리|응용)\s*선택\s*\]")
+
 
 @dataclass
 class PageInfo:
@@ -100,6 +105,17 @@ def classify_page(body: list[str]) -> tuple[str, dict]:
     """
     if not body:
         return "EMPTY", {}
+
+    # SESSION_PAPER: '제 N 교시 (시험시간' 헤더 — 시험지 페이지 (해설 아님)
+    for ln in body[:8]:
+        if SESSION_PAPER_RE.search(ln):
+            return "SESSION_PAPER", {}
+        if KPC_SELECT_RE.search(ln):
+            return "SESSION_PAPER", {}
+
+    # EMPTY_PAGE: 본문이 거의 Copyright 라인 하나뿐인 답안 작성용 빈 페이지
+    if len(body) <= 2 and any(COPYRIGHT_LINE_RE.search(ln) for ln in body):
+        return "EMPTY_PAGE", {}
 
     # '문' 또는 '문 제' 라인의 위치 찾기
     mun_idx = None
@@ -202,11 +218,18 @@ def analyze_pages(doc: fitz.Document) -> tuple[list, list]:
         pages.append(info)
 
     # Q_START 들 사이의 페이지 범위 산출
+    # 청크 끝 = 다음 Q_START 직전, 단 EMPTY_PAGE / SESSION_PAPER 가 그 사이에 있으면 그 직전까지로 자름
     q_starts = [p for p in pages if p.kind == "Q_START"]
     q_list: list[tuple[int, int, str, int, int]] = []
     for idx, qs in enumerate(q_starts):
         next_start = q_starts[idx + 1].page_idx if idx + 1 < len(q_starts) else doc.page_count
-        q_list.append((qs.session or 0, qs.q_num or 0, qs.q_topic or "", qs.page_idx, next_start - 1))
+        # qs.page_idx + 1 부터 next_start - 1 까지 검사: 첫 EMPTY/SESSION_PAPER 직전이 진짜 끝
+        boundary = next_start
+        for k in range(qs.page_idx + 1, next_start):
+            if pages[k].kind in ("EMPTY_PAGE", "SESSION_PAPER"):
+                boundary = k
+                break
+        q_list.append((qs.session or 0, qs.q_num or 0, qs.q_topic or "", qs.page_idx, boundary - 1))
 
     return pages, q_list
 
