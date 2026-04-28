@@ -8,8 +8,15 @@ KPC 모의고사 해설집 PDF 진단 스크립트 (dry-run, 읽기 전용 + --s
 - 1교시 16문제, 2~4교시 각 8문제 (총 40)
 
 사용:
-    python scripts/diagnose_kpc_mock.py <pdf_path>             # 진단만
+    python scripts/diagnose_kpc_mock.py <pdf_path>             # 진단만 (fitz 엔진)
+    python scripts/diagnose_kpc_mock.py <pdf_path> --engine kordoc
+                                                                # kordoc IRBlock 기반 진단
     python scripts/diagnose_kpc_mock.py <pdf_path> --split <out_dir>  # 진단 + 분할
+
+엔진 선택:
+- fitz   (기본): page.get_text() + 정규식. 즉시 실행. 토픽 제목 어절 분리 손실 가능.
+- kordoc       : kordoc CLI IRBlock(폰트/구조). 첫 실행 ~30초, 캐시 후 즉시.
+                 토픽 제목 가독성 ↑, LR-007(슬로건 어절 변형) 재발 방지.
 """
 from __future__ import annotations
 
@@ -197,7 +204,7 @@ def classify_page(body: list[str]) -> tuple[str, dict]:
 
 
 def analyze_pages(doc: fitz.Document) -> tuple[list, list]:
-    """페이지 분류 + 교시 자동 분리 (번호 리셋 기반)."""
+    """페이지 분류 + 교시 자동 분리 (번호 리셋 기반) — fitz 엔진."""
     pages: list[PageInfo] = []
     current_session: Optional[int] = None
     last_q_num: Optional[int] = None
@@ -231,21 +238,191 @@ def analyze_pages(doc: fitz.Document) -> tuple[list, list]:
                 info.notes.append("variant-B")
         pages.append(info)
 
-    # Q_START 들 사이의 페이지 범위 산출
-    # 청크 끝 = 다음 Q_START 직전, 단 EMPTY_PAGE / SESSION_PAPER 가 그 사이에 있으면 그 직전까지로 자름
+    return pages, _build_q_list(pages, doc.page_count)
+
+
+def _build_q_list(pages: list, total_pages: int) -> list:
+    """Q_START 페이지들 사이의 페이지 범위 산출 — 엔진 공통."""
     q_starts = [p for p in pages if p.kind == "Q_START"]
     q_list: list[tuple[int, int, str, int, int]] = []
     for idx, qs in enumerate(q_starts):
-        next_start = q_starts[idx + 1].page_idx if idx + 1 < len(q_starts) else doc.page_count
+        next_start = q_starts[idx + 1].page_idx if idx + 1 < len(q_starts) else total_pages
         # qs.page_idx + 1 부터 next_start - 1 까지 검사: 첫 EMPTY/SESSION_PAPER 직전이 진짜 끝
         boundary = next_start
         for k in range(qs.page_idx + 1, next_start):
             if pages[k].kind in ("EMPTY_PAGE", "SESSION_PAPER"):
                 boundary = k
                 break
-        q_list.append((qs.session or 0, qs.q_num or 0, qs.q_topic or "", qs.page_idx, boundary - 1))
+        q_list.append((qs.session or 0, qs.q_num or 0, qs.q_topic or "",
+                       qs.page_idx, boundary - 1))
+    return q_list
 
-    return pages, q_list
+
+def analyze_pages_kordoc(pdf_path: Path) -> tuple[list, list, int]:
+    """페이지 분류 + 교시 자동 분리 — kordoc 엔진.
+
+    KPC 모의고사 구조 처리:
+      1) 시험지(SESSION_PAPER) 페이지에서 교시별 master topic-list 추출
+      2) SESSION_PAPER 시퀀스 후 첫 Q_START → 새 교시 강제 전환 (단답형 누락 방어)
+      3) Q_START signal=star_only(★ 별점만, 토픽 제목 없음) → master-list 에서
+         단조 증가 q_num 으로 매핑하여 토픽 보정
+
+    Returns:
+        (pages, q_list, total_pages)
+    """
+    from kordoc_adapter import (  # noqa: E402
+        parse_kordoc_pages,
+        kpc_classify_page,
+        extract_kpc_session_paper_topics,
+    )
+
+    pages_blocks, total_pages = parse_kordoc_pages(str(pdf_path), verbose=True)
+
+    # ── 1차 패스: 페이지 분류 (master 추출과 분리해 두 번 순회) ──
+    raw_kinds: list[tuple[str, dict]] = []
+    for i in range(total_pages):
+        kind_meta = kpc_classify_page(pages_blocks.get(i + 1, []))
+        raw_kinds.append(kind_meta)
+
+    # ── 2차 패스: 시험지 시퀀스를 그룹핑하여 교시별 master topic-list 산출 ──
+    # 같은 교시의 시험지 페이지는 연속됨 (예: M2 시험지 = p.37, 38)
+    # 첫 시험지 시퀀스 = M1, 두 번째 = M2, ...
+    masters: list[list[tuple[int, str]]] = []  # [교시1 master, 교시2 master, ...]
+    current_session_master: list[tuple[int, str]] = []
+    in_session_paper_run = False
+    for i, (kind, _) in enumerate(raw_kinds):
+        if kind == "SESSION_PAPER":
+            topics = extract_kpc_session_paper_topics(pages_blocks.get(i + 1, []))
+            current_session_master.extend(topics)
+            in_session_paper_run = True
+        else:
+            if in_session_paper_run:
+                # session-paper 시퀀스 종료 → master 확정
+                if current_session_master:
+                    masters.append(current_session_master)
+                current_session_master = []
+                in_session_paper_run = False
+    if current_session_master:
+        masters.append(current_session_master)
+
+    # masters[0] = M1 master, masters[1] = M2 master, ...
+    # 각 master 안에서 q_num 으로 dict 변환 (정렬·중복 제거)
+    masters_by_session: list[dict[int, str]] = []
+    for m in masters:
+        d: dict[int, str] = {}
+        for q, t in m:
+            if q not in d or len(t) > len(d[q]):  # 더 긴 제목 우선 (continuation 우월)
+                d[q] = t
+        masters_by_session.append(d)
+
+    # ── 시험지 부재 회차(예: KPC129) fallback: ★ 페이지 간격 패턴으로 교시 추정 ──
+    # KPC 일부 회차는 PDF에 시험지 페이지가 없고 해설집만 있음.
+    # 단답형(★ 간격≤3) 시퀀스 → 서술형(★ 간격≥4) 전환점을 M1→M2 경계로 가정.
+    # 그 이후는 8문제 단위로 M2/M3/M4 분리 (KPC 표준 구조).
+    has_session_paper = any(k == "SESSION_PAPER" for k, _ in raw_kinds)
+    forced_sessions: dict[int, int] = {}  # page_idx → forced session (1-4)
+    if not has_session_paper:
+        qstart_indices = [i for i, (k, _) in enumerate(raw_kinds) if k == "Q_START"]
+        if len(qstart_indices) >= 2:
+            gaps = [qstart_indices[j + 1] - qstart_indices[j]
+                    for j in range(len(qstart_indices) - 1)]
+            # 단답형 → 서술형 전환점 (첫 gap≥4)
+            transition = -1
+            for j, g in enumerate(gaps):
+                if g >= 4:
+                    transition = j + 1
+                    break
+            if transition > 0:
+                # M1: 0..transition-1
+                for k in range(0, transition):
+                    forced_sessions[qstart_indices[k]] = 1
+                # M2/M3/M4: 8문제씩
+                for k in range(transition, len(qstart_indices)):
+                    offset = k - transition
+                    forced_sessions[qstart_indices[k]] = min(2 + offset // 8, 4)
+            else:
+                # 모두 단답형 패턴(이상한 케이스) — 1교시만
+                for k in range(len(qstart_indices)):
+                    forced_sessions[qstart_indices[k]] = 1
+
+    # ── 3차 패스: 페이지 정보 구축 + master 매핑 ──
+    pages: list[PageInfo] = []
+    current_session: Optional[int] = None
+    last_q_num: Optional[int] = None
+    just_saw_session_paper = False
+
+    for i in range(total_pages):
+        kind, meta = raw_kinds[i]
+
+        if kind == "Q_START":
+            signal = meta.get("signal")
+            q_num = meta.get("q_num")
+            q_topic = meta.get("q_topic") or ""
+
+            # forced_sessions(시험지 부재 회차)이 있으면 우선 적용
+            forced = forced_sessions.get(i)
+            if forced is not None:
+                if current_session != forced:
+                    current_session = forced
+                    last_q_num = None  # 새 교시는 단조성 reset
+                # 시험지 부재 회차에서는 워터마크 잔재 q_num 신뢰 못하므로
+                # 항상 단조 증가 매핑(star_only 처리)을 강제
+                signal = "star_only"
+                q_num = None
+                q_topic = ""
+            elif current_session is None:
+                current_session = 1
+            elif just_saw_session_paper:
+                current_session = min(current_session + 1, 4)
+                last_q_num = None
+            elif (signal == "topic_list" and last_q_num is not None
+                  and q_num is not None and q_num < last_q_num):
+                current_session = min(current_session + 1, 4)
+                last_q_num = None
+
+            m_dict = (masters_by_session[current_session - 1]
+                      if 0 <= current_session - 1 < len(masters_by_session) else {})
+
+            # star_only: 토픽 제목 없음 → last_q_num + 1 로 단조 증가 가정 후 master 매핑
+            if signal == "star_only":
+                expected_q = (last_q_num or 0) + 1
+                q_num = expected_q
+                q_topic = m_dict.get(expected_q, "")
+            # topic_list: master-list 가 더 풍부하면 채택 (continuation 누락 보정)
+            elif signal == "topic_list" and q_num is not None:
+                master_title = m_dict.get(q_num, "")
+                if len(master_title) > len(q_topic) + 4:
+                    q_topic = master_title
+
+            if q_num is not None:
+                last_q_num = q_num
+            just_saw_session_paper = False
+
+            info = PageInfo(
+                page_idx=i,
+                raw_lines=[], body_lines=[],
+                kind="Q_START",
+                session=current_session,
+            )
+            info.q_num = q_num
+            info.q_topic = q_topic
+            info.notes.append(f"kordoc/{signal}")
+        elif kind == "SESSION_PAPER":
+            just_saw_session_paper = True
+            # star_only_counter 도 reset (다음 교시 단답형 카운트 초기화)
+            # current_session+1 의 카운트는 새로 시작
+            info = PageInfo(
+                page_idx=i, raw_lines=[], body_lines=[],
+                kind="SESSION_PAPER", session=current_session,
+            )
+        else:
+            info = PageInfo(
+                page_idx=i, raw_lines=[], body_lines=[],
+                kind=kind, session=current_session,
+            )
+        pages.append(info)
+
+    return pages, _build_q_list(pages, total_pages), total_pages
 
 
 _ALLOWED_FILENAME_RE = re.compile(
@@ -306,6 +483,15 @@ def write_split_pdfs(
         out_path = out_dir / f"{base}.pdf"
         new_doc = fitz.open()
         new_doc.insert_pdf(src_doc, from_page=ps, to_page=pe)
+        # PDF 메타데이터: title/subject/keywords — Obsidian/Notion/Spotlight 검색성 ↑
+        new_doc.set_metadata({
+            "title": (topic or f"Q{num:02d}").strip()[:200],
+            "subject": f"{round_id} 제{sess}교시 Q{num:02d}",
+            "keywords": ", ".join(filter(None, [
+                round_id, f"M{sess}", f"Q{num:02d}", (topic or "").strip()[:120],
+            ])),
+            "author": "ITPE Topic Splitter (KPC mock)",
+        })
         new_doc.save(out_path)
         new_doc.close()
         written += 1
@@ -333,13 +519,28 @@ def is_kpc_mock_pdf(pdf_path: Path) -> bool:
     return False
 
 
-def split_kpc_mock(pdf_path: Path, out_dir: Path) -> dict:
+def split_kpc_mock(pdf_path: Path, out_dir: Path, *, engine: str = "fitz") -> dict:
+    """KPC 모의고사 PDF 분할.
+
+    engine:
+      - "fitz"   : 기존 page.get_text() + 정규식 (기본, web/app.py 호환)
+      - "kordoc" : kordoc IRBlock 기반 (옵트인). 실패 시 fitz 로 자동 폴백.
+    """
     warnings: list[str] = []
     if not pdf_path.exists():
         return {"ok": False, "round_id": "", "files": [], "warnings": [f"파일 없음: {pdf_path}"], "summary": ""}
 
     doc = fitz.open(pdf_path)
-    pages, q_list = analyze_pages(doc)
+    pages: list = []
+    q_list: list = []
+    if engine == "kordoc":
+        try:
+            pages, q_list, _ = analyze_pages_kordoc(pdf_path)
+        except Exception as e:
+            warnings.append(f"kordoc 엔진 실패 → fitz 폴백: {str(e)[:120]}")
+            pages, q_list = analyze_pages(doc)
+    else:
+        pages, q_list = analyze_pages(doc)
 
     if not q_list:
         return {
@@ -396,16 +597,25 @@ def split_kpc_mock(pdf_path: Path, out_dir: Path) -> dict:
     }
 
 
-def diagnose(pdf_path: Path, split_dir: Optional[Path] = None) -> int:
+def diagnose(pdf_path: Path, split_dir: Optional[Path] = None,
+             *, engine: str = "fitz") -> int:
     if not pdf_path.exists():
         print(f"❌ 파일이 없습니다: {pdf_path}")
         return 2
 
-    print(f"=== {pdf_path.name} ===")
+    print(f"=== {pdf_path.name} (engine={engine}) ===")
     doc = fitz.open(pdf_path)
     print(f"총 페이지: {doc.page_count}\n")
 
-    pages, q_list = analyze_pages(doc)
+    if engine == "kordoc":
+        try:
+            pages, q_list, _ = analyze_pages_kordoc(pdf_path)
+        except Exception as e:
+            print(f"⚠️  kordoc 엔진 실패 → fitz 폴백: {str(e)[:200]}")
+            pages, q_list = analyze_pages(doc)
+            engine = "fitz"
+    else:
+        pages, q_list = analyze_pages(doc)
 
     print("[페이지 분류]")
     for p in pages:
@@ -463,12 +673,33 @@ def diagnose(pdf_path: Path, split_dir: Optional[Path] = None) -> int:
     return 0 if overall_ok else 1
 
 
+def compare_engines(pdf_path: Path) -> int:
+    """fitz vs kordoc q_list 결과를 같은 PDF 에 대해 나란히 출력."""
+    from kordoc_adapter import print_q_list_diff  # noqa: E402
+    if not pdf_path.exists():
+        print(f"❌ 파일이 없습니다: {pdf_path}")
+        return 2
+    print(f"=== {pdf_path.name} (compare fitz↔kordoc) ===")
+    doc = fitz.open(pdf_path)
+    print(f"총 페이지: {doc.page_count}\n")
+    pages_fitz, q_fitz = analyze_pages(doc)
+    try:
+        _, q_kordoc, _ = analyze_pages_kordoc(pdf_path)
+    except Exception as e:
+        print(f"⚠️  kordoc 엔진 실패: {str(e)[:200]}")
+        return 1
+    print_q_list_diff(q_fitz, q_kordoc)
+    return 0
+
+
 if __name__ == "__main__":
     args = sys.argv[1:]
     if not args:
         print(__doc__)
         sys.exit(2)
     pdf_arg = Path(args[0])
+    if "--compare" in args:
+        sys.exit(compare_engines(pdf_arg))
     split_arg: Optional[Path] = None
     if "--split" in args:
         i = args.index("--split")
@@ -476,4 +707,14 @@ if __name__ == "__main__":
             print("--split 다음에 출력 디렉터리 경로가 필요합니다.")
             sys.exit(2)
         split_arg = Path(args[i + 1])
-    sys.exit(diagnose(pdf_arg, split_arg))
+    engine_arg = "fitz"
+    if "--engine" in args:
+        i = args.index("--engine")
+        if i + 1 >= len(args):
+            print("--engine 다음에 엔진 이름(fitz|kordoc)이 필요합니다.")
+            sys.exit(2)
+        engine_arg = args[i + 1]
+        if engine_arg not in ("fitz", "kordoc"):
+            print(f"알 수 없는 엔진: {engine_arg!r} (fitz|kordoc 중 선택)")
+            sys.exit(2)
+    sys.exit(diagnose(pdf_arg, split_arg, engine=engine_arg))

@@ -7,8 +7,15 @@ ITPE 모의고사 해설집 PDF 진단 스크립트 (dry-run, 읽기 전용).
 분할은 수행하지 않는다. 보고서만 출력한다.
 
 사용:
-    python scripts/diagnose_itpe_mock.py <pdf_path>             # 진단만
-    python scripts/diagnose_itpe_mock.py <pdf_path> --split <out_dir>  # 진단 + 분할
+    python scripts/diagnose_itpe_mock.py <pdf_path>                       # fitz 엔진(기본)
+    python scripts/diagnose_itpe_mock.py <pdf_path> --engine kordoc       # 토픽 제목 가독성 보강
+    python scripts/diagnose_itpe_mock.py <pdf_path> --split <out_dir>     # 진단 + 분할
+
+엔진 선택:
+- fitz   (기본): page.get_text() + 슬라이딩 윈도우 정규식. ITPE 전 회차에서 안정 통과.
+- kordoc       : 분류는 fitz 그대로 + kordoc 시험지 페이지에서 master topic 추출하여
+                 잘려있던 토픽 제목을 풀 텍스트로 보강 (정관/컴응 트랙 인식).
+                 회귀 위험 거의 없음 (페이지 분류·번호·범위 변경 없음, 제목만 enriched).
 """
 from __future__ import annotations
 
@@ -221,6 +228,17 @@ def write_split_pdfs(
         out_path = out_dir / f"{base}.pdf"
         new_doc = fitz.open()
         new_doc.insert_pdf(src_doc, from_page=ps, to_page=pe)
+        # PDF 메타데이터: title/subject/keywords — Obsidian/Notion 검색성 ↑
+        new_doc.set_metadata({
+            "title": (_topic or topic_full or f"Q{num:02d}").strip()[:200],
+            "subject": f"{round_id} 제{sess}교시 Q{num:02d}"
+                       + (f" — {cat}" if cat else ""),
+            "keywords": ", ".join(filter(None, [
+                round_id, f"M{sess}", f"Q{num:02d}",
+                cat, (_topic or topic_full or "").strip()[:120],
+            ])),
+            "author": "ITPE Topic Splitter (ITPE mock)",
+        })
         new_doc.save(out_path)
         new_doc.close()
         written_q += 1
@@ -408,16 +426,122 @@ def analyze_pages(doc: fitz.Document) -> tuple[list, list]:
     return pages, q_list
 
 
-def diagnose(pdf_path: Path, split_dir: Optional[Path] = None) -> int:
+def enrich_topics_with_kordoc(
+    pdf_path: Path, pages: list, q_list: list,
+) -> tuple[list, list, dict]:
+    """kordoc 시험지 페이지에서 토픽 master 추출 후 q_list 의 제목을 풀 텍스트로 보강.
+
+    페이지 분류·번호·범위는 변경하지 않음 (fitz 결정 그대로 유지).
+
+    매핑 규칙:
+        - q_num 1-12 (또는 1-5) → master['common'][q_num]
+        - q_num 13 (또는 6) → 정관/컴응 트랙은 페이지 순서로 결정:
+            교시 내 같은 q_num 이 두 번 나오면 첫 번째=정관, 두 번째=컴응
+        - master 가 없거나 짧으면 fitz 결과 유지
+
+    Returns:
+        (pages, enriched_q_list, stats)
+        stats = {'enriched': N, 'unchanged': M, 'master_pages': K, ...}
+    """
+    from kordoc_adapter import (  # noqa: E402
+        parse_kordoc_pages,
+        extract_itpe_master_topics,
+        merge_itpe_masters,
+    )
+
+    # 시험지 페이지 인덱스 (fitz 분류 기준)
+    exam_paper_pages = [p.page_idx + 1 for p in pages
+                         if p.kind in ("SESSION_HDR", "SELECT_HDR", "EXAM_PAPER")]
+    if not exam_paper_pages:
+        return pages, q_list, {"enriched": 0, "reason": "시험지 페이지 없음"}
+
+    try:
+        pages_blocks, _ = parse_kordoc_pages(str(pdf_path), verbose=True)
+    except Exception as e:
+        return pages, q_list, {"enriched": 0, "reason": f"kordoc 호출 실패: {e}"}
+
+    # 교시별 master 누적
+    masters_by_session: dict[int, dict[str, dict[int, str]]] = {}
+    for p in pages:
+        if p.kind not in ("SESSION_HDR", "SELECT_HDR", "EXAM_PAPER"):
+            continue
+        if p.session is None:
+            continue
+        m = extract_itpe_master_topics(pages_blocks.get(p.page_idx + 1, []))
+        if p.session not in masters_by_session:
+            masters_by_session[p.session] = m
+        else:
+            masters_by_session[p.session] = merge_itpe_masters(
+                [masters_by_session[p.session], m])
+
+    # enrich 후보 sanity check — table 셀 분산으로 인한 garbled master 거부.
+    # ITPE27 같은 회차에서 시험지 table 셀이 어절 단위로 흩어져 cells 가
+    # join 되면 다른 q_num 토픽 라벨이 함께 끌려옴 ("AI비서 3. 개인정보..." 같은 형태).
+    def _is_clean_topic(t: str) -> bool:
+        if not t or len(t) > 200:
+            return False
+        # master 에서 prefix "N. " 가 이미 제거된 토픽 본문에 또 다른 "N. <한글/영문>"
+        # 라벨이 등장하면 table 셀 분산으로 다른 q_num 의 토픽이 섞인 노이즈
+        if re.search(r"\b\d{1,2}\.\s+[가-힣A-Za-z(]", t):
+            return False
+        return True
+
+    # q_list enrich: 같은 (교시, q_num) 이 두 번 등장하는 케이스(정관/컴응)
+    # 처리 — 등장 순서대로 'jeonggwan' → 'compeung'
+    enriched: list = []
+    enrich_count = 0
+    seen_session_qnum: dict[tuple[int, int], int] = {}
+    for sess, num, topic, ps, pe in q_list:
+        master = masters_by_session.get(sess, {})
+        # 트랙 결정
+        key = (sess, num)
+        seen_session_qnum[key] = seen_session_qnum.get(key, 0) + 1
+        order = seen_session_qnum[key]
+        # common 우선, 같은 q_num 두 번째면 jeonggwan→compeung
+        new_title = topic
+        if order == 1:
+            cand = master.get("common", {}).get(num) or master.get("jeonggwan", {}).get(num)
+            if (cand and len(cand) > len(topic) + 4
+                    and _is_clean_topic(cand)):
+                new_title = cand
+                enrich_count += 1
+        else:  # 두 번째 등장 → 컴응
+            cand = master.get("compeung", {}).get(num)
+            if (cand and len(cand) > len(topic) + 4
+                    and _is_clean_topic(cand)):
+                new_title = cand
+                enrich_count += 1
+        enriched.append((sess, num, new_title, ps, pe))
+
+    stats = {
+        "enriched": enrich_count,
+        "unchanged": len(q_list) - enrich_count,
+        "master_sessions": list(sorted(masters_by_session.keys())),
+        "master_pages": len(exam_paper_pages),
+    }
+    return pages, enriched, stats
+
+
+def diagnose(pdf_path: Path, split_dir: Optional[Path] = None,
+             *, engine: str = "fitz") -> int:
     if not pdf_path.exists():
         print(f"❌ 파일이 없습니다: {pdf_path}")
         return 2
 
-    print(f"=== {pdf_path.name} ===")
+    print(f"=== {pdf_path.name} (engine={engine}) ===")
     doc = fitz.open(pdf_path)
     print(f"총 페이지: {doc.page_count}\n")
 
     pages, q_list = analyze_pages(doc)
+
+    if engine == "kordoc":
+        try:
+            pages, q_list, stats = enrich_topics_with_kordoc(pdf_path, pages, q_list)
+            print(f"[kordoc enrich] 토픽 제목 풀텍스트 보강: "
+                  f"{stats['enriched']}건 갱신, {stats.get('unchanged', 0)}건 유지 "
+                  f"(master 교시 {stats.get('master_sessions')})\n")
+        except Exception as e:
+            print(f"⚠️  kordoc enrich 실패 — fitz 결과 그대로 사용: {str(e)[:200]}\n")
 
     # ---- 출력: 페이지 분류 ----
     print("[페이지 분류]")
@@ -539,12 +663,33 @@ def diagnose(pdf_path: Path, split_dir: Optional[Path] = None) -> int:
     return 0 if overall_ok else 1
 
 
+def compare_engines(pdf_path: Path) -> int:
+    """fitz vs kordoc(enriched) q_list 비교."""
+    from kordoc_adapter import print_q_list_diff  # noqa: E402
+    if not pdf_path.exists():
+        print(f"❌ 파일이 없습니다: {pdf_path}")
+        return 2
+    print(f"=== {pdf_path.name} (compare fitz↔kordoc) ===")
+    doc = fitz.open(pdf_path)
+    print(f"총 페이지: {doc.page_count}\n")
+    pages_fitz, q_fitz = analyze_pages(doc)
+    try:
+        _, q_kordoc, _ = enrich_topics_with_kordoc(pdf_path, pages_fitz, list(q_fitz))
+    except Exception as e:
+        print(f"⚠️  kordoc enrich 실패: {str(e)[:200]}")
+        return 1
+    print_q_list_diff(q_fitz, q_kordoc)
+    return 0
+
+
 if __name__ == "__main__":
     args = sys.argv[1:]
     if not args:
         print(__doc__)
         sys.exit(2)
     pdf_arg = Path(args[0])
+    if "--compare" in args:
+        sys.exit(compare_engines(pdf_arg))
     split_arg: Optional[Path] = None
     if "--split" in args:
         i = args.index("--split")
@@ -552,4 +697,14 @@ if __name__ == "__main__":
             print("--split 다음에 출력 디렉터리 경로가 필요합니다.")
             sys.exit(2)
         split_arg = Path(args[i + 1])
-    sys.exit(diagnose(pdf_arg, split_arg))
+    engine_arg = "fitz"
+    if "--engine" in args:
+        i = args.index("--engine")
+        if i + 1 >= len(args):
+            print("--engine 다음에 엔진 이름(fitz|kordoc)이 필요합니다.")
+            sys.exit(2)
+        engine_arg = args[i + 1]
+        if engine_arg not in ("fitz", "kordoc"):
+            print(f"알 수 없는 엔진: {engine_arg!r} (fitz|kordoc 중 선택)")
+            sys.exit(2)
+    sys.exit(diagnose(pdf_arg, split_arg, engine=engine_arg))

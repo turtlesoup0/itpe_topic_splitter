@@ -143,7 +143,25 @@ from datetime import datetime
 import fitz  # PyMuPDF (PDF 분할용)
 from detect_boundaries_v2 import detect_boundaries_v2
 
-# kordoc CLI 경로 (환경변수 또는 로컬 빌드)
+# kordoc CLI 경로 — 자동 탐지 (kordoc_adapter 와 통일)
+# 우선순위: $KORDOC_CLI 환경변수 → 알려진 npx 캐시 경로 → `npx -y kordoc`
+# 자동 탐지 유틸을 별도 모듈로 분리해 split_odl/diagnose_*_mock 가 같은 로직을 쓴다.
+def _resolve_kordoc_subprocess_argv() -> list[str]:
+    """kordoc CLI 의 subprocess 인자 prefix 를 돌려준다.
+
+    예: ['node', '/tmp/kordoc/dist/cli.js']  또는  ['/usr/local/bin/npx', '-y', 'kordoc']
+    """
+    try:
+        from kordoc_adapter import _resolve_kordoc_cli  # noqa: E402
+        argv, _ = _resolve_kordoc_cli()
+        return argv
+    except Exception:
+        # 호환: kordoc_adapter 가 import 안 되는 비상 케이스 (예: 모듈 누락 동안)
+        env_path = os.environ.get("KORDOC_CLI") or "/tmp/kordoc/dist/cli.js"
+        return ["node", env_path]
+
+
+# 후방 호환: 기존 코드가 KORDOC_CLI 문자열을 참조하는 경우를 위해 보존
 KORDOC_CLI = os.environ.get("KORDOC_CLI", "/tmp/kordoc/dist/cli.js")
 
 # ─── Configuration ────────────────────────────────────────────────
@@ -211,8 +229,9 @@ def parse_kordoc(pdf_path: str) -> tuple[list, int]:
     if cached is not None:
         return cached
 
+    cli_argv = _resolve_kordoc_subprocess_argv()
     result = subprocess.run(
-        ["node", KORDOC_CLI, pdf_path, "--format", "json",
+        [*cli_argv, pdf_path, "--format", "json",
          "--no-header-footer", "--silent"],
         capture_output=True, text=True, timeout=60,
     )

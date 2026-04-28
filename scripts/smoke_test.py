@@ -149,27 +149,135 @@ def _run_one(fixture: dict) -> tuple[bool, str]:
     return not problems, detail
 
 
+# ─── 모의고사 결정적 분할 회귀 (LLM 비의존) ─────────────────────────────
+# diagnose_*_mock.py 의 fitz/kordoc 엔진 결과 회귀. LLM 사용 안 함, 빠름.
+# kordoc 엔진은 옵트인이지만 "의도된 known-failure 세트"는 회귀로 락(lock)해
+# 실수로 더 나빠지지 않도록 보호.
+
+FIXTURES_MOCK = [
+    # KPC ─────────────────────────────────────────────
+    {"name": "KPC127 fitz",  "kind": "kpc", "engine": "fitz",
+     "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC127_2512_합.pdf",
+     "expect_pass": True},
+    {"name": "KPC127 kordoc", "kind": "kpc", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC127_2512_합.pdf",
+     "expect_pass": True},
+    {"name": "KPC128 kordoc", "kind": "kpc", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC128_2601_합.pdf",
+     "expect_pass": True},
+    {"name": "KPC129 kordoc (시험지 부재)", "kind": "kpc", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC129_2604_합.pdf",
+     "expect_pass": True},
+    {"name": "KPC125 kordoc (fitz fail 회복)", "kind": "kpc", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC125_2507_합.pdf",
+     "expect_pass": True},
+    # 알려진 kordoc 실패 — 회귀 lock (현재 fail 인 상태가 더 악화되지 않도록 추적)
+    {"name": "KPC124 kordoc (known fail)", "kind": "kpc", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/KPC/모의_KPC124_2506_합.pdf",
+     "expect_pass": False},
+    # ITPE ────────────────────────────────────────────
+    {"name": "ITPE35 fitz",  "kind": "itpe", "engine": "fitz",
+     "path": f"{ICLOUD}/공부/2_모의고사/ITPE/모의_ITPE35-2507_합.pdf",
+     "expect_pass": True},
+    {"name": "ITPE35 kordoc", "kind": "itpe", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/ITPE/모의_ITPE35-2507_합.pdf",
+     "expect_pass": True},
+    {"name": "ITPE27 kordoc (sanity check 검증)", "kind": "itpe", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/ITPE/모의_ITPE27-2406_합.pdf",
+     "expect_pass": True},
+    {"name": "ITPE22 kordoc (enrich 작동)", "kind": "itpe", "engine": "kordoc",
+     "path": f"{ICLOUD}/공부/2_모의고사/ITPE/모의_ITPE22-2310_합.pdf",
+     "expect_pass": True},
+]
+
+
+def _run_mock_one(fixture: dict) -> tuple[bool, str]:
+    """모의고사 진단 회귀 — diagnose_*_mock.diagnose() 호출하고 통과 여부만 본다."""
+    path = fixture["path"]
+    if not os.path.exists(path):
+        return False, f"SKIP (파일 없음): {path}"
+
+    kind = fixture["kind"]
+    engine = fixture["engine"]
+    expect_pass = fixture.get("expect_pass", True)
+
+    # stdout 캡처 — 모의고사 진단 출력은 CLI 친화적으로 100+ 줄 길어짐.
+    import io
+    import contextlib
+    buf = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(buf):
+            if kind == "kpc":
+                from diagnose_kpc_mock import diagnose as kpc_diagnose
+                rc = kpc_diagnose(Path(path), engine=engine)
+            elif kind == "itpe":
+                from diagnose_itpe_mock import diagnose as itpe_diagnose
+                rc = itpe_diagnose(Path(path), engine=engine)
+            else:
+                return False, f"FAIL: 알 수 없는 kind={kind}"
+    except Exception as e:
+        return False, f"FAIL: 예외 {type(e).__name__}: {str(e)[:120]}"
+
+    actually_passed = (rc == 0)
+    matches = (actually_passed == expect_pass)
+
+    if matches:
+        if expect_pass:
+            return True, f"PASS │ {kind}/{engine} 진단 통과 (rc=0)"
+        else:
+            return True, f"PASS-as-known-fail │ {kind}/{engine} (rc={rc}, 의도된 실패 유지)"
+    else:
+        if expect_pass:
+            return False, f"FAIL │ {kind}/{engine} 진단 실패 (rc={rc}, 통과 기대)"
+        else:
+            return False, f"FAIL │ {kind}/{engine} 예상치 못한 통과 (known-fail 가 풀렸으니 expect_pass 갱신 검토)"
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--quick", action="store_true",
                     help="캐시된 PDF만 (OCR skip)")
     ap.add_argument("--json", action="store_true",
                     help="결과를 JSON으로 출력")
+    ap.add_argument("--mock-only", action="store_true",
+                    help="모의고사 진단 회귀만 실행 (LLM 비의존, 빠름)")
+    ap.add_argument("--skip-mock", action="store_true",
+                    help="모의고사 진단 회귀 건너뜀")
     args = ap.parse_args()
 
-    results = []
-    print(f"경계 탐지 회귀 smoke test ({len(FIXTURES)}건)\n")
-    for f in FIXTURES:
-        name = f["name"]
-        ok, detail = _run_one(f)
-        results.append({"name": name, "passed": ok, "detail": detail})
-        print(f"[{name}]")
-        print(f"  {detail}\n")
+    results: list[dict] = []
+
+    if not args.mock_only:
+        print(f"=== LLM 경계 탐지 회귀 ({len(FIXTURES)}건) ===\n")
+        for f in FIXTURES:
+            name = f["name"]
+            ok, detail = _run_one(f)
+            results.append({"name": name, "category": "boundary", "passed": ok, "detail": detail})
+            print(f"[{name}]")
+            print(f"  {detail}\n")
+
+    if not args.skip_mock:
+        print(f"\n=== 모의고사 결정적 분할 회귀 ({len(FIXTURES_MOCK)}건) ===\n")
+        for f in FIXTURES_MOCK:
+            name = f["name"]
+            ok, detail = _run_mock_one(f)
+            results.append({"name": name, "category": "mock", "passed": ok, "detail": detail})
+            print(f"[{name}]")
+            print(f"  {detail}\n")
 
     passed = sum(1 for r in results if r["passed"])
     total = len(results)
     print(f"{'='*60}")
     print(f"합계: {passed}/{total} 통과")
+    if args.mock_only or args.skip_mock:
+        cats = {}
+        for r in results:
+            cats.setdefault(r["category"], [0, 0])
+            cats[r["category"]][1] += 1
+            if r["passed"]:
+                cats[r["category"]][0] += 1
+        for c, (p, t) in cats.items():
+            print(f"  └─ {c}: {p}/{t}")
 
     if args.json:
         print(json.dumps(results, ensure_ascii=False, indent=2))
