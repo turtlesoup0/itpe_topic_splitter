@@ -622,6 +622,222 @@ def merge_itpe_masters(masters: list[dict[str, dict[int, str]]]) -> dict[str, di
     return merged
 
 
+# ─── master anchor matching (PR 5) ─────────────────────────────────
+# 문제: 시험지 master 순서와 해설 페이지 등장 순서가 어긋난 회차에서
+#       단조 q_num 매핑(last+1)을 쓰면 토픽이 한 칸씩 밀려 잘못 매핑됨.
+#       (예: KPC120 1교시 - 해설집이 master Q11/AGI 를 빼고 Q12/스펙트럼부터 시작)
+# 해결: 페이지 본문에 master[q] 토픽의 anchor 키워드가 등장하면 그 q 사용.
+
+# 토픽에서 anchor 추출 시 무시할 도입어
+_TOPIC_LEAD_RE = re.compile(
+    r"^(?:최근\s+|최신\s+|국내?\s*(?:외)?\s*|정부는?\s+|디지털\s+전환?에?\s+|"
+    r"\d+\s*년\s*\d*월?\s*[,]?\s*|\“|\")"
+)
+
+
+# 너무 흔해서 다른 토픽과 충돌하는 토큰들 — anchor 후보에서 제외
+_GENERIC_ANCHOR_TOKENS = {
+    "AI", "IT", "ICT", "DX", "AI-",
+    "인공지능", "데이터", "기술", "시스템", "정보", "보안", "관리",
+    "디지털", "서비스", "프로젝트", "소프트웨어", "네트워크", "플랫폼",
+    "최근 ", "최신 ", "다음에", "이에 ", "관련하여", "대하여",
+}
+
+
+def _topic_anchor_tokens(topic: str) -> list[str]:
+    """master 토픽에서 본문 매칭에 쓸 후보 anchor 토큰들을 추출.
+
+    우선순위:
+        1) 영문 약어 + 한글 정의 ("AI-RAN", "PWA", "HBM" 등)
+        2) 첫 명사구 (도입어 제거 후 6자 이상으로 강화)
+        3) 괄호 안 영문 정의 ("(Domain-Specific Language Models)")
+
+    generic 토큰("인공지능", "AI" 등)은 제외 — 다른 토픽과 충돌.
+    """
+    if not topic:
+        return []
+    s = topic.strip()
+    out: list[str] = []
+
+    # 1) 영문 대문자 약어 (3-7자, 하이픈 허용)
+    for m in re.finditer(r"\b([A-Z][A-Z0-9\-]{2,7})\b", s):
+        token = m.group(1)
+        if token in _GENERIC_ANCHOR_TOKENS:
+            continue
+        out.append(token)
+
+    # 2) 도입어 제거 후 첫 한글 명사구 (6자+ 로 강화 — 짧은 generic 토큰 회피)
+    cleaned = _TOPIC_LEAD_RE.sub("", s).lstrip()
+    m = re.match(r"^([가-힣]{2,}(?:\s*[A-Za-z0-9가-힣\-]+){1,4})", cleaned)
+    if m:
+        token = m.group(1).strip()
+        token = re.sub(r"(?:이|가|는|은|을|를|의|에|로|와|과|도)\s*$", "", token).strip()
+        if len(token) >= 6 and token not in _GENERIC_ANCHOR_TOKENS:
+            out.append(token)
+
+    # 3) 괄호 안 영문 정의
+    for m in re.finditer(r"\(([A-Za-z][A-Za-z\s\-]{6,40})\)", s):
+        token = m.group(1).strip()
+        if token not in _GENERIC_ANCHOR_TOKENS:
+            out.append(token)
+
+    seen = set()
+    uniq = []
+    for t in out:
+        if t not in seen and len(t) >= 4:
+            seen.add(t)
+            uniq.append(t)
+    uniq.sort(key=len, reverse=True)
+    return uniq
+
+
+def kpc_match_q_by_master(
+    page_blocks: list[Block], master: dict[int, str],
+    *, head_block_count: int = 10,
+) -> tuple[Optional[int], Optional[str]]:
+    """페이지 본문이 master 어떤 토픽과 매칭되는지 (q_num, matched_anchor) 반환.
+
+    매칭 정책:
+        - 본문 첫 head_block_count 블록의 텍스트를 모아 검색 영역 구축
+        - master 의 각 (q, topic) 마다 anchor 토큰 추출
+        - 본문 검색 영역에 anchor 가 등장하면 후보 (q, anchor 길이, 등장 위치)
+        - 더 긴 anchor 우선, 같은 길이면 더 앞 위치 우선
+
+    Returns:
+        (q_num, anchor) 또는 매칭 실패 시 (None, None)
+    """
+    if not master:
+        return None, None
+    body = filter_body_blocks(page_blocks)
+    head_text = " ".join(block_text(b) for b in body[:head_block_count])
+    if not head_text:
+        return None, None
+
+    candidates: list[tuple[int, int, int, str]] = []  # (q, anchor_len, position, anchor)
+    for q, topic in master.items():
+        for anchor in _topic_anchor_tokens(topic):
+            pos = head_text.find(anchor)
+            if pos >= 0:
+                candidates.append((q, len(anchor), pos, anchor))
+                break  # 같은 q 에서 첫 매칭 anchor 만
+    if not candidates:
+        return None, None
+    # 더 긴 anchor 우선, 같은 길이면 더 앞 위치
+    candidates.sort(key=lambda x: (-x[1], x[2]))
+    q, _, _, anchor = candidates[0]
+    return q, anchor
+
+
+# ─── 파일명용 토픽 축약 헬퍼 (PR 5) ─────────────────────────────────
+# 현재 분할 PDF 파일명에 토픽 풀텍스트가 그대로 박혀 가독성이 떨어짐.
+# KPC 서술형은 "최근 X 에 대하여 다음을 설명하시오. 가. ~ 나. ~ 다. ~" 형태로 60-200자 길이.
+# 핵심 키워드 + 영문 약어 위주로 축약해 파일 목록에서 한눈에 식별 가능하게 만든다.
+# 메타데이터 title 은 풀텍스트를 그대로 유지(검색성).
+
+# "가. <부주제>" 추출 — 서술형 sub-prompt (KPC 모의고사 핵심 의미 단위)
+_TOPIC_SUB_RE = re.compile(r"[가나다라마]\.\s*([^가-힣]?[^.\n]{2,50}?)(?=\s*[가나다라마]\.|\s*$)")
+# 도입절 패턴 — "최근/최신/X은 ... 기술이다. 다음을 설명하시오." 형태
+_TOPIC_PREAMBLE_RE = re.compile(
+    r"^(?:최근\s*|최신\s*|국내?\s*외?\s*|정부\s*는?\s+)?"
+    r".*?(?:이?다\.|\.\s*다음에?)\s*"
+)
+# 영문 약어/대문자 토큰 (3-12자, 하이픈 허용)
+_ABBR_RE = re.compile(r"\b([A-Z][A-Za-z0-9\-]{2,11})\b")
+
+
+def _trim_sub_topic(t: str) -> str:
+    """부주제(가./나./다.) 텍스트를 18자 내외로 정리."""
+    s = t.strip().rstrip(" ,.").strip()
+    # "X 의 개념 및 ..." → "X" / "X 와 Y 비교" → 그대로
+    # 18자 초과면 첫 명사구로
+    if len(s) <= 22:
+        return s
+    # 첫 마침표/쉼표/괄호 전까지
+    for sep in [", ", " 및 ", "(", " ㆍ "]:
+        idx = s.find(sep)
+        if 4 < idx < 22:
+            return s[:idx].strip()
+    return s[:22].rstrip(" ,.")
+
+
+def short_topic_label(title: str, max_len: int = 60) -> str:
+    """토픽을 파일명에 적합한 짧은 라벨로 의미 축약.
+
+    KPC 서술형 패턴: "최근 X 에 대하여 다음을 설명하시오. 가. ~ 나. ~ 다. ~"
+    핵심 의미 = X (주 키워드) + 가/나/다 부주제들 → 이걸 추출해 간결화.
+
+    우선순위:
+        1) 짧으면(≤max_len) 그대로
+        2) 부주제(가./나./다.) 가 있고 그 합산이 짧으면 부주제 위주로 압축
+           (선택: 영문 약어가 첫 부분에 있으면 prefix)
+        3) 부주제 부재면 "에 대하여 다음을 설명" 정형 절단 후 첫 명사구
+        4) fallback: 첫 max_len 자
+    """
+    if not title:
+        return ""
+    s = re.sub(r"\s+", " ", title.strip())
+    if len(s) <= max_len:
+        return s
+
+    # ── 1) 부주제 추출 ──
+    sub_raw = _TOPIC_SUB_RE.findall(s)
+    sub_topics = [_trim_sub_topic(t) for t in sub_raw if len(t.strip()) >= 2]
+    sub_topics = [t for t in sub_topics if t]
+
+    # ── 2) 영문 약어 (제목 앞부분에 있는 것) ──
+    # 첫 60자 안의 영문 약어를 우선 (긴 도입절 안의 우연한 약어 회피)
+    head_60 = s[:60]
+    abbr_candidates = [m.group(1) for m in _ABBR_RE.finditer(head_60)
+                        if m.group(1).upper() not in
+                        {"AI", "IT", "ICT", "DX", "AND", "FOR", "PDF", "API"}]
+    main_abbr = abbr_candidates[0] if abbr_candidates else ""
+
+    # ── 3) 부주제 위주 합성 ──
+    if sub_topics:
+        joined = " · ".join(sub_topics[:3])
+        if len(joined) > max_len - 5:
+            joined = " · ".join(sub_topics[:2])
+        if main_abbr and main_abbr not in joined:
+            cand = f"{main_abbr}: {joined}"
+        else:
+            cand = joined
+        if len(cand) <= max_len:
+            return cand
+        # 너무 길면 첫 부주제만
+        if len(sub_topics[0]) <= max_len - 4 and main_abbr:
+            return f"{main_abbr}: {sub_topics[0]}"
+        return sub_topics[0][:max_len]
+
+    # ── 4) 부주제 부재: 도입절 제거 + 첫 명사구 ──
+    body = s
+    # "X 에 대하여 다음을 설명하시오" 종결 패턴 직전까지
+    m = re.search(
+        r"(?:에\s*대[하해](?:여|서)?\s*)?다음에?\s*(?:대[하해](?:여|서)?\s*)?"
+        r"(?:설명|답|기술)하?(?:시오|십시오)?",
+        body,
+    )
+    if m and m.start() > 3:
+        body = body[:m.start()].rstrip(" ,.").strip()
+
+    # 도입절 "X 은 ... 기술이다." 제거 후 마지막 명사구 살리기
+    if "이다." in body[:max_len + 30]:
+        idx = body.rfind("이다.", 0, max_len + 30)
+        if idx > 10:
+            after = body[idx + 3:].strip()
+            if 4 <= len(after) <= max_len:
+                body = after
+
+    body = re.sub(r"\s*에\s*대[하해](?:여|서)?\s*$", "", body).strip()
+    body = re.sub(r"\s*은|는|을|를|이|가\s*$", "", body).strip()
+
+    if main_abbr and main_abbr not in body[:30]:
+        body = f"{main_abbr}: {body}"
+
+    if len(body) > max_len:
+        body = body[:max_len].rstrip()
+    return body or s[:max_len]
+
+
 # ─── 엔진 비교 출력 헬퍼 (--compare 모드 공통) ────────────────────────
 
 def print_q_list_diff(

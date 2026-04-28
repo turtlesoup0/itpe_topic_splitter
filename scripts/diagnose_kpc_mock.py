@@ -274,6 +274,9 @@ def analyze_pages_kordoc(pdf_path: Path) -> tuple[list, list, int]:
         parse_kordoc_pages,
         kpc_classify_page,
         extract_kpc_session_paper_topics,
+        kpc_match_q_by_master,
+        filter_body_blocks,
+        block_text,
     )
 
     pages_blocks, total_pages = parse_kordoc_pages(str(pdf_path), verbose=True)
@@ -350,6 +353,18 @@ def analyze_pages_kordoc(pdf_path: Path) -> tuple[list, list, int]:
     current_session: Optional[int] = None
     last_q_num: Optional[int] = None
     just_saw_session_paper = False
+    used_qnums_per_session: dict[int, set] = {}  # 교시별 이미 매핑된 q_num
+
+    def _safe_anchor_q(m_q: Optional[int], last: Optional[int],
+                       used: set) -> Optional[int]:
+        """anchor 매칭 결과가 단조성을 위반하거나 이미 사용됐으면 무시."""
+        if m_q is None:
+            return None
+        if last is not None and m_q <= last:
+            return None  # 단조성 위반
+        if m_q in used:
+            return None  # 같은 교시 중복
+        return m_q
 
     for i in range(total_pages):
         kind, meta = raw_kinds[i]
@@ -383,12 +398,24 @@ def analyze_pages_kordoc(pdf_path: Path) -> tuple[list, list, int]:
             m_dict = (masters_by_session[current_session - 1]
                       if 0 <= current_session - 1 < len(masters_by_session) else {})
 
-            # star_only: 토픽 제목 없음 → last_q_num + 1 로 단조 증가 가정 후 master 매핑
+            sess_used = used_qnums_per_session.setdefault(current_session, set())
+
+            # star_only: q_num 은 단조 매핑(last+1)으로 유지 — 자기검증/연속성 회귀 0.
+            # 토픽 제목은 페이지 본문 anchor 매칭이 있으면 그 토픽으로 보정해
+            # 가독성을 높임 (q_num 과 토픽이 다를 수 있어도 사용자가 본문으로 식별 가능).
             if signal == "star_only":
                 expected_q = (last_q_num or 0) + 1
                 q_num = expected_q
                 q_topic = m_dict.get(expected_q, "")
-            # topic_list: master-list 가 더 풍부하면 채택 (continuation 누락 보정)
+                # 토픽 보정: anchor 매칭 결과의 master 토픽이 본문에 더 적합하면 사용
+                m_q_raw, _anchor = kpc_match_q_by_master(
+                    pages_blocks.get(i + 1, []), m_dict)
+                if m_q_raw is not None and m_q_raw != expected_q:
+                    anchor_topic = m_dict.get(m_q_raw, "")
+                    if anchor_topic and len(anchor_topic) > 5:
+                        q_topic = anchor_topic
+            # topic_list: q_num 자체는 PDF 본문에서 직접 뽑은 값이므로 신뢰.
+            # master_title 이 더 풍부하면 토픽만 보강 (q_num 변경 안 함).
             elif signal == "topic_list" and q_num is not None:
                 master_title = m_dict.get(q_num, "")
                 if len(master_title) > len(q_topic) + 4:
@@ -396,6 +423,7 @@ def analyze_pages_kordoc(pdf_path: Path) -> tuple[list, list, int]:
 
             if q_num is not None:
                 last_q_num = q_num
+                sess_used.add(q_num)
             just_saw_session_paper = False
 
             info = PageInfo(
@@ -469,11 +497,16 @@ def write_split_pdfs(
     round_id: str,
     out_dir: Path,
 ) -> int:
+    """분할 PDF 작성. 파일명은 토픽을 짧은 라벨로 축약하고
+    PDF 메타데이터의 title 에는 풀텍스트 토픽을 보존."""
+    from kordoc_adapter import short_topic_label  # noqa: E402
     out_dir.mkdir(parents=True, exist_ok=True)
     written = 0
     name_seen: dict[str, int] = {}
     for sess, num, topic, ps, pe in q_list:
-        topic_safe = sanitize_filename(topic) if topic else f"Q{num:02d}"
+        # 파일명용 짧은 라벨 (60자 제한, 첫 명사구/약어 위주)
+        label = short_topic_label(topic, max_len=60) if topic else f"Q{num:02d}"
+        topic_safe = sanitize_filename(label) if label else f"Q{num:02d}"
         base = f"{round_id}_M{sess}_Q{num:02d}_{topic_safe}"
         if base in name_seen:
             name_seen[base] += 1

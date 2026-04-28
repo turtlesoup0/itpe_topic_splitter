@@ -213,11 +213,22 @@ def write_split_pdfs(
     cat_by_pidx = {p.page_idx: (p.q_category or "") for p in pages if p.kind in ("Q_START", "Q_START_PARTIAL")}
     topic_by_pidx = {p.page_idx: (p.q_topic or "") for p in pages if p.kind in ("Q_START", "Q_START_PARTIAL")}
 
+    from kordoc_adapter import short_topic_label  # noqa: E402
     for sess, num, _topic, ps, pe in q_list:
         cat = cat_by_pidx.get(ps, "")
         topic_full = topic_by_pidx.get(ps, "")
-        # 카테고리가 짧고 의미 있을 때 우선 사용. 비어있거나 너무 길면 토픽 첫 30자.
-        label = cat if cat and len(cat) <= 60 else (topic_full[:60] if topic_full else f"Q{num:02d}")
+        # 우선순위 (파일명 가독성):
+        #   1) cat (시험지 카테고리 — 가장 짧고 식별성 ↑)
+        #   2) short_topic_label(_topic) — kordoc enriched 토픽의 축약본
+        #   3) short_topic_label(topic_full) — fitz 토픽의 축약본
+        if cat and 4 <= len(cat) <= 60:
+            label = cat
+        elif _topic:
+            label = short_topic_label(_topic, max_len=60)
+        elif topic_full:
+            label = short_topic_label(topic_full, max_len=60)
+        else:
+            label = f"Q{num:02d}"
         label_safe = sanitize_filename(label, max_len=70)
         base = f"{round_id}_M{sess}_Q{num:02d}_{label_safe}"
         if base in name_seen:
