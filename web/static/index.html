@@ -216,9 +216,9 @@ function renderTopics(topics) {
     topicsBody.appendChild(tr);
   });
   topicsToggle.style.display = 'block';
-  topicsWrap.style.display = 'none';  // 처음엔 접힘
-  topicsToggle.classList.remove('open');
-  topicsToggle.textContent = `토픽 매핑 표 보기 (${topics.length}건)`;
+  topicsWrap.style.display = 'block';  // 상시 펼침
+  topicsToggle.classList.add('open');
+  topicsToggle.textContent = `토픽 매핑 표 접기 (${topics.length}건)`;
 }
 
 function escapeHtml(s) {
