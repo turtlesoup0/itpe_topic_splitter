@@ -57,24 +57,49 @@ class PageInfo:
     notes: list[str] = field(default_factory=list)
 
 
+_HEADER_FRAGMENT_LINES = {
+    "kpc", "ICT의", "가치를", "이끄는", "사람", "한국생산성본부",
+    "사람들", "사람들!!",  # 일부 회차 변형
+}
+
+
 def strip_header(lines: list[str]) -> list[str]:
-    """KPC 매 페이지 상단 4줄 헤더 제거. 변형(공백/구두점)을 너그럽게 허용."""
+    """KPC 페이지 상단 헤더 제거. 회차마다 라인 구성이 다름:
+    - 표준: brand / NN회 / 'ICT의 가치를 이끄는' / 'KPC 기술사 IMPACT...'
+    - 어절 분리: 'kpc' / 'ICT의' / '가치를' / '이끄는' / '사람' / '한국생산성본부'
+    - 시험지: 'kpc' / 'ICT의' / ... / '1' (페이지번호)
+    실제 본문 라인('문', 'N. 토픽', '제', 또는 4글자+ 일반 텍스트) 직전까지 너그럽게 제거.
+    """
     cleaned = [ln.strip() for ln in lines if ln.strip()]
     if not cleaned:
         return []
     out_start = 0
-    # 1. 브랜드 라인 (보통 라인 0)
-    if out_start < len(cleaned) and HEADER_BRAND_RE.search(cleaned[out_start]):
-        out_start += 1
-    # 2. 'NN 회' 라인
-    if out_start < len(cleaned) and HEADER_ROUND_RE.match(cleaned[out_start]):
-        out_start += 1
-    # 3. 'ICT의 가치를 이끄는 (사람)' 라인
-    if out_start < len(cleaned) and HEADER_SUB_RE.search(cleaned[out_start]):
-        out_start += 1
-    # 4. 'KPC 기술사 IMPACT 실전모의고사' 라인
-    if out_start < len(cleaned) and HEADER_PUB_RE.search(cleaned[out_start]):
-        out_start += 1
+    # 첫 라인이 헤더 후보일 때만 헤더 처리 (그 외엔 본문)
+    head_first = cleaned[0]
+    is_header_start = (
+        HEADER_BRAND_RE.search(head_first)
+        or HEADER_PUB_RE.search(head_first)
+        or HEADER_ROUND_RE.match(head_first)
+        or HEADER_SUB_RE.search(head_first)
+        or head_first in _HEADER_FRAGMENT_LINES
+    )
+    if not is_header_start:
+        return cleaned
+
+    # 본문 시작 신호가 보일 때까지 헤더 라인 흡수 (최대 12라인)
+    while out_start < min(len(cleaned), 12):
+        ln = cleaned[out_start]
+        if (
+            HEADER_BRAND_RE.search(ln)
+            or HEADER_PUB_RE.search(ln)
+            or HEADER_ROUND_RE.match(ln)
+            or HEADER_SUB_RE.search(ln)
+            or ln in _HEADER_FRAGMENT_LINES
+            or (ln.isdigit() and len(ln) <= 4)  # 페이지 번호
+        ):
+            out_start += 1
+            continue
+        break
     return cleaned[out_start:]
 
 
