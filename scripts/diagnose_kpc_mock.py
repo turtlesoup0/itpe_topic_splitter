@@ -277,6 +277,7 @@ def analyze_pages_kordoc(pdf_path: Path) -> tuple[list, list, int]:
         kpc_match_q_by_master,
         filter_body_blocks,
         block_text,
+        extract_topic_from_body_opener,
     )
 
     pages_blocks, total_pages = parse_kordoc_pages(str(pdf_path), verbose=True)
@@ -420,6 +421,13 @@ def analyze_pages_kordoc(pdf_path: Path) -> tuple[list, list, int]:
                 master_title = m_dict.get(q_num, "")
                 if len(master_title) > len(q_topic) + 4:
                     q_topic = master_title
+
+            # 시험지 부재 회차 등으로 q_topic 이 여전히 비었으면 본문 fs≈11 "1. ..." 에서 추출
+            if not q_topic:
+                body_opener = extract_topic_from_body_opener(
+                    pages_blocks.get(i + 1, []))
+                if body_opener:
+                    q_topic = body_opener
 
             if q_num is not None:
                 last_q_num = q_num

@@ -485,6 +485,43 @@ def kpc_classify_page(page_blocks: list[Block]) -> tuple[str, dict]:
     return "Q_BODY", {}
 
 
+def extract_topic_from_body_opener(page_blocks: list[Block]) -> str:
+    """KPC 해설 페이지 본문 첫 fs≈11 list "1. <text>" 에서 토픽 제목 후보 추출.
+
+    KPC 해설 정형 구조:
+        ★★★☆☆ (별점)
+        <키워드 라인 paragraph fs=10>
+        <키워드 라인>
+        list fs=11: "1. <첫 부주제 — 개요/정의/개념>"   ← 이 라인이 토픽의 의미 핵심
+        list fs=10: "- ..."
+        ...
+
+    시험지 부재 회차(KPC129 등)에서 master 매핑 없이 토픽 제목을 본문에서 직접 복원.
+
+    Returns:
+        부주제 1번 텍스트 (예: "도메인 특화 모델, DSLM 의 정의") 또는 빈 문자열.
+    """
+    body = filter_body_blocks(page_blocks)
+    for b in body[:10]:
+        if b.get("type") not in ("list", "paragraph"):
+            continue
+        fs = b.get("font_size") or 0
+        if not (10.5 <= fs <= 12.0):
+            continue
+        text = block_text(b)
+        m = re.match(r"^1\.\s+(.+)$", text)
+        if not m:
+            continue
+        t = m.group(1).strip()
+        if len(t) < 3:
+            continue
+        # 너무 일반적인 도입절 제외 ("개요", "정의" 단독)
+        if t in ("개요", "정의", "개념"):
+            continue
+        return t
+    return ""
+
+
 def extract_kpc_session_paper_topics(page_blocks: list[Block]) -> list[tuple[int, str]]:
     """SESSION_PAPER 페이지에서 토픽 마스터 목록 (q_num, title) 추출.
 
