@@ -317,6 +317,17 @@ def split_itpe_mock(pdf_path: Path, out_dir: Path) -> dict:
             files.append({"path": str(p), "filename": p.name})
 
     summary = f"{round_id}: {nq}문제 + {ne}시험지 = {len(files)}건"
+    topics = [
+        {
+            "session": sess,
+            "num": num,
+            "title": topic,
+            "page_start": ps + 1,
+            "page_end": pe + 1,
+            "pages": pe - ps + 1,
+        }
+        for sess, num, topic, ps, pe in q_list
+    ]
     doc.close()
     return {
         "ok": True,
@@ -324,6 +335,7 @@ def split_itpe_mock(pdf_path: Path, out_dir: Path) -> dict:
         "files": files,
         "warnings": warnings,
         "summary": summary,
+        "topics": topics,
     }
 
 

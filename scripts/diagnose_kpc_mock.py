@@ -337,6 +337,17 @@ def split_kpc_mock(pdf_path: Path, out_dir: Path) -> dict:
         f"M{s}={sum(1 for ss, *_ in q_list if ss == s)}" for s in [1, 2, 3, 4]
     )
     summary = f"{round_id}: {len(files)}건 ({counts_per_session})"
+    topics = [
+        {
+            "session": sess,
+            "num": num,
+            "title": topic,
+            "page_start": ps + 1,  # 1-indexed
+            "page_end": pe + 1,
+            "pages": pe - ps + 1,
+        }
+        for sess, num, topic, ps, pe in q_list
+    ]
     doc.close()
     return {
         "ok": True,
@@ -344,6 +355,7 @@ def split_kpc_mock(pdf_path: Path, out_dir: Path) -> dict:
         "files": files,
         "warnings": warnings,
         "summary": summary,
+        "topics": topics,
     }
 
 

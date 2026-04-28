@@ -311,6 +311,7 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
                     "warnings": mock_result["warnings"][:5],
                     "quality_report": "\n".join(qr_lines),
                     "zip_name": zip_name,
+                    "topics": mock_result.get("topics", []),
                     "finished_at": time.time(),
                 })
                 _db_upsert_locked(job_id)
@@ -438,6 +439,19 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
 
         zip_name = f"{safe_filename(base_name, 40)}_split.zip"
 
+        # boundaries → topics 매핑 (v2 분기 공통)
+        v2_topics = [
+            {
+                "session": b.get("session", 0),
+                "num": b.get("num", 0),
+                "title": b.get("title", ""),
+                "page_start": b.get("page_start", 0),
+                "page_end": b.get("page_end", 0),
+                "pages": (b.get("page_end", 0) - b.get("page_start", 0) + 1)
+                if b.get("page_end") and b.get("page_start") else 0,
+            }
+            for b in boundaries
+        ]
         with _jobs_lock:
             _jobs[job_id].update({
                 "status": "done",
@@ -448,6 +462,7 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str):
                 "warnings": warnings[:5],
                 "quality_report": quality_report,
                 "zip_name": zip_name,
+                "topics": v2_topics,
                 "finished_at": time.time(),
             })
             _db_upsert_locked(job_id)
@@ -557,6 +572,7 @@ async def api_status(request: Request, job_id: str):
         resp["total_pages"] = job["total_pages"]
         resp["warnings"] = "; ".join(job.get("warnings", []))
         resp["quality_report"] = job.get("quality_report", "")
+        resp["topics"] = job.get("topics", [])
     elif job["status"] == "error":
         resp["error"] = job.get("error", "알 수 없는 오류")
 
