@@ -57,50 +57,39 @@ class PageInfo:
     notes: list[str] = field(default_factory=list)
 
 
-_HEADER_FRAGMENT_LINES = {
-    "kpc", "ICT의", "가치를", "이끄는", "사람", "한국생산성본부",
-    "사람들", "사람들!!",  # 일부 회차 변형
-}
-
-
 def strip_header(lines: list[str]) -> list[str]:
-    """KPC 페이지 상단 헤더 제거. 회차마다 라인 구성이 다름:
-    - 표준: brand / NN회 / 'ICT의 가치를 이끄는' / 'KPC 기술사 IMPACT...'
-    - 어절 분리: 'kpc' / 'ICT의' / '가치를' / '이끄는' / '사람' / '한국생산성본부'
-    - 시험지: 'kpc' / 'ICT의' / ... / '1' (페이지번호)
-    실제 본문 라인('문', 'N. 토픽', '제', 또는 4글자+ 일반 텍스트) 직전까지 너그럽게 제거.
+    """KPC 페이지 상단 헤더 제거 — **슬로건 무관** 본문 앵커 기반.
+
+    이전엔 'ICT의 가치를 이끄는 사람' 같은 KPC 슬로건에 의존했으나, 슬로건은
+    학원이 언제든 바꿀 수 있어 지속 가능한 신호가 아님. 따라서 본문 시작 앵커
+    (시험 형식상 안정적인 토큰)를 찾아 그 직전까지를 헤더로 간주해 모두 제거.
+
+    본문 시작 앵커 (어느 회차에서도 안정):
+      - '문' 단독 라인 (변형 A 시작)
+      - '문 제' 단일 라인 (변형 B 시작)
+      - 'N. 토픽' 또는 'N.' 단독 (해설 본문 sub-section)
+      - '제 N 교시 (시험시간' (시험지 페이지 표지)
+      - '[관리선택]' / '[응용선택]' (시험지 안내)
+      - 'Copyright ⓒ ... Korea Productivity Center' (빈 페이지)
     """
     cleaned = [ln.strip() for ln in lines if ln.strip()]
     if not cleaned:
         return []
-    out_start = 0
-    # 첫 라인이 헤더 후보일 때만 헤더 처리 (그 외엔 본문)
-    head_first = cleaned[0]
-    is_header_start = (
-        HEADER_BRAND_RE.search(head_first)
-        or HEADER_PUB_RE.search(head_first)
-        or HEADER_ROUND_RE.match(head_first)
-        or HEADER_SUB_RE.search(head_first)
-        or head_first in _HEADER_FRAGMENT_LINES
-    )
-    if not is_header_start:
-        return cleaned
-
-    # 본문 시작 신호가 보일 때까지 헤더 라인 흡수 (최대 12라인)
-    while out_start < min(len(cleaned), 12):
-        ln = cleaned[out_start]
+    body_start = 0
+    for i in range(min(len(cleaned), 16)):
+        ln = cleaned[i]
         if (
-            HEADER_BRAND_RE.search(ln)
-            or HEADER_PUB_RE.search(ln)
-            or HEADER_ROUND_RE.match(ln)
-            or HEADER_SUB_RE.search(ln)
-            or ln in _HEADER_FRAGMENT_LINES
-            or (ln.isdigit() and len(ln) <= 4)  # 페이지 번호
+            ln == PROBLEM_ANCHOR
+            or PROBLEM_ANCHOR_INLINE_RE.match(ln)
+            or QNUM_TOPIC_RE.match(ln)
+            or _QNUM_ONLY_RE.match(ln)
+            or SESSION_PAPER_RE.search(ln)
+            or KPC_SELECT_RE.search(ln)
+            or COPYRIGHT_LINE_RE.search(ln)
         ):
-            out_start += 1
-            continue
-        break
-    return cleaned[out_start:]
+            body_start = i
+            break
+    return cleaned[body_start:]
 
 
 _TOPIC_END_PREFIXES = ("출", "난", "키", "참")
@@ -332,10 +321,10 @@ def is_kpc_mock_pdf(pdf_path: Path) -> bool:
         return True
     try:
         doc = fitz.open(pdf_path)
-        # 1페이지 헤더가 단어 단위 분리된 변형 PDF가 있어 첫 5p 까지 검사
+        # 슬로건 의존 없이 안정적인 시험 브랜드/저작권 토큰만으로 판정
         for i in range(min(doc.page_count, 5)):
             text = doc.load_page(i).get_text()
-            if HEADER_BRAND_RE.search(text) and HEADER_PUB_RE.search(text):
+            if HEADER_PUB_RE.search(text) or COPYRIGHT_LINE_RE.search(text):
                 doc.close()
                 return True
         doc.close()
