@@ -307,8 +307,8 @@ splitBtn.addEventListener('click', async () => {
   try {
     // 1) 업로드 → job_id 수신 (모의고사 엔진 옵트인 query)
     const useKordoc = document.getElementById('kordocEngine')?.checked;
-    const url = useKordoc ? '/api/split?mock_engine=kordoc' : '/api/split';
-    const uploadResp = await fetch(url, { method: 'POST', body: form });
+    const uploadUrl = useKordoc ? '/api/split?mock_engine=kordoc' : '/api/split';
+    const uploadResp = await fetch(uploadUrl, { method: 'POST', body: form });
     if (!uploadResp.ok) {
       const err = await uploadResp.json().catch(() => ({ detail: uploadResp.statusText }));
       throw new Error(err.detail || '업로드 실패');
