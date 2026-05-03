@@ -29,6 +29,8 @@
   .dropzone:hover, .dropzone.dragover {
     border-color: var(--accent); background: rgba(59,130,246,0.05);
   }
+  /* 자식 요소가 드래그 이벤트를 가로채지 않도록 — dropzone 하나가 모든 이벤트 받도록 */
+  .dropzone > * { pointer-events: none; }
   .dropzone-icon { font-size: 2.5rem; margin-bottom: 12px; }
   .dropzone-text { color: var(--muted); font-size: 0.9rem; }
   .dropzone-text strong { color: var(--accent); }
