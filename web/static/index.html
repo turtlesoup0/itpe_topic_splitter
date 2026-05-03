@@ -123,8 +123,8 @@
     <div class="dropzone-icon">&#128196;</div>
     <div class="dropzone-text"><strong>클릭</strong> 또는 파일을 여기에 드래그</div>
     <div class="dropzone-hint">PDF 파일 (최대 50MB)</div>
-    <input type="file" id="fileInput" accept=".pdf" hidden>
   </div>
+  <input type="file" id="fileInput" accept=".pdf" hidden>
 
   <div class="file-info" id="fileInfo">
     <div>
@@ -246,10 +246,15 @@ topicsToggle.addEventListener('click', () => {
 let selectedFile = null;
 
 // --- Drag & Drop ---
+console.log('[splitter] drop-fix v4 loaded');
+
 // 페이지 어디에 떨어져도 브라우저가 PDF를 열어버리지 않도록 전역 차단
-// (dropzone 위가 아니어도 이벤트가 window 까지 올라가면 기본 동작 발동)
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
-  window.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); });
+  window.addEventListener(ev, e => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (ev === 'drop') console.log('[splitter] window drop captured', e.target);
+  });
 });
 
 dropzone.addEventListener('click', () => fileInput.click());
@@ -258,8 +263,10 @@ dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover
 dropzone.addEventListener('drop', e => {
   e.preventDefault();
   dropzone.classList.remove('dragover');
-  const f = e.dataTransfer.files[0];
+  const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  console.log('[splitter] dropzone drop', f && f.name, f && f.type);
   if (f && f.name.toLowerCase().endsWith('.pdf')) selectFile(f);
+  else console.warn('[splitter] dropped file rejected (not .pdf)', f);
 });
 fileInput.addEventListener('change', () => {
   if (fileInput.files[0]) selectFile(fileInput.files[0]);
