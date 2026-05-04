@@ -3,7 +3,7 @@ fastapi==0.115.*
 uvicorn[standard]==0.34.*
 python-multipart==0.0.*
 PyMuPDF==1.25.*
-anthropic==0.52.*
+anthropic==0.98.*
 slowapi==0.1.*
 
 # 선택 의존성 (LLM_PROVIDER=mlx 사용 시)
