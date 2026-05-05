@@ -296,6 +296,17 @@ def cluster_into_candidates(
             seen_types.add(s.type)
             w = SIGNAL_WEIGHT.get(s.type, 0.1)
             cand.add(w, s.type, num=s.num, session=s.session)
+
+        # 동기회 패턴 AND 보너스: session + (qnum_bun OR qnum_only) + roman
+        # 세 신호 동시 등장 = 강한 토픽 시작 (회별 가변 무관)
+        if (
+            "session" in seen_types
+            and ("qnum_bun" in seen_types or "qnum_only" in seen_types)
+            and "roman" in seen_types
+        ):
+            cand.score += 1.0  # 보너스
+            cand.signals.append("dgh_pattern")
+
         if cand.score < TOPIC_START_THRESHOLD:
             continue
 
