@@ -158,7 +158,7 @@
     <div class="topics-wrap" id="topicsWrap" style="display:none">
       <table class="topics-table">
         <thead>
-          <tr><th>#</th><th>교시</th><th>번호</th><th>제목</th><th>페이지</th></tr>
+          <tr><th>#</th><th>교시</th><th>번호</th><th>제목</th><th>페이지 (A)</th><th>B (PTS)</th></tr>
         </thead>
         <tbody id="topicsBody"></tbody>
       </table>
@@ -200,13 +200,20 @@ function pageWarnClass(session, pages) {
   return '';
 }
 
-function renderTopics(topics) {
+function renderTopics(topics, topicsB) {
   if (!topics || topics.length === 0) {
     topicsToggle.style.display = 'none';
     topicsWrap.style.display = 'none';
     return;
   }
   topicsBody.innerHTML = '';
+
+  // B 인덱스: (session, num) → topicB 매핑
+  const bMap = new Map();
+  (topicsB || []).forEach(b => {
+    bMap.set(`${b.session}-${b.num}`, b);
+  });
+
   topics.forEach((t, i) => {
     const tr = document.createElement('tr');
     const sess = t.session ? `M${t.session}` : '-';
@@ -215,19 +222,38 @@ function renderTopics(topics) {
       ? `${t.pages}p (${t.page_start}-${t.page_end})`
       : '-';
     const warn = pageWarnClass(t.session, t.pages);
+
+    // B 비교
+    const b = bMap.get(`${t.session}-${t.num}`);
+    let bCell = '';
+    let bClass = '';
+    if (!topicsB || topicsB.length === 0) {
+      bCell = '<span style="color:#64748b">—</span>';
+    } else if (!b) {
+      bCell = '<span style="color:#ef4444">없음</span>';
+      bClass = 'bad';
+    } else if (b.page_start === t.page_start && b.page_end === t.page_end) {
+      bCell = '<span style="color:#22c55e">✓ 일치</span>';
+    } else {
+      bCell = `<span style="color:#f59e0b">${b.pages}p (${b.page_start}-${b.page_end})</span>`;
+      bClass = 'warn';
+    }
+
     tr.innerHTML = `
       <td class="num">${i + 1}</td>
       <td class="session">${sess}</td>
       <td class="qnum">${num}</td>
       <td class="title">${escapeHtml(t.title || '')}</td>
       <td class="pages ${warn}">${pageStr}</td>
+      <td class="pages ${bClass}">${bCell}</td>
     `;
     topicsBody.appendChild(tr);
   });
   topicsToggle.style.display = 'block';
-  topicsWrap.style.display = 'block';  // 상시 펼침
+  topicsWrap.style.display = 'block';
   topicsToggle.classList.add('open');
-  topicsToggle.textContent = `토픽 매핑 표 접기 (${topics.length}건)`;
+  const bExtra = (topicsB && topicsB.length) ? ` / B ${topicsB.length}건` : '';
+  topicsToggle.textContent = `토픽 매핑 표 접기 (A ${topics.length}건${bExtra})`;
 }
 
 function escapeHtml(s) {
@@ -375,7 +401,7 @@ splitBtn.addEventListener('click', async () => {
     resultDetail.textContent = pagesStr + qrStr;
     resultDetail.style.whiteSpace = 'pre-wrap';
     resultWarnings.textContent = statusData.warnings ? `참고: ${statusData.warnings}` : '';
-    renderTopics(statusData.topics);
+    renderTopics(statusData.topics, statusData.topics_b);
 
   } catch (e) {
     progressBar.style.width = '100%';

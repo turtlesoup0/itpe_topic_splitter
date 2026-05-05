@@ -62,6 +62,8 @@ from diagnose_itpe_mock import (  # noqa: E402
 from diagnose_kpc_mock import (  # noqa: E402
     is_kpc_mock_pdf, split_kpc_mock,
 )
+from parsers.pts import parse_pts  # noqa: E402
+from parsers.classifier import detect_publisher_and_type  # noqa: E402
 from detect_boundaries_v2 import (  # noqa: E402
     detect_boundaries_v2, detect_sessions, analyze_quality,
 )
@@ -296,6 +298,28 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str,
             shutil.copyfile(pdf_path, original_path)
         except Exception:
             original_path = _Path(pdf_path)
+
+        # B 엔진 (PTS) 백그라운드 사전 실행 — 응답에 비교용 메타로 동봉
+        # ZIP 산출은 A 엔진(결정적/v2) 기반, B는 표 비교만.
+        try:
+            pts_result = parse_pts(original_path)
+            topics_b = [
+                {"session": t.session, "num": t.num, "title": t.title,
+                 "page_start": t.page_start, "page_end": t.page_end, "pages": t.pages}
+                for t in pts_result.topics
+            ] if pts_result.ok else []
+            pts_summary = pts_result.summary if pts_result.ok else f"PTS fail: {pts_result.reason}"
+        except Exception as e:
+            topics_b = []
+            pts_summary = f"PTS error: {str(e)[:80]}"
+
+        # 분류 라벨 (publisher, exam_type) — 표시용
+        try:
+            publisher, exam_type = detect_publisher_and_type(original_path)
+            classify_label = f"{publisher} / {exam_type}"
+        except Exception:
+            classify_label = "unknown / unknown"
+
         def _finalize_mock(mock_result: dict, label: str) -> bool:
             """모의고사 결정적 파서 결과를 ZIP으로 마무리. ok=True 반환 시 즉시 return 해야 함."""
             if not (mock_result["ok"] and mock_result["files"]):
@@ -307,8 +331,10 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str,
             base_name = _Path(filename).stem
             zip_name = f"{safe_filename(base_name, 40)}_split.zip"
             qr_lines = [
-                f"탐지 방식: {label} 결정적 파서",
+                f"분류: {classify_label}",
+                f"엔진 A: {label} 결정적 파서",
                 mock_result["summary"],
+                f"엔진 B: {pts_summary}",
             ]
             if mock_result["warnings"]:
                 qr_lines.append("주의:")
@@ -324,6 +350,8 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str,
                     "quality_report": "\n".join(qr_lines),
                     "zip_name": zip_name,
                     "topics": mock_result.get("topics", []),
+                    "topics_b": topics_b,
+                    "classify": classify_label,
                     "finished_at": time.time(),
                 })
                 _db_upsert_locked(job_id)
@@ -470,6 +498,12 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str,
             }
             for b in boundaries
         ]
+        v2_qr = (
+            f"분류: {classify_label}\n"
+            f"엔진 A: v2 (kordoc + LLM/규칙)\n"
+            f"{quality_report}\n"
+            f"엔진 B: {pts_summary}"
+        )
         with _jobs_lock:
             _jobs[job_id].update({
                 "status": "done",
@@ -478,9 +512,11 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str,
                 "topic_count": len(results),
                 "total_pages": total_pages,
                 "warnings": warnings[:5],
-                "quality_report": quality_report,
+                "quality_report": v2_qr,
                 "zip_name": zip_name,
                 "topics": v2_topics,
+                "topics_b": topics_b,
+                "classify": classify_label,
                 "finished_at": time.time(),
             })
             _db_upsert_locked(job_id)
@@ -600,6 +636,8 @@ async def api_status(request: Request, job_id: str):
         resp["warnings"] = "; ".join(job.get("warnings", []))
         resp["quality_report"] = job.get("quality_report", "")
         resp["topics"] = job.get("topics", [])
+        resp["topics_b"] = job.get("topics_b", [])
+        resp["classify"] = job.get("classify", "")
     elif job["status"] == "error":
         resp["error"] = job.get("error", "알 수 없는 오류")
 
