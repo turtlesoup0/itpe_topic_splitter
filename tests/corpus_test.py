@@ -38,14 +38,19 @@ CORPUS_ROOTS = [
     Path("/Users/turtlesoup0-macmini/Library/Mobile Documents/com~apple~CloudDocs/공부/2_모의고사"),
 ]
 
-# 분할 대상 아닌 파일 패턴 (작성답안, 조각, 총평 등)
-SKIP_FILE_TOKENS = ["작성답안", "총평", "멘토링"]
+import re as _re
+
+# 분할 대상 아닌 파일 패턴 (작성답안, 조각, 총평, 단일 교시 분리본 등)
+SKIP_FILE_TOKENS = ["작성답안", "총평", "멘토링", "초고"]
 SKIP_PATH_TOKENS = ["bak", "_split"]
 SKIP_NAME_PATTERNS = [
-    "교시.pdf",  # 회차별 교시 분리본
+    "교시.pdf",  # '1교시.pdf', '4교시.pdf' 등
     " 답.pdf",
     "-답1", "-답2", "-답3", "-답4",
+    "-답.pdf",
 ]
+# 정규식: 단일 교시 분리본 (KPC128관-1.pdf, Kpc129관-3.pdf 등)
+_SINGLE_SESSION_PDF_RE = _re.compile(r"-\s*[1-4](?:~\d)?\.pdf$|_\s*[1-4]교시", _re.IGNORECASE)
 
 
 def expected_total(pub: str, et: str) -> int:
@@ -56,13 +61,15 @@ def expected_total(pub: str, et: str) -> int:
 
 
 def is_target_pdf(path: Path) -> bool:
-    """분할 대상 PDF인지 (조각/답안 등 제외)."""
+    """분할 대상 PDF인지 (조각/답안/단일 교시 분리본 제외)."""
     name = path.name
     if any(t in name for t in SKIP_FILE_TOKENS):
         return False
     for p in SKIP_NAME_PATTERNS:
         if p in name:
             return False
+    if _SINGLE_SESSION_PDF_RE.search(name):
+        return False
     return True
 
 
