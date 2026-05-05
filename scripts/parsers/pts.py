@@ -36,12 +36,13 @@ from .classifier import detect_publisher_and_type
 # 신호 패턴 (LR-007: 시험 형식 토큰만)
 # ─────────────────────────────────────────────────────────────────────────────
 QNUM_ONLY_RE = re.compile(r"^(\d{1,2})\.?$")  # '01' '01.' '11.' 단독
-QNUM_TOPIC_RE = re.compile(r"^(\d{1,2})\.\s+(.+)$")  # '1. 토픽'
+QNUM_TOPIC_RE = re.compile(r"^(?:제\s+)?(\d{1,2})\.\s+(.+)$")  # '1. 토픽' 또는 '제  1. 토픽' 인라인
 QNUM_BUN_RE = re.compile(r"^(\d{1,2})\s*번\.?$")  # '6 번' '11번.'
 SESSION_HDR_RE = re.compile(r"^제\s*([1-4])\s*교시")  # '제 1 교시'
 SESSION_SHORT_RE = re.compile(r"^([1-4])\s*교시$")  # '1 교시' 단독
 PROBLEM_ANCHOR = "문제"
-PROBLEM_INLINE_RE = re.compile(r"^문\s+제$")
+PROBLEM_ANCHOR_LINES = {"문", "제", "문제"}  # 단독 라인이 problem 신호 (line_idx 0~3)
+PROBLEM_INLINE_RE = re.compile(r"^문\s+제$")  # '문 제' 단일 라인
 DOMAIN_LABEL_RE = re.compile(r"^(도메인|출제영역|난이도|키워드|출제배경|참고문헌|출제자)$")
 DOMAIN_INLINE_RE = re.compile(r"^출제영역\s+(.+)$")
 SELECT_HDR_RE = re.compile(r"\[\s*(관리|응용|정보관리|컴퓨터시스템응용)\s*(선택|기술사)\s*\]")
@@ -49,30 +50,87 @@ ROMAN_SECTION_RE = re.compile(r"^[ⅠⅡⅢⅣⅤIVX]+\.")
 COPYRIGHT_RE = re.compile(r"Copyright\s*[ⓒ©c\*]", re.IGNORECASE)
 PAGE_NUM_ONLY_RE = re.compile(r"^[\-\s]*\d{1,3}[\-\s]*$|^PAGE(\s*\d*)?$")
 
-# 헤더 노이즈 — 본문 시작 앵커 검출 시 무시
-HEADER_NOISE_PATTERNS = [
-    re.compile(r"^[\-\s]*\d{1,3}[\-\s]*$"),  # 페이지 번호
-    re.compile(r"PAGE(\s*\d*)?$"),
-    re.compile(r"누구나\s*ICT|cafe\.naver|youtube|tistory|ITPE\s*\("),  # URL/광고
-    re.compile(r"Copyright\s*[ⓒ©*c]", re.IGNORECASE),
-    re.compile(r"^\d+\s*회$"),  # 'NN 회'
-    re.compile(r"제\s*\d+\s*회.*?(해설집|해설|기출문제해설집|모의고사)"),
-    re.compile(r"All\s*rights?\s*reserved", re.IGNORECASE),
-    re.compile(r"KPC\s*기술사.*?IMPACT|ITPE.*?실전\s*명품"),
-    re.compile(r"기출\s*(문제|해설|풀이)\s*(집|해설집)?$"),
-    re.compile(r"인포레버컨설팅|Big&Up|여울동기회|두드림동기회|그루터기동기회"),
-    re.compile(r"ICT\s*의?\s*가치를?\s*이끄는|한국생산성본부"),  # 슬로건 — trim 대상
-    re.compile(r"^[ICT의가치를이끄는사람한국생산성본부kpc]{1,6}$"),  # 어절 분리 슬로건
-    re.compile(r"010-\d{4}-\d{4}|@[\w\.]+\."),  # 전화/이메일
-    re.compile(r"^https?://"),
-]
+# 헤더 메타 패턴 — strip_header에서 'brand'와 'pagenum' 슬롯 인식
+_BRAND_RE = re.compile(
+    r"누구나\s*ICT|cafe\.naver|youtube|tistory|ITPE\s*\(|"
+    r"Copyright\s*[ⓒ©*c]|"
+    r"제\s*\d+\s*회.*?(해설집|해설|기출문제해설집|모의고사|기출풀이)|"
+    r"^\d+\s*회$|"
+    r"All\s*rights?\s*reserved|"
+    r"KPC\s*기술사.*?IMPACT|ITPE.*?실전\s*명품|"
+    r"기출\s*(문제|해설|풀이)\s*(집|해설집)?$|"
+    r"인포레버컨설팅|Big&Up|여울동기회|두드림동기회|그루터기동기회|"
+    r"ICT\s*의?\s*가치를?\s*이끄는|한국생산성본부|"
+    r"^https?://|010-\d{4}-\d{4}|@[\w\.]+\.",
+    re.IGNORECASE,
+)
+_BRAND_FRAGMENT_RE = re.compile(r"^(kpc|ICT의|가치를|이끄는|사람|한국생산성본부)$")
+_PAGENUM_RE = re.compile(r"^[\-\s]*(\d{1,3}|PAGE(\s*\d*)?)[\-\s]*$")
 
 
-def is_header_noise(line: str) -> bool:
-    """헤더 노이즈 라인인지. 본문 앵커 검출 시 skip."""
-    if len(line) < 1:
-        return True
-    return any(p.search(line) for p in HEADER_NOISE_PATTERNS)
+def strip_header(lines: list[str], max_header: int = 14) -> list[str]:
+    """헤더 인식 → 페이지번호 1개만 trim → 본문 시작.
+
+    헤더 슬롯 (순서 가변, 모두 옵션):
+      - 브랜드/저작권/학원명 라인들 (모두 noise — 매칭되면 skip)
+      - 어절 분리 슬로건 ('kpc', 'ICT의', '가치를' 등) — 매칭되면 skip
+      - 페이지 번호 단독 라인 — 1번만 trim (그 후 단독 숫자는 토픽 번호로 보존)
+      - 헤더 깊이 max_header 한도
+
+    본문 시작 앵커 (도달 시 즉시 stop):
+      - QNUM_ONLY_RE 매칭 (1~30) — 토픽 번호 후보 (페이지번호 trim 후)
+      - QNUM_TOPIC_RE 매칭 — 'N. 토픽'
+      - PROBLEM_ANCHOR_LINES — '문', '제', '문제'
+      - PROBLEM_INLINE_RE — '문 제'
+      - SESSION_HDR_RE — '제 N 교시'
+      - SELECT_HDR_RE — '[관리/응용 선택]'
+    """
+    cleaned = [ln.strip() for ln in lines if ln.strip()]
+    if not cleaned:
+        return []
+
+    pagenum_consumed = False
+    out_start = 0
+    for i in range(min(len(cleaned), max_header)):
+        ln = cleaned[i]
+
+        # 본문 앵커 도달 — stop
+        m = QNUM_ONLY_RE.match(ln)
+        if m:
+            n = int(m.group(1))
+            if 1 <= n <= 30 and pagenum_consumed:
+                out_start = i
+                break
+            # pagenum_consumed 안 됐으면 첫 숫자는 페이지번호로 trim
+            if not pagenum_consumed:
+                pagenum_consumed = True
+                continue
+            out_start = i
+            break
+
+        if (
+            QNUM_TOPIC_RE.match(ln)
+            or QNUM_BUN_RE.match(ln)
+            or ln in PROBLEM_ANCHOR_LINES
+            or PROBLEM_INLINE_RE.match(ln)
+            or SESSION_HDR_RE.match(ln)
+            or SELECT_HDR_RE.search(ln)
+        ):
+            out_start = i
+            break
+
+        # 헤더 노이즈 — skip
+        if _BRAND_RE.search(ln) or _BRAND_FRAGMENT_RE.match(ln):
+            continue
+        if _PAGENUM_RE.match(ln) and not pagenum_consumed:
+            pagenum_consumed = True
+            continue
+
+        # 알 수 없는 라인 — 본문으로 간주 (over-trim 방지)
+        out_start = i
+        break
+
+    return cleaned[out_start:]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -110,27 +168,6 @@ class TopicCandidate:
             self.title = title
 
 
-def strip_header(lines: list[str], max_header: int = 14) -> list[str]:
-    """헤더 노이즈를 trim — 본문 의미 라인이 등장하는 위치까지."""
-    cleaned = [ln.strip() for ln in lines if ln.strip()]
-    if not cleaned:
-        return []
-    body_start = 0
-    for i in range(min(len(cleaned), max_header)):
-        ln = cleaned[i]
-        if is_header_noise(ln):
-            continue
-        # 학원/슬로건 어절 분리 (1~6글자 짧은 라인)이 연속 등장하는 경우는 헤더로 간주
-        if len(ln) <= 6 and not (
-            QNUM_ONLY_RE.match(ln) or QNUM_BUN_RE.match(ln)
-            or SESSION_SHORT_RE.match(ln) or ln == PROBLEM_ANCHOR or ln == "문" or ln == "제"
-        ):
-            continue
-        body_start = i
-        break
-    return cleaned[body_start:]
-
-
 def extract_signals_from_page(page_idx: int, body: list[str]) -> list[Signal]:
     """본문 라인에서 토픽 시작 신호 추출 (페이지 첫 12라인까지)."""
     signals: list[Signal] = []
@@ -162,8 +199,8 @@ def extract_signals_from_page(page_idx: int, body: list[str]) -> list[Signal]:
         if m:
             signals.append(Signal(page_idx, j, "session", session=int(m.group(1)), text=ln))
             continue
-        # problem anchor
-        if ln == PROBLEM_ANCHOR or ln == "문" or PROBLEM_INLINE_RE.match(ln):
+        # problem anchor — '문', '제', '문제', '문 제' 단독 라인 (line_idx 0~3에서만)
+        if j <= 3 and (ln in PROBLEM_ANCHOR_LINES or PROBLEM_INLINE_RE.match(ln)):
             signals.append(Signal(page_idx, j, "problem", text=ln))
             continue
         # domain label
@@ -203,15 +240,22 @@ def is_session_paper(body: list[str]) -> bool:
 # 후보 통합 — 페이지 단위 점수 합산
 # ─────────────────────────────────────────────────────────────────────────────
 SIGNAL_WEIGHT = {
-    "qnum_only": 1.0,    # 모의 ITPE: 강력
-    "qnum_topic": 1.5,   # 'N. 토픽' — 가장 강력
+    "qnum_only": 1.0,    # 단독 숫자 라인 — ITPE 모의/본 5줄 슬롯의 첫 라인
+    "qnum_topic": 1.5,   # 'N. 토픽' — sub-section으로 오인 위험. 단독 시 거부
     "qnum_bun": 1.5,     # 'N 번' — 동기회 등
-    "problem": 0.8,      # '문제' — 헤더에 있으면 약하지만 함께면 강
-    "domain": 0.6,       # '도메인'/'출제영역' 라벨
-    "select": 1.2,       # 시험지 표지 — 정확한 토픽 라벨 동반
-    "roman": 0.3,        # 'I.' 보조 (토픽 시작 직후 첫 섹션)
-    "session": 0.0,      # 교시 라벨 — 새 교시 신호로만 사용
+    "problem": 1.0,      # '문제' / '문' / '문 제' 앵커 — 진짜 토픽 시작 결정 신호
+    "domain": 0.6,       # '도메인'/'출제영역' 라벨 — 토픽 메타
+    "select": 1.5,       # 시험지 표지 [관리/응용 선택]
+    "roman": 0.3,        # 'I.' 보조 — 토픽 본문 첫 섹션
+    "session": 0.0,
 }
+
+# 후보 임계 — 단일 강한 신호(qnum_topic 1.5, qnum_bun 1.5)는 sub-section 위험
+# 다중 신호(problem+qnum_topic = 2.5, qnum_only+problem+domain = 2.6 등)만 통과
+TOPIC_START_THRESHOLD = 2.0
+
+
+SIGNAL_WINDOW = 10  # 헤더 직후 10라인 내 신호만 토픽 시작 후보
 
 
 def cluster_into_candidates(
@@ -219,21 +263,27 @@ def cluster_into_candidates(
 ) -> list[TopicCandidate]:
     """페이지별 신호를 묶어 토픽 시작 후보 산출.
 
-    신호가 본문 첫 7라인 안에 모이면 강한 후보, 그 너머는 약한 보조.
+    임계 TOPIC_START_THRESHOLD 이상만 후보 — 단일 'qnum_topic' (1.5점) 같은
+    sub-section 신호는 차단. 'problem'/'qnum_only'/'domain' 같은 시험 메타가
+    동반될 때만 진짜 토픽 시작으로 인정.
     """
     candidates = []
     for pi, sigs in enumerate(pages):
         if not sigs:
             continue
         cand = TopicCandidate(page_idx=pi)
-        # 첫 7라인 안의 신호만 토픽 시작 후보로 인정 (그 이후는 본문 sub-section)
-        head_sigs = [s for s in sigs if s.line_idx < 7]
+        head_sigs = [s for s in sigs if s.line_idx < SIGNAL_WINDOW]
         if not head_sigs:
             continue
+        # 같은 type 신호 중복은 한 번만 카운트 (특히 qnum_topic — 본문에 'N.' 다중 등장 시)
+        seen_types = set()
         for s in head_sigs:
+            if s.type in seen_types and s.type in ("qnum_topic", "qnum_bun", "qnum_only"):
+                continue
+            seen_types.add(s.type)
             w = SIGNAL_WEIGHT.get(s.type, 0.1)
             cand.add(w, s.type, num=s.num, session=s.session, title=s.text)
-        if cand.score >= 0.8:
+        if cand.score >= TOPIC_START_THRESHOLD:
             candidates.append(cand)
     return candidates
 
