@@ -343,14 +343,24 @@ def cluster_into_candidates(
             cand.add(w, s.type, num=s.num, session=s.session)
 
         # 동기회 패턴 AND 보너스: session + (qnum_bun OR qnum_only) + roman
-        # 세 신호 동시 등장 = 강한 토픽 시작 (회별 가변 무관)
         if (
             "session" in seen_types
             and ("qnum_bun" in seen_types or "qnum_only" in seen_types)
             and "roman" in seen_types
         ):
-            cand.score += 1.0  # 보너스
+            cand.score += 1.0
             cand.signals.append("dgh_pattern")
+
+        # 동기회 단답형 AND 보너스: problem + domain (page line_idx 0 + 2)
+        # 1교시 단답형은 본문에 'problem / 토픽 / domain / 도메인값 / 난이도'
+        # 페이지 시작 위치(0~3)면 진짜 토픽
+        if (
+            "problem" in seen_types
+            and "domain" in seen_types
+            and any(s.type == "problem" and s.line_idx <= 1 for s in head_sigs)
+        ):
+            cand.score += 0.5  # 1.6 → 2.1 — 임계 통과
+            cand.signals.append("dan_pattern")
 
         if cand.score < WEAK_CANDIDATE_THRESHOLD:
             continue
@@ -422,10 +432,19 @@ def select_topic_starts(
     current_session = 1
     last_num = 0
     last_page = -10
-    seen_per_session: dict[int, set[int]] = {}  # 교시별 이미 선택된 num
+    seen_per_session: dict[int, set[int]] = {}
 
-    # 시험 본질 상한: 1교시 16, 2~4교시 8 (KPC 모의 최대 — 다른 시험은 더 적음)
     NUM_CAP = {1: 16, 2: 8, 3: 8, 4: 8}
+
+    # num=None 후보 자동 번호 부여 (동기회 1교시처럼 본문에 번호 라인 없는 케이스)
+    # 페이지 거리가 일관된 num=None 시퀀스 → 단조 증가로 자동 부여
+    # 단, 다른 num 가진 후보 사이에 끼어 있으면 회차 내에서 연속 번호 추정
+    auto_num_pages = [c for c in cands if c.num is None]
+    if auto_num_pages and len([c for c in cands if c.num is not None]) < 5:
+        # 명시적 번호 후보 거의 없을 때 — auto_num_pages 가 시퀀스 형성하면 자동 부여
+        for i, c in enumerate(auto_num_pages, 1):
+            c.num = i  # 1교시 시작부터 단조 증가
+            c.signals.append("auto_num")
 
     for c in cands:
         if c.num is None:
