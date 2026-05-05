@@ -63,6 +63,7 @@ from diagnose_kpc_mock import (  # noqa: E402
     is_kpc_mock_pdf, split_kpc_mock,
 )
 from parsers.pts import parse_pts  # noqa: E402
+from parsers.pts_llm import parse_pts_llm, llm_available as pts_llm_available  # noqa: E402
 from parsers.classifier import detect_publisher_and_type  # noqa: E402
 from detect_boundaries_v2 import (  # noqa: E402
     detect_boundaries_v2, detect_sessions, analyze_quality,
@@ -278,7 +279,7 @@ def _cleanup_stale_jobs():
 
 
 def _process_job(job_id: str, pdf_content: bytes, filename: str,
-                 mock_engine: str = "fitz"):
+                 mock_engine: str = "fitz", use_llm_fallback: bool = False):
     """백그라운드에서 PDF 분할 처리."""
     work_dir = tempfile.mkdtemp(prefix="itpe_split_")
     try:
@@ -303,12 +304,34 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str,
         # ZIP 산출은 A 엔진(결정적/v2) 기반, B는 표 비교만.
         try:
             pts_result = parse_pts(original_path)
-            topics_b = [
-                {"session": t.session, "num": t.num, "title": t.title,
-                 "page_start": t.page_start, "page_end": t.page_end, "pages": t.pages}
-                for t in pts_result.topics
-            ] if pts_result.ok else []
-            pts_summary = pts_result.summary if pts_result.ok else f"PTS fail: {pts_result.reason}"
+            if pts_result.ok:
+                topics_b = [
+                    {"session": t.session, "num": t.num, "title": t.title,
+                     "page_start": t.page_start, "page_end": t.page_end, "pages": t.pages}
+                    for t in pts_result.topics
+                ]
+                pts_summary = pts_result.summary
+            else:
+                # PTS fail 시 LLM 폴백 시도 (옵트인 + API 키 있을 때만)
+                topics_b = []
+                pts_summary = f"PTS fail: {pts_result.reason}"
+                if use_llm_fallback and pts_llm_available():
+                    with _jobs_lock:
+                        _jobs[job_id]["progress"] = "LLM 폴백 분할 중..."
+                        _db_upsert_locked(job_id)
+                    try:
+                        llm_result = parse_pts_llm(original_path)
+                        if llm_result.ok:
+                            topics_b = [
+                                {"session": t.session, "num": t.num, "title": t.title,
+                                 "page_start": t.page_start, "page_end": t.page_end, "pages": t.pages}
+                                for t in llm_result.topics
+                            ]
+                            pts_summary = f"LLM 폴백: {llm_result.summary}"
+                        else:
+                            pts_summary += f" / LLM도 실패: {llm_result.reason[:60]}"
+                    except Exception as e:
+                        pts_summary += f" / LLM 호출 에러: {str(e)[:60]}"
         except Exception as e:
             topics_b = []
             pts_summary = f"PTS error: {str(e)[:80]}"
@@ -566,6 +589,11 @@ async def api_split(request: Request, file: UploadFile = File(...),
     if mock_engine not in ("fitz", "kordoc"):
         mock_engine = "fitz"
 
+    # 0-2. LLM 폴백 옵트인 (PTS 실패 시만 호출, 비용 통제)
+    use_llm_fallback = (
+        request.query_params.get("llm_fallback", "0").lower() in ("1", "true", "yes")
+    )
+
     # 1. 확장자 검증
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(400, "PDF 파일만 업로드 가능합니다.")
@@ -610,11 +638,12 @@ async def api_split(request: Request, file: UploadFile = File(...),
 
     thread = threading.Thread(
         target=_process_job,
-        args=(job_id, content, file.filename, mock_engine),
+        args=(job_id, content, file.filename, mock_engine, use_llm_fallback),
         daemon=True)
     thread.start()
 
-    return JSONResponse({"job_id": job_id, "mock_engine": mock_engine})
+    return JSONResponse({"job_id": job_id, "mock_engine": mock_engine,
+                         "llm_fallback": use_llm_fallback})
 
 
 @app.get("/api/status/{job_id}")

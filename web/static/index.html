@@ -139,6 +139,10 @@
       <input type="checkbox" id="kordocEngine">
       <span>모의고사 토픽 제목 보강 (kordoc, 실험)</span>
     </label>
+    <label class="engine-label" title="결정적 파서·PTS 모두 실패한 PDF에 대해 Anthropic Claude로 페이지 토픽 라벨링 폴백. PDF당 약 $0.01~0.05.">
+      <input type="checkbox" id="llmFallback">
+      <span>LLM 폴백 (인포레버·동기회 등 변동성 큰 포맷, 옵트인)</span>
+    </label>
   </div>
 
   <button class="btn" id="splitBtn">분할 시작</button>
@@ -331,9 +335,14 @@ splitBtn.addEventListener('click', async () => {
   form.append('file', selectedFile);
 
   try {
-    // 1) 업로드 → job_id 수신 (모의고사 엔진 옵트인 query)
+    // 1) 업로드 → job_id 수신 (옵트인 query 파라미터)
     const useKordoc = document.getElementById('kordocEngine')?.checked;
-    const uploadUrl = useKordoc ? '/api/split?mock_engine=kordoc' : '/api/split';
+    const useLLM = document.getElementById('llmFallback')?.checked;
+    const params = new URLSearchParams();
+    if (useKordoc) params.set('mock_engine', 'kordoc');
+    if (useLLM) params.set('llm_fallback', '1');
+    const qs = params.toString();
+    const uploadUrl = qs ? `/api/split?${qs}` : '/api/split';
     const uploadResp = await fetch(uploadUrl, { method: 'POST', body: form });
     if (!uploadResp.ok) {
       const err = await uploadResp.json().catch(() => ({ detail: uploadResp.statusText }));
