@@ -282,23 +282,35 @@ def write_split_pdfs(
     return written_q, written_exam
 
 
+_ACTUAL_EXAM_RE = re.compile(r"기출\s*(문제|풀이|해설)|국가기술자격기술사시험문제")
+_ITPE_MOCK_RE = re.compile(r"ITPE\s*실전\s*명품\s*모의고사")
+
+
 def is_itpe_mock_pdf(pdf_path: Path) -> bool:
-    """ITPE 모의고사 PDF 판정 — 너그럽게 통과 후 자기검증으로 false positive 걸러냄.
-    파일명에 ITPE/itpe 또는 첫 5페이지 안에 모의고사 브랜딩이 있으면 True.
+    """ITPE 모의고사 해설집 판정.
+
+    분류 우선순위 (LR-007 시험 형식 토큰):
+      1. 첫 5p 본문에 본시험 키워드('기출문제'/'기출풀이'/'기출해설'/'국가기술자격')
+         있으면 즉시 False — 본시험은 모의고사 파서 적용 금지
+      2. 본문에 'ITPE 실전 명품 모의고사' 있으면 True (시험 브랜드 + 종별)
+      3. 파일명에 ITPE/itpe 가 있어도 본시험 키워드와 함께면 False
     """
-    name = pdf_path.name
-    if re.search(r"ITPE", name, re.IGNORECASE):
-        return True
     try:
         doc = fitz.open(pdf_path)
+        head_text = ""
         for i in range(min(doc.page_count, 5)):
-            text = doc.load_page(i).get_text()
-            if HEADER_BRAND_RE.search(text):
-                doc.close()
-                return True
+            head_text += doc.load_page(i).get_text() + "\n"
         doc.close()
     except Exception:
-        pass
+        head_text = ""
+
+    if _ACTUAL_EXAM_RE.search(head_text):
+        return False
+    if _ITPE_MOCK_RE.search(head_text):
+        return True
+    # 본문 시그널 없을 때 — 파일명 fallback (단 본시험 키워드 부재 시)
+    if re.search(r"ITPE", pdf_path.name, re.IGNORECASE):
+        return True
     return False
 
 

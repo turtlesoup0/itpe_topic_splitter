@@ -659,24 +659,33 @@ def write_split_pdfs(
     return written
 
 
+_ACTUAL_EXAM_RE = re.compile(r"기출\s*(문제|풀이|해설)|국가기술자격기술사시험문제")
+_KPC_MOCK_RE = re.compile(r"KPC.*?기술사.*?IMPACT.*?실전\s*모의고사")
+
+
 def is_kpc_mock_pdf(pdf_path: Path) -> bool:
-    """KPC 모의고사 PDF 판정 — 너그럽게 통과시키고 자기검증으로 false positive 걸러냄.
-    파일명에 KPC 또는 첫 5페이지 안에 KPC 모의고사 헤더가 있으면 True.
+    """KPC 모의고사 해설집 판정.
+
+    LR-007 시험 형식 토큰 기준:
+      1. 첫 5p 본문에 본시험 키워드 있으면 즉시 False
+      2. 'KPC 기술사 IMPACT 실전모의고사' 시험 브랜드+종별 토큰 있으면 True
+      3. 그 외엔 파일명 fallback (단 본시험 키워드 부재 시)
     """
-    name = pdf_path.name
-    if re.search(r"KPC", name, re.IGNORECASE):
-        return True
     try:
         doc = fitz.open(pdf_path)
-        # 슬로건 의존 없이 안정적인 시험 브랜드/저작권 토큰만으로 판정
+        head_text = ""
         for i in range(min(doc.page_count, 5)):
-            text = doc.load_page(i).get_text()
-            if HEADER_PUB_RE.search(text) or COPYRIGHT_LINE_RE.search(text):
-                doc.close()
-                return True
+            head_text += doc.load_page(i).get_text() + "\n"
         doc.close()
     except Exception:
-        pass
+        head_text = ""
+
+    if _ACTUAL_EXAM_RE.search(head_text):
+        return False
+    if _KPC_MOCK_RE.search(head_text):
+        return True
+    if re.search(r"KPC", pdf_path.name, re.IGNORECASE):
+        return True
     return False
 
 
