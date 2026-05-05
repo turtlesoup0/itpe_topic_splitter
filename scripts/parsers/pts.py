@@ -228,10 +228,12 @@ def is_empty_page(body: list[str]) -> bool:
 
 
 def is_session_paper(body: list[str]) -> bool:
-    """시험지 표지 페이지 (해설 아님)."""
+    """시험지 표지 페이지 (해설 아님). [관리/응용 선택] 안내 페이지도 포함."""
     head = body[:8]
     for ln in head:
         if SESSION_HDR_RE.search(ln) and "시험시간" in ln:
+            return True
+        if SELECT_HDR_RE.search(ln):
             return True
     return False
 
@@ -390,7 +392,11 @@ def parse_pts(pdf_path: Path) -> ParseResult:
             page_kinds.append("SESSION_PAPER")
         else:
             page_kinds.append("BODY")
-        page_signals.append(extract_signals_from_page(i, body))
+        # SESSION_PAPER / EMPTY 페이지는 토픽 후보에서 제외 (시험지 표지가 토픽으로 오인되는 사고 방지)
+        if page_kinds[-1] in ("SESSION_PAPER", "EMPTY"):
+            page_signals.append([])
+        else:
+            page_signals.append(extract_signals_from_page(i, body))
 
     # 2. 후보 통합
     candidates = cluster_into_candidates(page_signals)
