@@ -270,6 +270,51 @@ TOPIC_START_THRESHOLD = 2.0
 SIGNAL_WINDOW = 10  # 헤더 직후 10라인 내 신호만 토픽 시작 후보
 
 
+# 약한 후보 임계 — 단일 qnum_topic/qnum_bun 등 sub-section 위험 신호
+WEAK_CANDIDATE_THRESHOLD = 1.0
+
+
+def _promote_weak_monotonic(
+    strong: list[TopicCandidate],
+    weak: list[TopicCandidate],
+) -> list[TopicCandidate]:
+    """약한 후보 중 페이지 간 단조 증가 시퀀스 형성하는 것 promote.
+
+    동기: 아이리포·라이지움·동기회 일부 학원은 본문에 'N. 토픽' 단일 신호만 있고
+    'problem'/'도메인' 라벨이 없음. 그러나 페이지마다 N=1, 2, 3, ... 단조 증가하면
+    분명 진짜 토픽 시작. sub-section은 페이지 안에서 등장하지 페이지 간 단조 증가 X.
+
+    Strong 후보 거의 없을 때(< 5건)만 weak에서 단조 증가 시퀀스 추출 — 다른 정확
+    케이스에서 false positive 회피.
+    """
+    if len(strong) >= 5:
+        return strong  # 강한 후보 충분 — weak 무시
+    if not weak:
+        return strong
+    # weak 후보 정렬 + 단조 증가 시퀀스 검출
+    cands = sorted(weak, key=lambda c: c.page_idx)
+    seq: list[TopicCandidate] = []
+    last_num = 0
+    last_page = -10
+    for c in cands:
+        if c.num is None:
+            continue
+        # 단조 증가: num > last_num, page 거리 ≥ 1
+        if c.num > last_num and (c.page_idx - last_page) >= 1 and c.num - last_num <= 3:
+            seq.append(c)
+            last_num = c.num
+            last_page = c.page_idx
+        elif c.num == 1 and last_num >= 5:
+            # reset = 새 교시 가능성
+            seq.append(c)
+            last_num = 1
+            last_page = c.page_idx
+    # promote 시 strong 와 합쳐 반환 (중복 제거)
+    seen_pages = {s.page_idx for s in strong}
+    promoted = [c for c in seq if c.page_idx not in seen_pages]
+    return strong + promoted
+
+
 def cluster_into_candidates(
     pages: list[list[Signal]],
     page_bodies: Optional[list[list[str]]] = None,
@@ -307,8 +352,9 @@ def cluster_into_candidates(
             cand.score += 1.0  # 보너스
             cand.signals.append("dgh_pattern")
 
-        if cand.score < TOPIC_START_THRESHOLD:
+        if cand.score < WEAK_CANDIDATE_THRESHOLD:
             continue
+        is_strong = cand.score >= TOPIC_START_THRESHOLD
 
         # title 추출 — 우선순위 적용
         title = ""
@@ -341,8 +387,16 @@ def cluster_into_candidates(
                     title = s.text
                     break
         cand.title = title
-        candidates.append(cand)
-    return candidates
+        if is_strong:
+            candidates.append(cand)
+        else:
+            # weak — 별도 리스트, 후처리에서 단조 시퀀스 검출 시 promote
+            cand.signals.append("__weak__")
+            candidates.append(cand)
+    # 강한 후보가 적을 때만 weak 후보 단조 시퀀스 promote
+    strong = [c for c in candidates if "__weak__" not in c.signals]
+    weak = [c for c in candidates if "__weak__" in c.signals]
+    return _promote_weak_monotonic(strong, weak)
 
 
 def select_topic_starts(
@@ -511,8 +565,19 @@ def parse_pts(pdf_path: Path) -> ParseResult:
             return ParseResult(
                 ok=False, engine="pts",
                 reason=f"시험 메타 카운트 불일치: {', '.join(diffs)}",
-                topics=topics,  # 디버그용
+                topics=topics,
             )
+    else:
+        # 메타 없는 분류 (unknown publisher 또는 새 학원) — sanity check만
+        # 토픽 5건 미만 또는 한 청크 30p 초과는 의심
+        if len(topics) < 5:
+            doc.close()
+            return ParseResult(
+                ok=False, engine="pts",
+                reason=f"메타 없음 + 토픽 5건 미만 ({len(topics)}건)",
+                topics=topics,
+            )
+        warnings.append(f"메타 없음 (분류: {pub}/{et}) — sanity check 통과만")
 
     # 페이지 sanity
     for t in topics:
