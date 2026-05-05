@@ -55,10 +55,12 @@ _BRAND_RE = re.compile(
     r"누구나\s*ICT|cafe\.naver|youtube|tistory|ITPE\s*\(|"
     r"Copyright\s*[ⓒ©*c]|"
     r"제\s*\d+\s*회.*?(해설집|해설|기출문제해설집|모의고사|기출풀이)|"
-    r"^\d+\s*회$|"
+    r"^제?\s*\d+\s*회$|"  # '138 회' 또는 '제138 회'
+    r"제\s*\d+\s*회\s*정보\s*(관리|처리)?\s*기술사|"  # '제138회정보관리기술사'
     r"All\s*rights?\s*reserved|"
     r"KPC\s*기술사.*?IMPACT|ITPE.*?실전\s*명품|"
-    r"기출\s*(문제|해설|풀이)\s*(집|해설집)?$|"
+    r"기출\s*(문제|해설|풀이)\s*(집|해설집)?|"  # '기출문제해설집' 한 단어 매칭
+    r"기출문제해설집|기출풀이집|기출해설집|"  # 인포레버/동기회 변형 직매칭
     r"인포레버컨설팅|Big&Up|여울동기회|두드림동기회|그루터기동기회|"
     r"ICT\s*의?\s*가치를?\s*이끄는|한국생산성본부|"
     r"^https?://|010-\d{4}-\d{4}|@[\w\.]+\.",
@@ -228,13 +230,21 @@ def is_empty_page(body: list[str]) -> bool:
 
 
 def is_session_paper(body: list[str]) -> bool:
-    """시험지 표지 페이지 (해설 아님). [관리/응용 선택] 안내 페이지도 포함."""
-    head = body[:8]
-    for ln in head:
-        if SESSION_HDR_RE.search(ln) and "시험시간" in ln:
-            return True
-        if SELECT_HDR_RE.search(ln):
-            return True
+    """시험지 표지 페이지 (해설 아님). [관리/응용 선택] 안내 페이지도 포함.
+
+    시그널 (한 페이지에 함께 등장):
+      - '제 N 교시' + ('시험시간' or '국가기술자격' or '수험번호')
+      - '[관리|응용 선택]' 안내
+    """
+    head_text = "\n".join(body[:14])
+    if SELECT_HDR_RE.search(head_text):
+        return True
+    if SESSION_HDR_RE.search(head_text) and (
+        "시험시간" in head_text
+        or "국가기술자격" in head_text
+        or "수험" in head_text  # '수험번호' 'N 교시 + 수험' 시험지 표지의 강한 신호
+    ):
+        return True
     return False
 
 
@@ -242,13 +252,13 @@ def is_session_paper(body: list[str]) -> bool:
 # 후보 통합 — 페이지 단위 점수 합산
 # ─────────────────────────────────────────────────────────────────────────────
 SIGNAL_WEIGHT = {
-    "qnum_only": 1.0,    # 단독 숫자 라인 — ITPE 모의/본 5줄 슬롯의 첫 라인
-    "qnum_topic": 1.5,   # 'N. 토픽' — sub-section으로 오인 위험. 단독 시 거부
-    "qnum_bun": 1.5,     # 'N 번' — 동기회 등
-    "problem": 1.0,      # '문제' / '문' / '문 제' 앵커 — 진짜 토픽 시작 결정 신호
-    "domain": 0.6,       # '도메인'/'출제영역' 라벨 — 토픽 메타
-    "select": 1.5,       # 시험지 표지 [관리/응용 선택]
-    "roman": 0.3,        # 'I.' 보조 — 토픽 본문 첫 섹션
+    "qnum_only": 1.0,
+    "qnum_topic": 1.5,
+    "qnum_bun": 1.5,
+    "problem": 1.0,
+    "domain": 0.6,
+    "select": 1.5,
+    "roman": 0.3,
     "session": 0.0,
 }
 
@@ -261,13 +271,15 @@ SIGNAL_WINDOW = 10  # 헤더 직후 10라인 내 신호만 토픽 시작 후보
 
 
 def cluster_into_candidates(
-    pages: list[list[Signal]]
+    pages: list[list[Signal]],
+    page_bodies: Optional[list[list[str]]] = None,
 ) -> list[TopicCandidate]:
     """페이지별 신호를 묶어 토픽 시작 후보 산출.
 
-    임계 TOPIC_START_THRESHOLD 이상만 후보 — 단일 'qnum_topic' (1.5점) 같은
-    sub-section 신호는 차단. 'problem'/'qnum_only'/'domain' 같은 시험 메타가
-    동반될 때만 진짜 토픽 시작으로 인정.
+    title 우선순위:
+      1. qnum_topic 의 text (KPC 모의 인라인 'N. 토픽')
+      2. problem 라벨 직후 본문 라인 (ITPE 모의/본 5줄 슬롯의 토픽 라인)
+      3. 그 외 신호 text 폴백
     """
     candidates = []
     for pi, sigs in enumerate(pages):
@@ -277,16 +289,48 @@ def cluster_into_candidates(
         head_sigs = [s for s in sigs if s.line_idx < SIGNAL_WINDOW]
         if not head_sigs:
             continue
-        # 같은 type 신호 중복은 한 번만 카운트 (특히 qnum_topic — 본문에 'N.' 다중 등장 시)
         seen_types = set()
         for s in head_sigs:
             if s.type in seen_types and s.type in ("qnum_topic", "qnum_bun", "qnum_only"):
                 continue
             seen_types.add(s.type)
             w = SIGNAL_WEIGHT.get(s.type, 0.1)
-            cand.add(w, s.type, num=s.num, session=s.session, title=s.text)
-        if cand.score >= TOPIC_START_THRESHOLD:
-            candidates.append(cand)
+            cand.add(w, s.type, num=s.num, session=s.session)
+        if cand.score < TOPIC_START_THRESHOLD:
+            continue
+
+        # title 추출 — 우선순위 적용
+        title = ""
+        # 1) qnum_topic / qnum_bun 의 text (이미 추출된 것)
+        for s in head_sigs:
+            if s.type in ("qnum_topic", "qnum_bun") and s.text and len(s.text) > 3:
+                title = s.text
+                break
+        # 2) problem 라벨 직후 라인 (ITPE 5줄 슬롯)
+        if not title and page_bodies:
+            body = page_bodies[pi]
+            for s in head_sigs:
+                if s.type == "problem":
+                    # problem 라벨 다음 라인 = 토픽 제목
+                    nxt = s.line_idx + 1
+                    if nxt < len(body):
+                        cand_text = body[nxt].strip()
+                        # 라벨 자체 (도메인 / 난이도 등) 가 아닌 의미 있는 텍스트만
+                        if (
+                            cand_text and len(cand_text) > 3
+                            and not DOMAIN_LABEL_RE.match(cand_text)
+                            and cand_text not in PROBLEM_ANCHOR_LINES
+                        ):
+                            title = cand_text
+                            break
+        # 3) 신호 text 폴백 (의미 없는 라벨이지만)
+        if not title:
+            for s in head_sigs:
+                if s.text and len(s.text) > 1:
+                    title = s.text
+                    break
+        cand.title = title
+        candidates.append(cand)
     return candidates
 
 
@@ -295,45 +339,66 @@ def select_topic_starts(
 ) -> list[TopicCandidate]:
     """단조 증가 시퀀스 + 번호 리셋(N→1) 시 교시 +1 기반 선택.
 
-    그리디: 점수가 높은 후보 우선, 같은 페이지 충돌 시 한 개만, 페이지 거리 sanity.
+    그리디 규칙:
+      1. 페이지 위치 순 정렬
+      2. 번호가 last_num 보다 많이 작아짐(<= last_num/2) AND last_num >= 5 → 새 교시
+      3. 단조 증가 (n >= last_num) → 같은 교시 (점프 ≤ 5)
+      4. 작은 후퇴 (last_num/2 < n < last_num) — 단발성 false positive, skip
+      5. 큰 점프 (n - last_num > 5) — false positive, skip
+
+    페이지 거리 sanity: 같은 후보가 1p 안에 두 번 나오면 두 번째 무시 (sub-section).
     """
     if not candidates:
         return []
 
-    # 점수 기준 정렬 (높은 점수 우선) — 후 페이지 위치로 재정렬
     cands = sorted(candidates, key=lambda c: c.page_idx)
 
-    # 번호 정합성 검사 — 단조 증가 또는 1로 리셋
     selected: list[TopicCandidate] = []
     current_session = 1
     last_num = 0
+    last_page = -10
+    seen_per_session: dict[int, set[int]] = {}  # 교시별 이미 선택된 num
+
+    # 시험 본질 상한: 1교시 16, 2~4교시 8 (KPC 모의 최대 — 다른 시험은 더 적음)
+    NUM_CAP = {1: 16, 2: 8, 3: 8, 4: 8}
 
     for c in cands:
         if c.num is None:
-            # 번호 없는 후보는 일단 제외 (약함)
             continue
         n = c.num
-        # 번호 리셋 = 새 교시
-        if last_num > 0 and n == 1 and last_num >= 3:
+        # 페이지 거리 sanity — 같은 페이지 또는 직전 페이지에서 추가 후보는 sub-section 가능성
+        if c.page_idx - last_page < 1 and last_num > 0:
+            continue
+
+        # 번호 cap: 시험 본질 상한 초과 시 sub-section 의심 — skip
+        if n > NUM_CAP.get(current_session, 16):
+            continue
+
+        # 번호 리셋 = 새 교시 — last_num 충분히 크고 (≥ 5) n=1 또는 매우 작음
+        if last_num >= 5 and n <= max(2, last_num // 3):
             current_session = min(current_session + 1, 4)
             c.session = current_session
-            selected.append(c)
-            last_num = 1
-            continue
-        # 단조 증가 (또는 같은 번호 — KPC 모의는 16번 다음 다시 1번 등)
-        if n >= last_num and n - last_num <= 5:  # 점프 한도 (smell test)
-            c.session = current_session
+            seen_per_session.setdefault(current_session, set()).add(n)
             selected.append(c)
             last_num = n
+            last_page = c.page_idx
             continue
-        # 단조성 위반 = 새 교시 가능성
-        if n < last_num:
-            current_session = min(current_session + 1, 4)
+
+        # 같은 교시 안 같은 번호 중복 = sub-section false positive — skip
+        if n in seen_per_session.get(current_session, set()):
+            # 단, 정관/컴응 분리(같은 번호 두 번 = 13, 13)는 직전이 같은 번호일 때만 허용
+            if last_num != n:
+                continue
+
+        # 단조 증가 — 점프 한도 3 (이전 5 → 더 엄격)
+        if n >= last_num and n - last_num <= 3:
             c.session = current_session
+            seen_per_session.setdefault(current_session, set()).add(n)
             selected.append(c)
             last_num = n
+            last_page = c.page_idx
             continue
-        # 큰 점프 — 누락 또는 false positive. skip.
+        # 작은 후퇴 또는 큰 점프 — false positive 가능성. skip
     return selected
 
 
@@ -398,8 +463,8 @@ def parse_pts(pdf_path: Path) -> ParseResult:
         else:
             page_signals.append(extract_signals_from_page(i, body))
 
-    # 2. 후보 통합
-    candidates = cluster_into_candidates(page_signals)
+    # 2. 후보 통합 (title 추출용으로 page_bodies 전달)
+    candidates = cluster_into_candidates(page_signals, page_bodies=page_bodies)
     selected = select_topic_starts(candidates)
 
     if not selected:
