@@ -446,49 +446,121 @@ def select_topic_starts(
             c.num = i  # 1교시 시작부터 단조 증가
             c.signals.append("auto_num")
 
-    for c in cands:
-        if c.num is None:
-            continue
-        n = c.num
-        # 페이지 거리 sanity — 같은 페이지 또는 직전 페이지에서 추가 후보는 sub-section 가능성
-        if c.page_idx - last_page < 1 and last_num > 0:
-            continue
+    # 후보의 session 이 이미 부여된 경우(SESSION_PAPER 블록 기반): 그 session 그대로 사용
+    # 부여 안 된 경우: current_session 추적
+    has_session_assigned = any(c.session is not None for c in cands)
 
-        # 번호 cap: 시험 본질 상한 초과 시 sub-section 의심 — skip
-        if n > NUM_CAP.get(current_session, 16):
-            continue
-
-        # 번호 리셋 = 새 교시 — last_num 충분히 크고 (≥ 5) n=1 또는 매우 작음
-        if last_num >= 5 and n <= max(2, last_num // 3):
-            current_session = min(current_session + 1, 4)
-            c.session = current_session
-            seen_per_session.setdefault(current_session, set()).add(n)
-            selected.append(c)
-            last_num = n
-            last_page = c.page_idx
-            continue
-
-        # 같은 교시 안 같은 번호 중복 = sub-section false positive — skip
-        if n in seen_per_session.get(current_session, set()):
-            # 단, 정관/컴응 분리(같은 번호 두 번 = 13, 13)는 직전이 같은 번호일 때만 허용
-            if last_num != n:
+    if has_session_assigned:
+        # SESSION_PAPER 블록 기반 — session 무시하지 않고 그대로 사용
+        per_session: dict[int, dict] = {}  # session -> {"last_num", "last_page", "seen": set()}
+        for c in cands:
+            if c.num is None:
                 continue
+            n = c.num
+            sess = c.session or 1
+            st = per_session.setdefault(sess, {"last_num": 0, "last_page": -10, "seen": set()})
 
-        # 단조 증가 — 점프 한도 3 (이전 5 → 더 엄격)
-        if n >= last_num and n - last_num <= 3:
-            c.session = current_session
-            seen_per_session.setdefault(current_session, set()).add(n)
-            selected.append(c)
-            last_num = n
-            last_page = c.page_idx
-            continue
-        # 작은 후퇴 또는 큰 점프 — false positive 가능성. skip
+            if c.page_idx - st["last_page"] < 1 and st["last_num"] > 0:
+                continue
+            if n > NUM_CAP.get(sess, 16):
+                continue
+            # 같은 세션 안에서 단조 증가만
+            if n in st["seen"] and st["last_num"] != n:
+                continue
+            if n >= st["last_num"] and n - st["last_num"] <= 3:
+                st["seen"].add(n)
+                st["last_num"] = n
+                st["last_page"] = c.page_idx
+                selected.append(c)
+            # 단조성 위반은 skip (같은 세션 안에서 다른 번호 리셋은 false positive)
+    else:
+        # 종전 그리디 — 단조성 위반 시 교시 전환 (paper block 신호 부재 케이스)
+        for c in cands:
+            if c.num is None:
+                continue
+            n = c.num
+            if c.page_idx - last_page < 1 and last_num > 0:
+                continue
+            if n > NUM_CAP.get(current_session, 16):
+                continue
+            if last_num >= 5 and n <= max(2, last_num // 3):
+                current_session = min(current_session + 1, 4)
+                c.session = current_session
+                seen_per_session.setdefault(current_session, set()).add(n)
+                selected.append(c)
+                last_num = n
+                last_page = c.page_idx
+                continue
+            if n in seen_per_session.get(current_session, set()):
+                if last_num != n:
+                    continue
+            if n >= last_num and n - last_num <= 3:
+                c.session = current_session
+                seen_per_session.setdefault(current_session, set()).add(n)
+                selected.append(c)
+                last_num = n
+                last_page = c.page_idx
+                continue
     return selected
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 청크 산출 + 자기 검증
 # ─────────────────────────────────────────────────────────────────────────────
+def _assign_sessions_by_paper_blocks(
+    candidates: list[TopicCandidate],
+    page_kinds: list[str],
+) -> list[TopicCandidate]:
+    """SESSION_PAPER 블록 기반으로 session 부여 + num=None 후보 auto_num.
+
+    핵심 아이디어 (사용자 지적: "본 시험이라 31개 토픽이 맞아"):
+    - PTS의 explicit num 시퀀스(1→2→3→...→6 후 다시 1)에 의존하면 교시 전환을
+      잘못 인식 가능 (예: ITPE 139관 본의 M2/M3/M4가 실제와 다르게 라벨링됨)
+    - 대신 SESSION_PAPER 페이지를 강한 교시 경계로 사용:
+      paper[0] 이전 = M1, paper[0]~paper[1] 사이 = M2, ... paper[3]~end = M4
+    - 각 블록 안에서 num=None+dan_pattern 후보는 1, 2, 3, ... 자동 부여
+    - explicit num 후보는 그 num 그대로 (단, 블록 base session으로 라벨)
+    """
+    raw_paper_pages = sorted(k for k, kind in enumerate(page_kinds) if kind == "SESSION_PAPER")
+    if not raw_paper_pages:
+        return candidates
+
+    # 인접 paper 병합 — 같은 교시 안 정관+컴응 시험지(거리 ≤ 3p)는 한 경계로
+    paper_pages: list[int] = []
+    for pp in raw_paper_pages:
+        if paper_pages and pp - paper_pages[-1] <= 3:
+            continue
+        paper_pages.append(pp)
+
+    # 페이지 -> block index 매핑 (1-indexed session)
+    def session_of(page_idx: int) -> int:
+        # paper_pages[i] 가 i+1 번째 교시의 표지
+        # 첫 paper 이전: session 1 (M1 표지 누락 케이스 — 1교시 시작부터)
+        # paper[0] 이후 paper[1] 이전: session 2 (M2 표지 다음)
+        # paper[i] 이후 paper[i+1] 이전: session i+2
+        # 마지막 paper 이후: session = len(paper_pages) + 1, 단 4 cap
+        for i, pp in enumerate(paper_pages):
+            if page_idx <= pp:
+                return min(max(i, 1), 4)
+        return min(len(paper_pages) + 1, 4)
+
+    # 블록별 num=None 후보 그룹화
+    block_num_counter: dict[int, int] = {}  # session -> 다음 부여 num
+    cands = sorted(candidates, key=lambda c: c.page_idx)
+    for c in cands:
+        sess = session_of(c.page_idx)
+        c.session = sess
+        if c.num is None and "dan_pattern" in c.signals:
+            block_num_counter[sess] = block_num_counter.get(sess, 0) + 1
+            c.num = block_num_counter[sess]
+            c.signals.append("auto_num_block")
+    return candidates
+
+
+# 하위 호환 — 옛 이름 alias
+_resolve_num_none_with_session_papers = _assign_sessions_by_paper_blocks
+
+
 def build_chunks(
     selected: list[TopicCandidate],
     page_kinds: list[str],
@@ -549,6 +621,8 @@ def parse_pts(pdf_path: Path) -> ParseResult:
 
     # 2. 후보 통합 (title 추출용으로 page_bodies 전달)
     candidates = cluster_into_candidates(page_signals, page_bodies=page_bodies)
+    # 2.5. num=None 후보 — SESSION_PAPER 직후면 새 교시 1번부터 자동 부여
+    candidates = _resolve_num_none_with_session_papers(candidates, page_kinds)
     selected = select_topic_starts(candidates)
 
     if not selected:
