@@ -402,6 +402,56 @@ def _process_job(job_id: str, pdf_content: bytes, filename: str,
             if _finalize_mock(mock_result, "KPC 모의고사"):
                 return
 
+        # 0-5. PTS ok=True 면 v2 보다 PTS 결과로 ZIP 산출 (본시험·새 학원 등)
+        # 사용자가 14p 같은 v2 결함 보지 않도록
+        if pts_result.ok and pts_result.topics:
+            with _jobs_lock:
+                _jobs[job_id]["progress"] = "PTS 결정적 분할 중..."
+                _db_upsert_locked(job_id)
+            try:
+                from parsers.pts import split_pts as _split_pts
+                pts_split_dir = _Path(work_dir) / "pts_split"
+                pts_split = _split_pts(original_path, pts_split_dir)
+                if pts_split.ok and pts_split.files:
+                    zip_path = os.path.join(work_dir, "result.zip")
+                    with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
+                        for r in pts_split.files:
+                            zf.write(r["path"], r["filename"])
+                    base_name = _Path(filename).stem
+                    zip_name = f"{safe_filename(base_name, 40)}_split.zip"
+                    qr_lines = [
+                        f"분류: {classify_label}",
+                        f"엔진: PTS (학원·시험 종별 무관 분할기)",
+                        pts_result.summary,
+                    ]
+                    if pts_result.warnings:
+                        qr_lines.append("주의:")
+                        qr_lines.extend(f"  - {w}" for w in pts_result.warnings)
+                    with _jobs_lock:
+                        _jobs[job_id].update({
+                            "status": "done",
+                            "progress": "완료!",
+                            "result_path": zip_path,
+                            "topic_count": len(pts_split.files),
+                            "total_pages": 0,
+                            "warnings": pts_result.warnings[:5],
+                            "quality_report": "\n".join(qr_lines),
+                            "zip_name": zip_name,
+                            "topics": [
+                                {"session": t.session, "num": t.num, "title": t.title,
+                                 "page_start": t.page_start, "page_end": t.page_end, "pages": t.pages}
+                                for t in pts_result.topics
+                            ],
+                            "topics_b": topics_b,
+                            "classify": classify_label,
+                            "finished_at": time.time(),
+                        })
+                        _db_upsert_locked(job_id)
+                    return
+            except Exception as e:
+                # PTS 분할 실패 — v2 폴백
+                pass
+
         # 1. kordoc 파싱
         elements, total_pages = parse_kordoc(pdf_path)
         if not elements:
