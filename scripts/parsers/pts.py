@@ -573,23 +573,27 @@ def parse_pts(pdf_path: Path) -> ParseResult:
     actual_counts = {s: sum(1 for t in topics if t.session == s) for s in [1, 2, 3, 4]}
     meta_ok = True
     if expected:
+        # PDF 본문에 등장하는 '제 N 교시' 시그널 위치 사전 검사
+        # — 메타 완화 전 'PDF에 해당 교시 실제 존재 여부' 직접 검증 (LR-002, LR-007)
+        full_text = ""
+        for i in range(doc.page_count):
+            full_text += doc.load_page(i).get_text() + "\n"
+        sessions_in_pdf: set[int] = set()
+        for m in re.finditer(r"제\s*([1-4])\s*교시", full_text):
+            sessions_in_pdf.add(int(m.group(1)))
+
         diffs = []
-        # 전체 카운트 비율 검사 — 너무 적게 잡힌 경우 fail
-        total_exp = sum(expected.values())
-        total_act = sum(actual_counts.values())
-        coverage = total_act / total_exp if total_exp else 0
-        if coverage < 0.5:
-            doc.close()
-            return ParseResult(
-                ok=False, engine="pts",
-                reason=f"전체 카운트 부족: {total_act}/{total_exp} ({int(coverage*100)}%)",
-                topics=topics,
-            )
-        # 교시별 검사 — actual=0 교시는 'PDF에 부재' 로 허용 (부분 합본 케이스)
         for s, exp_n in expected.items():
             act_n = actual_counts.get(s, 0)
+            in_pdf = (s in sessions_in_pdf)
             if act_n == 0:
-                warnings.append(f"제{s}교시 토픽 0 — PDF에 해당 교시 없음 가능")
+                if in_pdf:
+                    # PDF에 N교시 표지 있는데 토픽 0건 = PTS 교시 분리 실패 (fail-loud)
+                    meta_ok = False
+                    diffs.append(f"M{s}: 0 (기대 {exp_n}, PDF에 표지 존재)")
+                else:
+                    # PDF에 N교시 표지 없음 = 부분 합본 (warning OK)
+                    warnings.append(f"제{s}교시 토픽 0 — PDF에 해당 교시 표지 부재 (부분 합본)")
                 continue
             if abs(act_n - exp_n) > 2:
                 meta_ok = False
