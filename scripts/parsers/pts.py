@@ -38,7 +38,7 @@ from .classifier import detect_publisher_and_type
 QNUM_ONLY_RE = re.compile(r"^(\d{1,2})\.?$")  # '01' '01.' '11.' 단독
 QNUM_TOPIC_RE = re.compile(r"^(?:제\s+)?(\d{1,2})\.\s+(.+)$")  # '1. 토픽' 또는 '제  1. 토픽' 인라인
 QNUM_BUN_RE = re.compile(r"^(\d{1,2})\s*번\.?$")  # '6 번' '11번.'
-SESSION_HDR_RE = re.compile(r"^제\s*([1-4])\s*교시")  # '제 1 교시'
+SESSION_HDR_RE = re.compile(r"^제\s*([1-4])\s*교시", re.MULTILINE)  # '제 1 교시' (라인 시작)
 SESSION_SHORT_RE = re.compile(r"^([1-4])\s*교시$")  # '1 교시' 단독
 PROBLEM_ANCHOR = "문제"
 PROBLEM_ANCHOR_LINES = {"문", "제", "문제"}  # 단독 라인이 problem 신호 (line_idx 0~3)
@@ -574,8 +574,23 @@ def parse_pts(pdf_path: Path) -> ParseResult:
     meta_ok = True
     if expected:
         diffs = []
+        # 전체 카운트 비율 검사 — 너무 적게 잡힌 경우 fail
+        total_exp = sum(expected.values())
+        total_act = sum(actual_counts.values())
+        coverage = total_act / total_exp if total_exp else 0
+        if coverage < 0.5:
+            doc.close()
+            return ParseResult(
+                ok=False, engine="pts",
+                reason=f"전체 카운트 부족: {total_act}/{total_exp} ({int(coverage*100)}%)",
+                topics=topics,
+            )
+        # 교시별 검사 — actual=0 교시는 'PDF에 부재' 로 허용 (부분 합본 케이스)
         for s, exp_n in expected.items():
             act_n = actual_counts.get(s, 0)
+            if act_n == 0:
+                warnings.append(f"제{s}교시 토픽 0 — PDF에 해당 교시 없음 가능")
+                continue
             if abs(act_n - exp_n) > 2:
                 meta_ok = False
                 diffs.append(f"M{s}: {act_n} (기대 {exp_n})")
