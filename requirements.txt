@@ -1,6 +1,6 @@
 # 런타임 의존성 (Dockerfile과 일치 유지)
 fastapi==0.115.*
-uvicorn[standard]==0.34.*
+uvicorn[standard]==0.48.*
 python-multipart==0.0.*
 PyMuPDF==1.25.*
 anthropic==0.52.*
